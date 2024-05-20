@@ -1,0 +1,250 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-20 14:27+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: account/templates/account/password/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: account/templates/account/password/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: account/templates/account/password/password_reset_email.html:8
+msgid "Your username, in case you’ve forgotten:"
+msgstr ""
+
+#: account/templates/account/password/password_reset_email.html:10
+msgid "Thanks for using our site!"
+msgstr ""
+
+#: account/templates/account/password/password_reset_email.html:12
+#, python-format
+msgid "The %(site_name)s team"
+msgstr ""
+
+#: core/settings.py:184
+msgid "English"
+msgstr ""
+
+#: core/settings.py:185
+msgid "Russian"
+msgstr ""
+
+#: shop/models.py:19
+msgid "name"
+msgstr ""
+
+#: shop/models.py:20
+msgid "parent"
+msgstr ""
+
+#: shop/models.py:23
+msgid "user_creator"
+msgstr ""
+
+#: shop/models.py:27
+msgid "Категория"
+msgstr ""
+
+#: shop/models.py:28
+msgid "Категории"
+msgstr ""
+
+#: shop/models.py:59
+msgid "title"
+msgstr ""
+
+#: shop/models.py:59
+msgid "Назавание продукта"
+msgstr ""
+
+#: shop/models.py:71
+msgid "description_content"
+msgstr ""
+
+#: shop/models.py:72
+msgid "description_content_upload"
+msgstr ""
+
+#: shop/models.py:77
+msgid "Продукт"
+msgstr ""
+
+#: shop/models.py:78
+msgid "Продукты"
+msgstr ""
+
+#: shop/templates/base.html:20
+msgid "Home"
+msgstr "Главная"
+
+#: shop/templates/base.html:60
+msgid "translate_btn"
+msgstr "Перевести" 
+
+#: shop/templates/base.html:97
+msgid "Contact"
+msgstr "Связаться"
+
+
+#: shop/templates/base.html:106
+msgid "Chat"
+msgstr "Чат"
+
+#: shop/templates/shop/_partials/_navbar.html:6
+msgid "title_page"
+msgstr "Элитный клининг"
+
+#: shop/templates/shop/_partials/_navbar.html:20
+#: shop/templates/shop/_partials/_navbar.html:31
+msgid "search"
+msgstr "Найти"
+
+#: shop/templates/shop/_partials/_navbar.html:87
+msgid "card"
+msgstr "Корзина"
+
+#: shop/templates/shop/_partials/_navbar.html:105
+msgid "forum"
+msgstr "Форум"
+
+#: shop/templates/shop/_partials/_navbar.html:116
+msgid "exit"
+msgstr "Выйти"
+
+#: shop/templates/shop/_partials/_navbar.html:121
+msgid "register"
+msgstr "Регистрация"
+
+#: shop/templates/shop/_partials/_navbar.html:125
+msgid "to_come_in"
+msgstr "Войти"
+
+#: shop/templates/shop/products.html:27
+
+msgid "support_1"
+msgstr "Мы стараемся для Вас"
+
+msgid "support_2"
+msgstr "Выберете то что вам нужно"
+
+msgid "create_account"
+msgstr "Создать аккаунт"
+
+msgid "all_products"
+msgstr "Все продукты"
+
+#: recommend/templates/recommend/recommendation.html:110
+msgid "reviews"
+msgstr "Отзыв"
+
+
+msgid "send"
+msgstr "Отправить"
+
+
+#: shop/templates/shop/product_detail.html
+msgid "price_product"
+msgstr "Цена"
+
+msgid "qwn"
+msgstr "Количество"
+
+msgid "add_to"
+msgstr "Добавить в"
+
+
+msgid "discount"
+msgstr "Скидка"
+
+msgid "posted"
+msgstr "Разместил"
+
+
+#: cart/templates/cart/cart-view.html:5
+msgid "cart_product"
+msgstr "Корзина товаров"
+
+msgid "product"
+msgstr "Товары"
+
+#: shop/templates/shop/_partials/_footer.html
+
+msgid "shop"
+msgstr "Магазин"
+
+msgid "copyright"
+msgstr "Авторские права"
+
+
+#: room/templates/room/rooms.html
+
+msgid "chat_room"
+msgstr "чат комната"
+
+
+msgid "welcome"
+msgstr "Добро пожаловать"
+
+msgid "messages"
+msgstr "Сообщения"
+
+msgid "my_products"
+msgstr "Мои продукты"
+
+msgid "my_orders"
+msgstr "Мои заказы"
+
+msgid "personal_info"
+msgstr "Перснальная информация"
+
+msgid "birth"
+msgstr "Дата рождения"
+
+msgid "gender"
+msgstr "пол"
+
+msgid "tel"
+msgstr "тел"
+
+
+msgid "status"
+msgstr "Статус"
+
+msgid "register_date"
+msgstr "Дата регистрации"
+
+
+msgid "del"
+msgstr "удалить"
+
+msgid "you_prof"
+msgstr "свой профиль"
+
+msgid "cart_product_not"
+msgstr "Корзина пуста"
+
+
+

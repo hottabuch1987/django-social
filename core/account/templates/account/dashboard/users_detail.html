@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% load static %}
+
+
+
+{% block content %}
+<section id="team">
+	<div class="container">
+        <div class="section-heading text-center text-uppercase wow  wow bounceInRight">
+        <br>
+        <br>
+		<h4><span>{{user.username}}</span></h4>   
+        <!--   Функция возврата назад -->
+		<span onclick="goBack()"  style="text-decoration: none;">Назад
+			<i class="fa fa-shield fa-rotate-90"></i>
+		</span>
+		<script>
+			function goBack() {
+				window.history.back();
+			}
+		</script>
+		<!----> 
+	</div>
+    <div class="row  wow bounceInLeft">
+        <div class="col-sm-6 ">
+            
+            <!--add and del user-->
+            {% if request.user.is_authenticated %}
+                <button class="addFriendBtn" id="add-friend-btn" data-user-id="{{ user.id }}" style="color: green; max-width:14rem">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+                <button class="removeFriendBtn" id="remove-friend-btn" data-user-id="{{ user.id }}" style="color: gray; max-width:14rem">
+                    <i class="fa fa-minus" aria-hidden="true"></i>
+                </button>
+            {% endif %}
+
+            <script>
+                $(document).ready(function() {
+                    var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                    
+                    $('#add-friend-btn').click(function() {
+                        var userId = $(this).data('user-id');
+                        $.ajax({
+                            type: 'POST',
+                            beforeSend: function(xhr, settings) {
+                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                            },
+                            url: '',
+                            data: { add_friend: true, user_id: userId },
+                            success: function(data) {
+                                alert('Добавлен в друзья!');
+                                location.reload();
+                            }
+                        });
+                    });
+                
+                    $('#remove-friend-btn').click(function() {
+                        var userId = $(this).data('user-id');
+                        $.ajax({
+                            type: 'POST',
+                            beforeSend: function(xhr, settings) {
+                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                            },
+                            url: '',
+                            data: { remove_friend: true, user_id: userId },
+                            success: function(data) {
+                                alert('Удален из друзей!');
+                                location.reload();
+                            }
+                        });
+                    });
+                });
+                
+            </script>
+            <!--//-->
+            <div class="single-team">
+            <!-- Gallery -->
+
+                {% if user.avatar %}                   
+                <a href="#" data-toggle="modal" data-target="#gallery-modal" class="gallery-link">
+                    <img class="img-fluid mx-auto d-block gallery-image" alt="Responsive image" src="{{ user.full_image_url }}">
+                </a>
+                {% else %}
+                    <img src="https://i.imgur.com/wvxPV9S.png" style="max-width: 200px;" alt="Placeholder Image">
+                {% endif %}
+            
+                    
+            <!--  -->
+            <div class="modal" id="gallery-modal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="carousel" id="gallery-carousel">
+                                {% for image in images %}
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <img src="{{ image.avatar.url }}" alt="gallery">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            
+                            <button class="carousel-control-prev" onclick="prevSlide()"><i class="fa fa-chevron-left" aria-hidden="true"></i>
+                            </button>
+                            <button class="carousel-control-next" onclick="nextSlide()"><i class="fa fa-chevron-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <style>
+                .modal {
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.8);
+                    z-index: 9999;
+                }
+            
+                .modal-content {
+                    position: relative;
+                    margin: auto;
+                    width: 80%;
+                    max-width: 800px;
+                    background-color: #fff;
+                    padding: 2px;
+                    border-radius: 8px;
+                }
+            
+                .carousel-item {
+                    display: none;
+                }
+            
+                .active {
+                    display: block;
+                }
+            
+                .carousel-control-prev,
+                .carousel-control-next {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background-color: rgba(255, 255, 255, 0.5);
+                    border: none;
+                    cursor: pointer;
+                    padding: 10px;
+                }
+            
+                .carousel-control-prev {
+                    left: 10px;
+                }
+            
+                .carousel-control-next {
+                    right: 10px;
+                }
+            </style>
+            
+            <script>
+                let currentSlide = 0;
+                const slides = document.querySelectorAll('.carousel-item');
+            
+                function prevSlide() {
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                }
+            
+                function nextSlide() {
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                }
+            
+                document.querySelector('.gallery-link').addEventListener('click', function() {
+                    currentSlide = 0;
+                    slides[currentSlide].classList.add('active');
+                    document.getElementById('gallery-modal').style.display = 'block';
+                });
+            </script>
+    
+            <!-- /// Gallery -->
+                
+            
+                <p>
+                    <i class="fa fa-user" style="font-size:24px"></i>
+                    {% if request.user.first_name %}
+                        {{user.first_name}}
+                   
+                    {% endif %}
+               
+                
+                    {% if user.last_name %}
+                        {{user.last_name}}
+                    {% else %}
+                       
+                    {% endif %}
+                </p>
+                <p>
+                    <i class="fa fa-envelope-o" style="font-size:24px"></i>
+                    {% if user.email %}
+                         {{user.email}}
+                    
+                    {% endif %}
+                </p>
+                <p>
+                    <i class="fa fa-calendar-check-o" style="font-size:24px"></i>
+                    {% if user.birth_date %}
+                        {{user.birth_date}}
+                  
+                    {% endif %}
+                </p>
+                <p>
+                    {% if user.gender == "men" %}
+                        <i class="fa fa-child" style="font-size:24px"></i>
+                        М
+                    {% elif  user.gender == "women" %}
+                        <i class="fa fa-female" style="font-size:24px"></i>
+                        Ж
+                    {% else %}
+                        <i class="fa fa-child" style="font-size:24px"></i>
+                        <i class="fa fa-female" style="font-size:24px"></i>
+                        не выбран
+                    {% endif %}
+
+                </p>
+                <p>
+                    <i class="fa fa-phone" style="font-size:24px"></i>
+                    
+                    {% if user.tel %}
+                        {{user.tel}}
+                    
+                        
+                    {% endif %}
+                </p>
+                <p>
+                    <i class="fa fa-commenting-o" style="font-size:24px"></i>
+                    {% if user.bio %}
+                        {{user.bio}}
+                    
+                        
+                    {% endif %}
+                </p>
+                <p id="friendCount">
+                    <i class="fa fa-address-book"></i>
+                    {% if user.friends_count %}
+                        {{user.friends_count}}
+                    {% else %}
+                        0
+                        
+                    {% endif %}
+                </p>
+                <p>
+                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+
+
+                    {% if user.date_joined %}
+                        {{user.date_joined}}
+                    {% endif %}
+                </p>
+    
+                <!--    Лайк  -->
+                {% include 'recommend/like.html' %}
+                      
+                
+                <!--    Отзыв   -->
+               {% include 'recommend/recommendation.html' %}
+            </div>
+        </div>
+</section> 
+
+   
+
+{% endblock %}

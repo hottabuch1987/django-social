@@ -1,0 +1,75 @@
+
+
+
+        {% if user.is_authenticated %}
+                    <p id="like-form">
+                        
+                        <i class="heart fa fa-heart-o" data-user-id="{{ user.id }}"></i>
+                        <input type="hidden" name="like_submit">
+                        <button type="button" style="display:none"></button>
+                    <span class="like-count">{{ user.like_count }}</span></p>
+                    {% endif %}
+
+                    <style>
+                        .heart {
+                            font-size: 25px;
+                            color: red;
+                            cursor: pointer;
+                        }
+                    </style>
+
+                    <script>
+                        $(document).ready(function() {
+                            // При загрузке страницы восстанавливаем состояние лайка для каждого продукта
+                            $(".heart").each(function() {
+                                const user_id = $(this).data("user-id");
+                                let likeState = localStorage.getItem(`like-${user_id}`);
+                    
+                                // Проверяем состояние лайка и устанавливаем соответствующие классы иконки сердца
+                                if (likeState === 'liked') {
+                                    $(this).addClass('liked').removeClass('not-liked').addClass('fa-heart').removeClass('fa-heart-o');
+                                } else {
+                                    $(this).addClass('not-liked').removeClass('liked').addClass('fa-heart-o').removeClass('fa-heart');
+                                }
+                            });
+                    
+                            // Обработчик клика на иконку сердца
+                            $(".heart").click(function() {
+                                const user_id = $(this).data("user-id");
+                                let likeState = localStorage.getItem(`like-${user_id}`);
+                    
+                                // Изменяем состояние лайка для текущего продукта
+                                if (likeState === 'liked') {
+                                    likeState = 'not-liked';
+                                } else {
+                                    likeState = 'liked';
+                                }
+                    
+                                // Переключаем классы для отображения выбранного состояния лайка
+                                $(this).toggleClass('liked not-liked').toggleClass('fa-heart fa-heart-o');
+                    
+                                // Сохраняем состояние лайка в localStorage
+                                localStorage.setItem(`like-${user_id}`, likeState);
+                    
+                                // Отправляем информацию о лайке через AJAX запрос
+                                $.ajax({
+                                    type: 'POST',
+                                    url: window.location.pathname,
+                                    data: {
+                                        'user_id': user_id,
+                                        'like_submit': true,
+                                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                                    },
+                                    success: function(response) {
+                                        // Обновляем количество лайков на странице
+                                        $('.like-count').text(response.like_count);
+                                    },
+                                    error: function(xhr, errmsg, err) {
+                                        console.log(xhr.status + ": " + xhr.responseText);
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                    <!--    Лайк  продукта -->
+                <br>

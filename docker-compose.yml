@@ -1,0 +1,81 @@
+
+
+version: "3.3"
+
+volumes:
+  postgres_data:
+  static_data:
+  media_data:
+
+services:
+  db:
+    image: postgres:14.1-alpine
+    container_name: core-db
+    env_file: .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  core:
+    build: ./core
+    container_name: core-backend
+    env_file: .env
+    volumes:
+      - static_data:/app/static
+      - media_data:/app/media
+    depends_on:
+      - db
+    ports:
+      - 8000:8000
+      - 8001:8001
+    links:
+      - db
+    restart: always
+    command: sh -c "python3 manage.py makemigrations &&
+                    python3 manage.py migrate &&
+                    python3 manage.py collectstatic --noinput &&
+                    python3 manage.py runserver 0.0.0.0:8000 &&
+                    daphne -b http://195.133.32.53 -p 8000 core.asgi:application &&
+                    stripe listen --forward-to http://195.133.32.53/payment/webhook-stripe/"
+
+    
+   
+  redis:
+    image: redis:7.2.3-alpine
+    container_name: core-redis
+    restart: unless-stopped
+    
+  flower:
+    image: mher/flower
+    container_name: core-flower
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0  # адрес брокера сообщений
+    ports:
+      - 5555:5555  # Порт для Flower
+    restart: always
+
+  celery:
+    build: ./core
+    container_name: core-celery
+    env_file: .env
+    depends_on:
+      - db
+      - redis
+      - flower  
+    volumes:
+      - static_data:/app/static
+    restart: always
+    command: celery -A core worker --loglevel=info --beat
+
+
+
+  nginx:
+    image: nginx:latest
+    container_name: core-nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - static_data:/app/static
+      - media_data:/app/media
+    ports:
+      - 80:80
+    restart: always

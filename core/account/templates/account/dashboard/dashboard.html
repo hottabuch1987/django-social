@@ -1,0 +1,250 @@
+
+{%  extends "base.html" %}
+
+{% load static %}
+{% load static i18n %}
+
+{% block content %}
+
+<section id="team">
+	<div class="container">
+        <div class="section-heading text-center text-uppercase wow  wow bounceInRight">
+            <br>
+            <br>
+			<h2>Мой<span> профайл</span></h2>
+            
+		</div>
+        <div class="row  wow bounceInLeft">
+            <div class="col-sm-6 ">
+                
+                <div class="single-team">
+
+                    {% if request.user.avatar %}                   
+                        <img src="{{ user.avatar.url }}" alt="">
+                    {% else %}
+                        <img src="https://i.imgur.com/wvxPV9S.png" style="max-width: 200px;" alt="Placeholder Image">
+                    {% endif %}
+                    <h3></h3>
+                    <p>  {{ user.username }}</p>
+                    <p>
+                        <i class="fa fa-user" style="font-size:24px"></i>
+                        {% if request.user.first_name %}
+                            {{request.user.first_name}}
+                       
+                        {% endif %}
+                   
+                    
+                        {% if request.user.last_name %}
+                            {{request.user.last_name}}
+                        {% else %}
+                           
+                        {% endif %}
+                    </p>
+                    <p>
+                        <i class="fa fa-envelope-o" style="font-size:24px"></i>
+                        {% if request.user.email %}
+                             {{request.user.email}}
+                        
+                        {% endif %}
+                    </p>
+                    <p>
+                        <i class="fa fa-calendar-check-o" style="font-size:24px"></i>
+                        {% if request.user.birth_date %}
+                            {{request.user.birth_date}}
+                      
+                        {% endif %}
+                    </p>
+                    <p>
+                        {% if request.user.gender == "men" %}
+                            <i class="fa fa-child" style="font-size:24px"></i>
+                            М
+                        {% elif  request.user.gender == "women" %}
+                            <i class="fa fa-female" style="font-size:24px"></i>
+                            Ж
+                        {% else %}
+                            <i class="fa fa-child" style="font-size:24px"></i>
+                            <i class="fa fa-female" style="font-size:24px"></i>
+                            не выбран
+                        {% endif %}
+
+                    </p>
+                    <p>
+                        <i class="fa fa-phone" style="font-size:24px"></i>
+                        
+                        {% if request.user.tel %}
+                            {{request.user.tel}}
+                        
+                            
+                        {% endif %}
+                    </p>
+                    <p>
+                        <i class="fa fa-commenting-o" style="font-size:24px"></i>
+                        {% if request.user.bio %}
+                            {{request.user.bio}}
+                        
+                            
+                        {% endif %}
+                    </p>
+                    <p id="friendCount">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        {% if request.user.friends_count %}
+                            {{request.user.friends_count}}
+                        {% else %}
+                            0
+                            
+                        {% endif %}
+                    </p>
+                    <p>
+                        
+                        <i class="fa fa-heart" style="font-size:24px"></i>
+                        {{request.user.like_count}}
+                       
+                    </p>
+                    <p>
+                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+
+                        {% if request.user.date_joined %}
+                            {{request.user.date_joined}}
+                        {% endif %}
+                    </p>
+
+                    <div class="member-social-icon text-center">
+                        <a href="{% url 'account:send_message' %}">
+                            
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                        <a href="{% url 'rooms' %}">
+                            <i class="fa fa-comments-o" aria-hidden="true"></i>
+
+                        </a>
+                        <a href="{% url 'direct_messages:my_direct_messages'  %}">
+                            <i class="fa fa-envelope-o fa-fw"></i>
+                        </a>
+                        <a href="{% url 'account:profile-management' %}">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+
+        
+        
+        <!--posible friends-->
+        <h3 style="color:red;"><span>Возможно знакомы?</span></h3>
+        <!-- Уведомление о добавлении или удалении друга -->
+        {% comment %} <div id="friendNotification" class="notification" style="color:red;"></div>
+        {% if notifications %}
+            
+                {% for notification in notifications %}
+                    <h4 id="notificationMessage_{{ notification.id }}" style="color: red;">
+                        {{ notification.message }}
+                        <script>
+                            setTimeout(function() {
+                                document.getElementById('notificationMessage_{{ notification.id }}').style.display = 'none';
+                            }, 5000); // Скрываем сообщение через 5 секунд (5000 миллисекунд)
+                        </script>
+                    </h4>
+                {% endfor %}
+            
+        {% endif %} {% endcomment %}
+        <!---->
+        <br>
+        {% for only_friend in friends %}
+
+        
+            <li>
+                <audio id="notificationSound">
+                    <source src="/media/mp3/ding.mp3" type="audio/mpeg"> 
+                </audio>
+                <button class="addFriendBtn" data-friend-id="{{ only_friend.id }}"  style="color: green; max-width:14rem">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+                <a class="text-uppercase" href="{% url 'account:user_detail' slug=only_friend.slug %}"><i class="fa fa-bullseye"></i>            
+                    {{ only_friend.username }} - {{ only_friend.lastname }}
+                </a>
+                <button class="removeFriendBtn" data-friend-id="{{ only_friend.id }}" style="color: gray; max-width:14rem">
+                    <i class="fa fa-minus" aria-hidden="true"></i>
+                </button>
+            </li>
+            
+        {% endfor %}
+    
+        <script>
+            $(document).ready(function() {
+                $('.addFriendBtn').click(function() {
+                    var friendId = $(this).data('friend-id');
+                    
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ru/account/dashboard/',
+                        data: {
+                            'friend_id': friendId,
+                            csrfmiddlewaretoken: '{{ csrf_token }}'
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.friendCount !== undefined) {
+                                
+                                document.getElementById('notificationSound').play();
+                                $('#friendCount').text(data.friendCount); // Обновляем количество друзей на странице
+                                alert('Пользователь добавлен в друзья! 🎉');
+                                    
+                                } else {
+                                    alert('Что-то пошло не так.');
+                                }
+  
+                        },
+                        
+                        error: function(xhr, textStatus, error) {
+                            console.log(xhr.status + ': ' + xhr.statusText);
+                        }
+                    });
+                });
+            
+                $('.removeFriendBtn').click(function() {
+                    var friendId = $(this).data('friend-id');
+                    
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ru/account/dashboard/',
+                        data: {
+                            'friend_id': friendId,
+                            'csrfmiddlewaretoken': '{{ csrf_token }}',
+                            'method': 'DELETE' // Явно указываем метод DELETE
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.friendCount !== undefined) {
+                                
+                                $('#friendCount').text(data.friendCount); // Обновляем количество друзей на странице
+                                alert('Пользователь удален из друзей! 😔');
+                                    
+                                } else {
+                                    alert('Что-то пошло не так.');
+                            }
+                        },
+                        
+                        error: function(xhr, textStatus, error) {
+                            console.log(xhr.status + ': ' + xhr.statusText);
+                        }
+                    });
+                });
+                
+                
+            });
+            
+        </script>
+        <!--posible friends-->
+        
+    </div>
+  
+</section>
+
+    
+{% endblock %}

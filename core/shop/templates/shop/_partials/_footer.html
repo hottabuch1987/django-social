@@ -1,0 +1,25 @@
+{% load i18n %}
+
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-2 text-center">
+				<a href="{% url 'index' %}"><img src="/static/shop/img/loc.png" alt="logo">CHIN WAG </a>
+			</div>
+			<div class="col-sm-8">
+				<div class="footer-p text-center">
+					<p>© {% trans 'copyright' %} <a href="tg://resolve?domain=hottabuch_87">hottabuch_87</a></p>
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<div class="footer-social text-center">
+					{% comment %} <a href="tel: 8 952 87 92 098"><i class="fa fa-phone" aria-hidden="true"></i></a> {% endcomment %}
+					{% comment %} <a href="https://wa.me/79528792098"><i class="fa fa-whatsapp" aria-hidden="true"></i></a> {% endcomment %}
+					<a href="tg://resolve?domain=hottabuch_87"><i class="fa fa-comment" aria-hidden="true"></i></a>
+					<a href="https://www.youtube.com/channel/UCCLye31f_uhGnJk3Vl1dYtg"><i class="fa fa-youtube"></i></a>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>

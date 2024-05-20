@@ -1,0 +1,74 @@
+{%  extends "base.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<section id="contact">
+	<div class="section-heading contact-heading text-center text-uppercase">
+        <br>
+		<h3><span> Регистрация</span></h3>
+	</div>
+
+	
+	<div id="map-overlay" class="text-left text-uppercase">
+		<div class="container">
+	
+
+			<h2></h2>
+		</div>
+	</div>
+	<!-- contact massage-->
+	<div class="contact-form">
+		<div class="container">
+			<div class="row">
+				<form method="post">
+                    {% csrf_token %}
+                    <div class="col-sm-4">
+                        {{ form|crispy }}
+                        <br>
+                        
+                        <button type="submit" class="btn red-btn" style="max-width:11rem"> Отправить</button>
+                        <br>
+                        <br>
+                            <a href="{% url 'account:login' %}">Войти?</a>
+                            <a href="{% url 'account:password_reset' %}">Забыли пароль?</a>
+                            <br>
+                            Войти через <a href="{% url 'social:begin' 'github' %}" >GitHub</a> или <a href="{% url 'social:begin' 'vk-oauth2' %}">Вконтакте</a>
+                      
+                    </div>
+				</form>
+               
+                {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                        {% for field in form %}
+                            {% if field.errors %}
+                                {{ field.errors }}
+                            {% endif %}
+                        {% endfor %}
+                </div>
+                {% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+{% comment %} 
+    <br>
+    <div class="container  shadow-md p-5 form-layout">
+
+        <h3>Создать аккаунт</h3>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Зарегистрироваться" class="btn btn-secondary w-100 btn-block p-2 btn-register">
+        </form>
+        <br>
+        <div class="text-center">
+            Войти через <a href='{% url "social:begin" "github" %}' >GitHub</a> или <a href="{% url 'social:begin' 'vk-oauth2' %}">Вконтакте</a>
+        </div>
+    </div> {% endcomment %}
+
+{% endblock  %}

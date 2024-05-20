@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+
+<!-- is_authenticated -->
+
+
+  <section id="home">
+    <div class="overlay"></div>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!--Indicator-->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        {% if request.user.is_authenticated %}
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>     
+        {% endif %}
+      </ol>
+
+      <div class="carousel-inner" role="listbox">
+        
+        <div class="item active">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12 wow bounceInUp">
+                <div class="home-text text-center">
+                  <h3>CHIN<span>WAG</span></h3>                  
+                  <h3>    
+                    <a href="{% url 'shop:products' %}">
+                      <i class="fa fa-envelope-o fa-fw"></i>
+                      Знакомства
+                      
+                    </a>                         
+                  </h3>                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      {% if request.user.is_authenticated %}
+
+        <div class="item">       
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12 wow bounceInUp">
+                <div class="home-text text-center">
+                  <h3>CHIN<span>WAG</span></h3>
+  
+                  <h3>
+                    <a href="{% url 'rooms' %}">
+                      <i class="fa fa-comment" aria-hidden="true"></i>
+
+                      Общий чат 
+                      
+                  </a>
+                                   
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12 wow bounceInUp">
+                <div class="home-text text-center">
+                  <h3>CHIN<span>WAG</span></h3>
+                  <h3>  
+                    <a href="{% url 'direct_messages:my_direct_messages' %}">
+                    <i class="fa fa-user fa-fw"></i>
+                    Мои сообщения                  
+                  </a>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      {% endif %}
+      </div>
+  
+    </div>
+  </section>
+
+
+
+{% endblock %}
+
+
+{% comment %} {% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Добро пожаловать</title>
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'fonts/montserrat:wght@300,400,500,700.css' %}"/>
+  </head>
+
+  <body >
+        <!--Home Section-->
+
+  <div class="container">
+    <div id="welcome" class="welcome" >Привет</div>
+    <a href="http://195.133.32.53/shop/">
+      <div id="box1" class="box box1">Магазин</div>
+    </a>
+    {% if request.user.is_authenticated %}
+      <a href="http://195.133.32.53/rooms/">
+        <div class="box box2">Чат</div>
+      </a>
+      <a href="{% url 'account:dashboard' %}">
+        <div class="box box3">Личный кабинет</div>
+      </a>
+    {% else %}
+      <a href="{% url 'account:login' %}">
+        <div class="box box3">Войти</div>
+      </a>
+    {% endif %}
+      
+    </div>
+  </body>
+
+<script src="{% static 'core/js/box-change.js' %}"></script>
+
+</html> {% endcomment %}

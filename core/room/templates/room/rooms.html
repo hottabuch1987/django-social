@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Чаты{% endblock %}
+{% block content %}
+
+<section id="service">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12  wow bounce">
+				<div class="section-heading text-center text-uppercase  wow bounceInUp">
+                    <br>
+					<h2>Общие<span>Чаты</span></h2>
+					<!--   Функция возврата назад -->
+					<a onclick="goBack()"  style="text-decoration: none;">Назад
+						<i class="fa fa-shield fa-rotate-90"></i>
+					</a>
+					<script>
+						function goBack() {
+							window.history.back();
+						}
+					</script>
+					<!---->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+            
+            {% for room in rooms %}
+                    
+                    
+			<div class="col-sm-6 col-md-3  wow bounceIn">
+				<div class="single-item text-center">
+                    {% if room.icon_html %}
+                        {{room.icon_html|safe}}
+                    {% else %}
+                        <i class="fa fa-laptop"></i> <!-- Фиктивное изображение-->
+                    {% endif %}
+				
+					<h4 class="text-uppercase">{{ room.name }}</h4>
+
+					<p>войдите в комнату для начала общения</p>
+					<a href="{% url 'room' room.slug %}" class="btn btn-red text-uppercase">войти</a>
+				</div>
+			</div>
+			{% endfor %}
+	
+			
+		</div>
+	</div>
+</section>
+
+{% endblock content %}

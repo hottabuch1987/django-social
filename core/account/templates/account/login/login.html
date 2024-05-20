@@ -1,0 +1,57 @@
+{%  extends "base.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!--contact heading-->
+<section id="contact">
+	<div class="section-heading contact-heading text-center text-uppercase">
+        <br>
+		<h3><span> ВОЙТИ</span></h3>
+	</div>
+
+	
+	<div id="map-overlay" class="text-left text-uppercase">
+		<div class="container">
+	
+
+			<h2></h2>
+		</div>
+	</div>
+	<!-- contact massage-->
+	<div class="contact-form">
+		<div class="container">
+			<div class="row">
+				<form method="post">
+                    {% csrf_token %}
+                    <div class="col-sm-4">
+                        {{ form|crispy }}
+                        <br>
+                        <button type="submit" class="btn red-btn" style="max-width:11rem"> Отправить</button>
+                        <br>
+                        <br>
+                            <a href="{% url 'account:register' %}">У меня нет аккаунта?</a>
+                            <a href="{% url 'account:password_reset' %}">Забыли пароль?</a>
+                            <br>
+                            Войти через <a href="{% url 'social:begin' 'github' %}" >GitHub</a> или <a href="{% url 'social:begin' 'vk-oauth2' %}">Вконтакте</a>
+                      
+                    </div>
+				</form>
+               
+                {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                        {% for field in form %}
+                            {% if field.errors %}
+                                {{ field.errors }}
+                            {% endif %}
+                        {% endfor %}
+                </div>
+                {% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+
+
+{% endblock %}

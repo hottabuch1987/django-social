@@ -1,0 +1,114 @@
+{%  extends "base.html" %}
+
+{% load static %}
+{% load static i18n %}
+
+
+{% block content %}
+<section id="contact">
+	<div class="section-heading contact-heading text-center text-uppercase">
+		<h2><span>Форум</span></h2>
+        <!--   Функция возврата назад -->
+		<a onclick="goBack()"  style="text-decoration: none;">Назад
+			<i class="fa fa-shield fa-rotate-90"></i>
+		</a>
+		<script>
+			function goBack() {
+				window.history.back();
+			}
+		</script>
+		<!---->
+	</div>
+    
+
+	
+	<!-- contact massage-->
+	<div class="contact-form">
+		<div class="container">
+			<div class="row">
+                
+
+               <!-- massages-->
+                {% for forum in forums %}
+                    {% if forum.sender.username == request.user.username %}
+                          
+                        <div class="col-sm-12">
+                                    
+                            {% if request.user.avatar %}
+                                        
+                                <img src="{{ request.user.avatar.url }}" style="max-width: 100px;" alt="Avatar">  
+                                            
+                            {% else %}
+                                <img alt="Avatar" style="max-width: 100px;" src="https://bootdey.com/img/Content/avatar/avatar6.png">
+                                
+                            {% endif %}
+                            <div>{{ request.user.username}}</div>
+                                    
+                                
+                        </div>
+                               
+                        <div class="col-sm-12">
+                            <br>
+                                        
+                            <h5>{{ forum.content|safe }}</h5>
+                            {% if forum.message_file %}
+                                <a href="{{ forum.message_file.url }}" target="_blank">{{ forum.message_file.name }}</a>
+                            {% endif %}
+                           
+                            
+                            <p>{{forum.timestamp|date:'Y-m-d H:i'}}</p>
+                            <hr>
+                        </div>
+                               
+                           
+                    {% else %}
+                        <div class="col-sm-12">
+                            {% if forum.sender.avatar %}
+                                <img src="{{ forum.sender.avatar.url }}" style="max-width: 100px;" alt="Avatar">
+                            {% else %}
+                                <img alt="Avatar" style="max-width: 100px;" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                            {% endif %}
+                            <div>{{ forum.sender.username}}</div>
+                        </div>
+                        <div class="col-sm-12">
+                            <br>
+                                              
+                            <h5>{{ forum.content|safe }}</h5>
+                            {% if forum.message_file %}
+                                <a href="{{ forum.message_file.url }}" target="_blank">{{ forum.message_file.name }}</a>
+                            {% endif %}
+                            
+                            <p>{{forum.timestamp|date:'Y-m-d H:i'}}</p>
+                            <hr>
+                        </div>
+                              
+                            
+                    {% endif %}
+                {% endfor %}
+                <!--форма-->
+				<form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+					<div class="col-sm-12">
+						<label for="massage">Сообщение</label>
+						<textarea class="form-control" rows="10" id="massage" placeholder="написать..."></textarea>
+                        <a href="javascript:void(0);" class="btn btn-outline-secondary" onclick="document.getElementById('fileInput').click();">
+                            <i class="fa fa-camera"></i>
+                        </a>
+
+                        <input type="file" id="fileInput" name="message_file" style="display: none;">
+
+						<button type="submit" class="btn red-btn"> Отправить</button>
+					</div>
+
+				</form>
+			</div>
+            
+		</div>
+	</div>
+</section>
+
+
+<!---->
+    
+ 
+    {% endblock %}

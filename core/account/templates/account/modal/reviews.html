@@ -1,0 +1,98 @@
+<style>
+  .btn-register {
+      transition: 0.5s;
+  }
+  .btn-green {
+    transition: 0.5s;
+  }
+
+  .btn-register:hover {
+      background-color: gray;
+      transform: scale(1.1);
+  }
+  .btn-green:hover {
+    background-color: green;
+    transform: scale(1.1);
+  }
+</style>
+
+<form hx-post="{{ request.path }}" class="modal-content">
+    {% csrf_token %}
+    <div class="modal-header">
+      <h5 class="modal-title">Связаться</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      {{ form.as_p }}
+      
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary w-100 btn-block p-2 btn-register" type="button" data-bs-dismiss="modal">Закрыть</button>
+      <button class="btn btn-success w-100 btn-block p-2 btn-green" type="submit">Отправить</button>
+    </div>
+  </form>
+  <script>
+ htmx.on("htmx:validation:failed", (event) => {
+      const form = event.target;
+  
+      form.querySelectorAll('.is-invalid').forEach((element) => {
+        element.classList.remove('is-invalid');
+      });
+  
+      const errors = event.detail.validationResult.errors;
+  
+      errors.forEach((error) => {
+        const input = form.querySelector(`[name="${error.name}"]`);
+        if (input) {
+          input.classList.add('is-invalid');
+          const errorMessage = document.createElement('div');
+          errorMessage.classList.add('invalid-feedback');
+          errorMessage.innerText = error.message;
+          input.parentNode.appendChild(errorMessage);
+        }
+      });
+      
+      // Прокрутка к первому невалидному полю
+      const firstInvalidInput = form.querySelector('.is-invalid');
+      if (firstInvalidInput) {
+        firstInvalidInput.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+
+    const modal = new bootstrap.Modal(document.getElementById("modal"));
+
+    htmx.on("htmx:afterSwap", (e) => {
+        if (e.detail.target.id == "dialog") {
+            modal.show();
+        }
+    });
+    
+    document.addEventListener("submit", function(event) {
+      const form = event.target;
+      if (form.classList.contains('modal-content')) {
+          event.preventDefault(); // Prevent normal form submission
+  
+          const formData = new FormData(form);
+          fetch(form.getAttribute('hx-post'), {
+              method: form.getAttribute('method'),
+              body: formData
+          }).then(function(response) {
+              if (response.ok) {
+                  const modalElement = document.querySelector('.modal-content'); // Используем document.querySelector вместо form.closest
+                  const modalInstance = bootstrap.Modal.getInstance(modalElement);
+                  modalInstance.hide();
+              } else {
+                  console.error('Server returned status:', response.status);
+              }
+              return response.text();
+          }).then(function(data) {
+              // Handle response data if needed
+          }).catch(function(error) {
+              console.error('Error:', error);
+          });
+      }
+  });
+  
+    
+  </script>
+

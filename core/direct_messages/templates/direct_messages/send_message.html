@@ -1,0 +1,380 @@
+{%  extends "base.html" %}
+
+{% load static %}
+{% block content %}
+
+<!---->
+<section id="team">
+    <br>
+    <br>
+    
+    <div class="container front-container1">
+        <div class="row chat-top">
+            
+            <span onclick="goBack()" class="btn btn-secondary">Назад
+                <i class="fa fa-shield fa-rotate-90"></i>
+            </span>
+            
+            <div class="col-sm-4 border-right border-secondary">
+                
+                
+                <a href="{% url 'account:dashboard' %}" >
+                {% if request.user.avatar %}
+                    
+                        <img class="profile-image rounded-circle"  src="{{ request.user.avatar.url }}" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;" alt="Avatar">
+                  
+                {% else %}
+                  
+                        <img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user"  style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;" class="rounded-circle">
+                
+                {% endif %}
+                </a> 
+                <h5>{{request.user.username}}</h5>
+                
+                
+                
+            </div>
+
+            <span class="float-right mt-2">    
+                <div class="notification"><span class="h3 fw-bold">Мои сообщения</span>
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    <span class="badge" id="count_badge">
+                        <audio id="notificationSound">
+                            <source src="/media/mp3/message.mp3" type="audio/mpeg"> 
+                        </audio>
+                    </span>
+                </div>                
+            </span>   
+        </div>
+        <div class="row">
+            <div class="col-sm-4 contacts">
+                <div class="contact-table-scroll">
+                    <table class="table table-hover">
+                        <tbody>
+                            {% for user in users %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'direct_messages:chat' username=user.username %}">
+                                        {% if user.avatar %}
+                                            <div class="profile-image-container {% if user.online_status %}online{% endif %}">
+                                                <img class="profile-image rounded-circle" src="{{ user.avatar.url }}" alt="Avatar" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">
+                                            </div>
+                                        {% else %}
+                                            <div class="profile-image-container {% if user.online_status %}online{% endif %}">
+                                                <img src="https://i.imgur.com/wvxPV9S.png" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;" alt="Placeholder Image">
+                                            </div>
+                                        {% endif %}
+                                    </a> 
+                                                               
+                                </td>
+                     
+                                {% if user.online_status %}
+                                    <td>
+                                        <a style="color: green" id="{{user.username}}_status" href="{% url 'direct_messages:chat' username=user.username %}">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                            {{user.username}}
+                                        </a>
+                                    </td>
+                                {% else %}
+                                    <td>
+                                        <a style="color: grey" id="{{user.username}}_status" href="{% url 'direct_messages:chat' username=user.username %}">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                            {{user.username}}
+                                        </a>
+                                    </td>
+                                {% endif %}
+                                
+                            </tr>
+                            {% endfor %}
+                            <!-- end -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="col-sm-8 message-area">
+                <div class="message-table-scroll">
+                    <table class="table">
+                        <tbody id='chat-body'>
+                            <div class="col-sm-8">
+                                
+                                <span class="h4 fw-bold">
+                                    {{user.username}}
+                                </span>
+                                
+                                
+                                
+                                {% if user.online_status %}
+                                
+                                    <small style="color: green"  id="{{user.username}}_small"> Online</small>
+                                {% else %}
+                                    <small style="color: grey" id="{{user.username}}_small"> Offline</small>
+                                {% endif %}
+                                
+                                
+                            </div>
+                            {% for message in messages %}
+                            {% if message.sender == request.user.username %}
+                            
+                            <tr>
+                                <td>
+                                    <p class="bg-success p-2 mt-2 mr-5 shadow-sm text-white float-right rounded">
+                                        {{message.message}}
+                                    </p>
+                                </td>
+                                <td>
+                                    <p><small class="p-1 shadow-sm">{{message.timestamp|time:'H:i'}}</small>
+                                    </p>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td>
+                                    <p class="bg-danger p-2 mt-2 mr-5 shadow-sm text-white float-left rounded">
+                                        {{message.message}}
+                                    </p>
+                                </td>
+                                <td>
+                                    <p><small class="p-1 shadow-sm">{{message.timestamp|time:'H:i'}}</small>
+                                    </p>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row message-box p-3">                   
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="message_input" placeholder="Написать сообщение...">
+                    </div>
+                    <div class="col-sm-2 mt-1">
+                        <div class="control">
+                            <button class="btn btn-success" id="chat-message-submit">Отправить</button>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+{{user.id|json_script:"json-username"}}
+{{user.username|json_script:"json-username-receiver"}}
+{{request.user.username|json_script:"json-message-username"}}
+
+<style>
+    .profile-image {
+        margin-top: 7px;
+        height: 50px;
+        width: 50px;
+      }
+      .back-top {
+        background-color: #009688;
+        height: 5vh;
+      }
+      .message-box {
+        background-color: #f0f0f0;
+      }
+      .contacts {
+        background-color: #ffffff;
+        min-height: 20px;
+      }
+      .contact-table-scroll {
+        overflow-y: scroll;
+        max-height: 460px;
+      }
+      .message-table-scroll {
+        overflow-y: scroll;
+        height: 350px;
+      }
+      .message-area {
+        background-color: #e3e3e3;
+        min-height: 350px;
+      }
+      .chat-top {
+        background-color: #ededed;
+        min-height: 50px;
+      }
+      .back-main {
+        background-color: #d9dbd5;
+        height: 5vh;
+      }
+      
+      .back-container {
+        position: relative;
+      }
+
+      .profile-image-container {
+        position: relative;
+     }
+
+</style>
+{% endblock %}
+<!--   Функция отправки сообщения -->
+{% block scripts %}
+<script>
+    const id = JSON.parse(document.getElementById('json-username').textContent);
+    const message_username = JSON.parse(document.getElementById('json-message-username').textContent);
+    const receiver = JSON.parse(document.getElementById('json-username-receiver').textContent);
+    
+
+    
+    const socket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/'
+        + id
+        + '/'
+    );
+    
+    socket.onopen = function(e){
+        console.log("CONNECTION ESTABLISHED");
+    }
+    
+    socket.onclose = function(e){
+        console.log("CONNECTION LOST");
+    }
+    
+    socket.onerror = function(e){
+        console.log("ERROR OCCURED");
+    }
+    
+    socket.onmessage = function(e){
+        const data = JSON.parse(e.data);
+        const chatBody = document.querySelector('#chat-body');
+        const messageRow = document.createElement('tr');
+        
+        if(data.username == message_username){
+            messageRow.innerHTML = `
+                <td>
+                    <p class="bg-success p-2 mt-2 mr-5 shadow-sm text-white float-right rounded">${data.message}</p>
+                </td>
+            `;
+        } else {
+            messageRow.innerHTML = `
+                <td>
+                    <p class="bg-danger p-2 mt-2 mr-5 shadow-sm text-white float-left rounded">${data.message}</p>
+                </td>
+            `;
+        }
+        chatBody.appendChild(messageRow);
+    }
+    
+    document.querySelector('#chat-message-submit').onclick = function(e){
+        const message_input = document.querySelector('#message_input');
+        const message = message_input.value;
+    
+        socket.send(JSON.stringify({
+            'message':message,
+            'username':message_username,
+            'receiver':receiver
+        }));
+    
+        message_input.value = '';
+    }
+    
+    const messageInput = JSON.parse(document.getElementById("message_input"));
+    
+    messageInput.addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+            
+            event.preventDefault();
+            
+           const message = messageInput.value.trim();
+    
+           if(message !== ''){
+                socket.send(JSON.stringify({
+                    'message' : message,
+                    'username' : message_username,
+                    'receiver':receiver
+                }))
+    
+                messageInput.value = '';
+           }
+        }
+    });
+</script>
+<!--   Функция оповещения -->
+<script>
+    const countBadgeElement = document.getElementById("count_badge");
+    const notificationSoundElement = document.getElementById("notificationSound");
+    
+    const notify_socket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/notify/'
+    );
+    
+    notify_socket.onopen = function(e){
+        console.log("CONNECTED TO NOTIFICATION");
+    };
+    
+    notify_socket.onmessage = function(e){
+        const data = JSON.parse(e.data);
+        countBadgeElement.innerText = data.count;
+        
+        console.log("CONNECTED TO NOTIFICATION", data);
+    };
+    
+    notify_socket.onclose = function(e){
+        console.log("DISCONNECTED FROM NOTIFICATION");
+    };
+</script>
+<!--   Функция онлайн статуса -->
+<script>
+    const loggedin_user = JSON.parse(document.getElementById('json-message-username').textContent);
+    const online_status = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/'
+        + 'online/'
+    )
+    
+    online_status.onopen = function(e){
+        console.log("CONNECTED TO ONLINE CONSUMER");
+        online_status.send(JSON.stringify({
+            'username':loggedin_user,
+            'type':'open'
+        }))
+    }
+    
+    window.addEventListener("beforeunload", function(e){
+        online_status.send(JSON.stringify({
+            'username':loggedin_user,
+            'type':'offline'
+        }))
+    })
+    
+    online_status.onclose = function(e){
+        console.log("DISCONNECTED FROM ONLINE CONSUMER")
+    }
+    
+    online_status.onmessage = function(e){
+        var data = JSON.parse(e.data)
+        if(data.username != loggedin_user){
+            var user_to_change = document.getElementById(`${data.username}_status`)
+            var small_status_to_change = document.getElementById(`${data.username}_small`)
+            if(data.online_status == true){
+                user_to_change.style.color = 'green'
+                small_status_to_change.textContent = 'Online'
+            }else{
+                user_to_change.style.color = 'grey'
+                small_status_to_change.textContent = 'Offline'
+            }
+        }
+    }
+</script>
+<!--   Функция возврата назад -->
+<script>
+        function goBack() {
+            window.history.back();
+        }
+</script>
+{% endblock scripts%}
+

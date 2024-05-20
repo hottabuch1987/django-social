@@ -1,0 +1,115 @@
+{%  extends "base.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+
+
+{% block content %}
+
+
+<section id="team">
+	<div class="container">
+        <div class="section-heading text-center text-uppercase wow  wow bounceInRight">
+            <br>
+            <br>
+			<h2> Обновить  <span> профайл</span></h2>
+            <!--   Функция возврата назад -->
+			<a onclick="goBack()"  style="text-decoration: none;">Назад
+				<i class="fa fa-shield fa-rotate-90"></i>
+			</a>
+			<script>
+				function goBack() {
+					window.history.back();
+				}
+			</script>
+			<!---->
+		</div>
+        <div class="row  wow bounceInLeft">
+            
+            <div class="col-sm-6 ">
+                
+                <div class="single-team">
+                    <!--form-->
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                    
+                        <div class="col-sm-12">
+                            <label for="username">Логин</label>
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Логин" value="{{ user_form.username.value }}" required>
+                        </div>
+                    
+                        <div class="col-sm-12">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{ user_form.email.value }}" required>
+                        </div>
+                        <div class="col-sm-12">
+                            <label for="firstname">Имя</label>
+                            <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Имя" value="{{ user_form.firstname.value }}">
+                        </div>
+
+                        <div class="col-sm-12">
+                            <label for="last_name">Фамилия</label>
+                            <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Фамилия" value="{{ user_form.last_name.value }}">
+                        </div>
+                    
+                        <div class="col-sm-12">
+                            <label for="birth_date">Дата рождения</label>
+                            <input type="date" class="form-control" name="birth_date" id="birth_date" placeholder="Дата рождения" value="{{ user.birth_date }}">
+                        </div>
+                    
+                        <div class="col-sm-12">
+                            <label for="tel">Телефон</label>
+                            <input type="tel" class="form-control" name="tel" id="tel" placeholder="Телефон" value="{{ user.tel }}">
+                        </div>
+                    
+                        <div class="col-sm-12">
+                            <label for="bio">О себе</label>
+                            <textarea class="form-control" name="bio" id="bio" placeholder="Статус">{{ user_form.bio.value }}</textarea>
+                        </div>
+
+                        <div class="col-sm-12"> 
+                    
+                            <label for="male">Мужской</label>       
+                                <input type="radio" id="male" name="gender" value="men" {% if user.gender == "men" %}checked{% endif %}>                                
+                            <label for="female">Женский</label>
+                                <input type="radio" id="female" name="gender" value="women" {% if user.gender == "women" %}checked{% endif %}>
+                        </div>
+                    
+                        <div class="col-sm-12">
+                            <label for="avatar">URL фото</label>
+                            {% if user.avatar %}
+                               <a href="{{ user.avatar.url }}">{{ user.avatar.url }}</a>
+                            {% else %}
+                                -
+                            {% endif %}
+                                <input type="file" class="form-control-file" name="avatar" id="avatar">
+                            <br>
+                            
+                            {{ images_form.image }}
+                            
+                            <br>
+                            <button type="submit" class="btn red-btn" style="max-width: 11rem; max-height: 11rem;">Изменить</button>
+                        </div>
+                    </form> 
+                    <!--form-->
+                    
+                    <div class="col-sm-12">
+                        <hr>
+                        <a href="{% url 'account:password_reset' %}">Сбросить пароль</a> 
+                        <br>
+                        <a href="{% url 'account:delete-user' %}" ><strong>УДАЛИТЬ</strong>
+                        </a>свой профайл
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!---->
+        
+    </div>
+    
+</section>
+
+{% endblock %}

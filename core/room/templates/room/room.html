@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Чат{% endblock %}
+{% block content %}
+<section id="contact">
+	<div class="section-heading contact-heading text-center text-uppercase">
+		<h2><span>{{ room.name }}</span></h2>
+    <a onclick="goBack()"  style="text-decoration: none;">Назад
+      <i class="fa fa-shield fa-rotate-90"></i>
+    </a>
+	</div>
+
+	
+	<!-- contact massage-->
+	<div class="contact-form">
+		<div class="container">
+			<div class="row">
+          <!-- massages-->              
+          <div class="col-sm-12"  id="chat-messages" >
+              {% for m in send_messages %}
+                  
+                  {% comment %} {% if m.user.avatar.url %}
+                    <img  src="{{ m.user.avatar.url }}" style="max-width: 15rem; max-width: 15rem;" alt="Avatar">
+                  {% else %}     
+                    <img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" style="max-width: 15rem; max-width: 15rem;" alt="user"  >                   
+                  {% endif %} {% endcomment %}
+
+                    <h5>{{m.user.username}}</h5>
+                    <p>{{m.content}}</p> 
+                    <p>{{m.date_added}}</p>                                           
+                    <hr>
+                                                         
+              {% endfor %}
+            <!--форма-->
+              <form method="post" action="." enctype="multipart/form-data">
+                  {% csrf_token %}
+                <div class="col-sm-12">
+                  <label for="massage">Сообщение</label>
+                  <input class="form-control rounded-3 border-2   bg-light" type="text" name="content"  placeholder="Написать..." id="chat-message-input">
+
+
+                  <button type="submit" class="btn red-btn" id="chat-message-submit" style="max-width: 10rem;">
+                    <i class="fa fa-paper-plane"></i>
+                  </button>
+                </div>
+              </form> 
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+{{ room.slug|json_script:"json-roomname" }}
+{{ request.user.username|json_script:"json-username" }}
+{% comment %} {{ request.user.avatar.url|default_if_none:""|json_script:"json-avatar" }} {% endcomment %}
+
+
+<script>
+    const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
+    const userName = JSON.parse(document.getElementById('json-username').textContent);
+    {% comment %} const avaTar = JSON.parse(document.getElementById('json-avatar').textContent || "null"); {% endcomment %}
+    
+
+    
+   
+
+    const chatSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/chat/'
+        + roomName
+        + '/'
+    );
+    
+    chatSocket.onclose = function(e) {
+        console.log('onclose')
+    }
+    function formatDate(dateString) {
+      const timestamp = Date.parse(dateString);
+      
+      if (!isNaN(timestamp)) {
+          const date = new Date(timestamp);
+          return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+      } else {
+          return '';
+      }
+    }
+  
+
+    chatSocket.onmessage = function(e) {
+      const data = JSON.parse(e.data);
+  
+      if (data.message) {
+          const newMessage = document.createElement('div');
+          
+          newMessage.innerHTML = `
+                                    
+                                  
+                                    <h5>${data.username}</h5> 
+                                    <p> ${data.message}</p>
+                                    <p> ${formatDate(data.date_added)}</p><hr>`;
+  
+                                    const chatMessages = document.querySelector('#chat-messages');
+                                    chatMessages.insertBefore(newMessage, chatMessages.querySelector('form'));
+
+                                    
+                                    
+                                    
+      } else {
+          alert('Сообщение не может быть пустым!');
+      }
+  
+      scrollToTop();
+  };
+  function scrollToTop() {
+    const newMessage = document.querySelector('.new-message');
+    chatMessages.insertBefore(newMessage, document.querySelector('form'));
+
+}
+
+  
+
+    document.querySelector('#chat-message-input').focus();
+    document.querySelector('#chat-message-input').onkeyup = function(e) {
+        if (e.keyCode === 13) {
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        e.preventDefault()
+
+        const messageInputDom = document.querySelector('#chat-message-input');
+        const message = messageInputDom.value;
+
+        console.log({
+            'message': message,
+            'username': userName,
+            'room': roomName
+        })
+
+        chatSocket.send(JSON.stringify({
+            'message': message,
+            'username': userName,
+          
+            'room': roomName
+        }));
+
+        messageInputDom.value = '';
+
+        return false
+    };
+
+   
+   
+
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,109 @@
+
+{% load static %}
+{% load i18n %}
+
+
+<!DOCTYPE html>
+
+<html>
+  <header>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'shop/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/css/prettyPhoto.css' %}">
+    <link href="{% static 'shop/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'shop/css/responsive.css' %}" rel="stylesheet">
+     <!-- Head imports -->
+    {% include 'shop/_partials/_head_imports.html' %}
+    <!-- title --> 
+    <title>
+      {% block title %} 
+        {% trans 'Home' %}
+      {% endblock title %}
+    </title>
+    <!-- link -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'shop/images/favicon.ico' %}" >
+    {% block head %}
+    {% endblock head %}
+
+ 
+  </header>
+
+  <body>
+
+
+    <!-- Navbar -->
+    {% include 'shop/_partials/_navbar.html' %}
+    <!-- Messages -->
+    
+    {% comment %} {% include 'shop/_partials/_messages.html' %} {% endcomment %}
+
+    <!-- Content -->
+    <main>
+      {% block content %} 
+      
+      {% endblock content %}
+    <!-- button phone -->  
+        {% comment %} <a class="text-muted" href="tel: 8 952 87 92 098">
+          <i class="fa fa-phone btn btn-success " id="call-btn" aria-hidden="true"></i>
+        </a>
+      <style>
+        #call-btn {
+            
+            position: fixed;
+            bottom: 30px; /* Расположение снизу страницы */
+            right: 20px; /* Расположение справа страницы */
+            padding: 25px;
+            color: #fff;
+            border: none;
+            border-radius: 50%; /* Значение 50% делает круглый фон */
+            cursor: pointer;
+            opacity: 0.7; /* Прозрачность для кнопки */
+    
+            /* Bootstrap классы */
+            class="btn btn-primary"
+    
+            /* Анимация увеличения при наведении */
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+    
+        #call-btn:hover {
+            transform: scale(1.1); /* Увеличение при наведении */
+            opacity: 1; /* Возвращение прозрачности */
+        }
+      </style> {% endcomment %}
+    <!-- button phone -->  
+
+      
+    </main>
+    <!-- Footer -->
+    {% include 'shop/_partials/_footer.html' %}
+
+
+   
+
+    {% block scripts %}
+    {% endblock scripts %}
+   
+
+    <!-- Script -->
+  
+  
+  <script src="https://unpkg.com/htmx.org@1.9.9" integrity="sha384-QFjmbokDn2DjBjq+fM+8LUIVrAgqcNW2s0PjAxHETgRn9l4fvX31ZxDxvwQnyMOX" crossorigin="anonymous"></script>
+
+  <script src="{% static 'shop/js/jquery-1.11.3.min.js' %}"></script>
+  <script src="{% static 'shop/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'shop/js/isotope.2.2.2min.js' %}"></script>
+  <script src="{% static 'shop/js/wow.min.js' %}"></script>
+  <script src="{% static 'shop/js/jquery.prettyPhoto.js' %}"></script>
+  <script src="{% static 'shop/js/main.js' %}"></script>
+  </html>
+
+    
+
+  

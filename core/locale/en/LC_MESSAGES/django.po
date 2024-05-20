@@ -1,0 +1,245 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-20 14:27+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: account/templates/account/password/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: account/templates/account/password/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: account/templates/account/password/password_reset_email.html:8
+msgid "Your username, in case you’ve forgotten:"
+msgstr ""
+
+#: account/templates/account/password/password_reset_email.html:10
+msgid "Thanks for using our site!"
+msgstr ""
+
+#: account/templates/account/password/password_reset_email.html:12
+#, python-format
+msgid "The %(site_name)s team"
+msgstr ""
+
+#: core/settings.py:184
+msgid "English"
+msgstr ""
+
+#: core/settings.py:185
+msgid "Russian"
+msgstr ""
+
+#: shop/models.py:19
+msgid "name"
+msgstr ""
+
+#: shop/models.py:20
+msgid "parent"
+msgstr ""
+
+#: shop/models.py:23
+msgid "user_creator"
+msgstr ""
+
+#: shop/models.py:27
+msgid "Категория"
+msgstr ""
+
+#: shop/models.py:28
+msgid "Категории"
+msgstr ""
+
+#: shop/models.py:59
+msgid "title"
+msgstr ""
+
+#: shop/models.py:59
+msgid "Назавание продукта"
+msgstr ""
+
+#: shop/models.py:71
+msgid "description_content"
+msgstr ""
+
+#: shop/models.py:72
+msgid "description_content_upload"
+msgstr ""
+
+#: shop/models.py:77
+msgid "Продукт"
+msgstr ""
+
+#: shop/models.py:78
+msgid "Продукты"
+msgstr ""
+
+#: shop/templates/base.html:20
+msgid "Home"
+msgstr "Home"
+
+#: shop/templates/base.html:60
+msgid "translate_btn"
+msgstr "Translate" 
+
+#: shop/templates/base.html:97
+msgid "Contact"
+msgstr "Contact"
+
+
+
+#: shop/templates/base.html:106
+msgid "Chat"
+msgstr "Chat"
+
+#: shop/templates/shop/_partials/_navbar.html:6
+msgid "title_page"
+msgstr "Exclusive cleaning"
+
+#: shop/templates/shop/_partials/_navbar.html:20
+#: shop/templates/shop/_partials/_navbar.html:31
+msgid "search"
+msgstr "Search"
+
+#: shop/templates/shop/_partials/_navbar.html:87
+msgid "card"
+msgstr "Card"
+
+#: shop/templates/shop/_partials/_navbar.html:105
+msgid "forum"
+msgstr "Forum"
+
+#: shop/templates/shop/_partials/_navbar.html:116
+msgid "exit"
+msgstr "Logout"
+
+#: shop/templates/shop/_partials/_navbar.html:121
+msgid "register"
+msgstr "Register"
+
+#: shop/templates/shop/_partials/_navbar.html:125
+msgid "to_come_in"
+msgstr "Login"
+
+#: shop/templates/shop/products.html:27
+
+msgid "support_1"
+msgstr "We try our best for you"
+
+msgid "support_2"
+msgstr "Choose what you need"
+
+msgid "create_account"
+msgstr "Create an account"
+
+msgid "all_products"
+msgstr "All products"
+
+
+#: recommend/templates/recommend/recommendation.html:110
+msgid "reviews"
+msgstr "Review"
+
+msgid "send"
+msgstr "Send"
+
+
+
+#: shop/templates/shop/product_detail.html
+msgid "price_product"
+msgstr "Price"
+
+msgid "qwn"
+msgstr "Quantity"
+
+msgid "add_to"
+msgstr "Add to"
+
+msgid "discount"
+msgstr "Discount"
+
+msgid "posted"
+msgstr "Posted by"
+
+
+
+
+#: cart/templates/cart/cart-view.html:5
+msgid "cart_product"
+msgstr "Cart of products"
+
+msgid "product"
+msgstr "Product"
+
+#: shop/templates/shop/_partials/_footer.html
+msgid "shop"
+msgstr "Shop"
+
+msgid "copyright"
+msgstr "Copyright"
+
+#: room/templates/room/rooms.html
+
+msgid "chat_room"
+msgstr "chat room"
+
+
+msgid "welcome"
+msgstr "Welcome"
+
+msgid "messages"
+msgstr "Messages"
+
+msgid "my_products"
+msgstr "My products"
+
+msgid "my_orders"
+msgstr "My orders"
+
+
+msgid "personal_info"
+msgstr "Personal information"
+
+msgid "birth"
+msgstr "Date of birth"
+
+msgid "gender"
+msgstr "gender"
+
+msgid "tel"
+msgstr "tel"
+
+msgid "status"
+msgstr "Status"
+
+msgid "register_date"
+msgstr "Registration date"
+
+msgid "del"
+msgstr "delete"
+
+msgid "you_prof"
+msgstr "your profile"
+
+msgid "cart_product_not"
+msgstr "Cart is empty"

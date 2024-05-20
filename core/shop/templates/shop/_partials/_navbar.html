@@ -1,0 +1,70 @@
+{% load i18n %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>  
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="smooth-scroll">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Главная</a>
+                    </li>                     
+                </li>
+                <li class="smooth-scroll">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'shop:products' %}">Все профайлы</a>
+                    </li>                     
+                </li>
+                {% if request.user.is_authenticated %}
+                <li class="smooth-scroll">
+                    <a href="{% url 'rooms' %}">
+                        Чаты
+                    </a>
+                </li>
+                <li class="smooth-scroll">
+                    <a href="{% url 'account:send_message' %}">
+                        {% trans 'forum' %}
+                    </a>
+                </li>
+                <li class="smooth-scroll">
+                    <a href="{% url 'account:dashboard' %}">
+                        {{ request.user.username }}
+                    </a>
+                </li>
+                <li class="smooth-scroll">
+                    <a href="{% url 'account:logout' %}">
+                        {% trans 'exit' %}
+                    </a>
+                </li>
+                {% else %}
+                <li class="smooth-scroll">
+                    <a href="{% url 'account:login' %}">
+                        {% trans 'to_come_in' %}
+                    </a>
+                </li>
+                {% endif %}
+
+            </ul>
+        <!-- форма поиска -->
+        {% comment %} <form action="{% url 'shop:search-products' %}" method="get">
+            <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
+                <div class="input-group">
+                    <span class="border-success input-group-text bg-success text-white"><i
+                            class="fa-solid fa-magnifying-glass"></i></span>
+                    <input type="text" name="q" placeholder="поиск ..." class="form-control border-success" style="color: #7a7a7a" />
+                    <button class="btn btn-success  search-button">{% trans 'search' %}</button>
+                </div>
+            </div>
+         </form> {% endcomment %}
+         
+        </div>
+    </div>
+</nav>
+

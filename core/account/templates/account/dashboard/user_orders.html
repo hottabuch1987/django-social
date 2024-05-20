@@ -1,0 +1,30 @@
+
+{%  extends "base.html" %}
+
+{% load static %}
+
+
+
+{% block content %}
+
+{% if orders %}
+    <h3>Мои заказы</h3>
+        {% for order in  orders %}
+
+            <div class="card shadow-sm h-100 ">
+                
+                <div class="card-body">
+                    <p class="card-text">
+                       
+                        {{order.product.category}}
+                        {{order.product.title}}
+                    </p>           
+                </div>
+            </div>
+        {% endfor %}
+{% else %}
+    <h3>У вас нет заказов</h3>
+
+{% endif %}
+        
+{% endblock %}

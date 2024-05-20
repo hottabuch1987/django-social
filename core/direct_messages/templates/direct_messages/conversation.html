@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<section id="team">
+	<div class="container">
+        <div class="section-heading text-center text-uppercase wow  wow bounceInRight">
+            <br>
+            <br>
+			<h2>Мои<span>Друзья</span></h2>
+            <!--   Функция возврата назад -->
+			<a onclick="goBack()"  style="text-decoration: none;">Назад
+				<i class="fa fa-shield fa-rotate-90"></i>
+			</a>
+			<script>
+				function goBack() {
+					window.history.back();
+				}
+			</script>
+			<!---->
+            
+		</div>
+        
+        
+        <div class="row  wow bounceInLeft">
+            
+            
+            {% for user in users %}
+            <div class="col-sm-6 col-md-3">
+                <div>
+                    
+                    
+                    <a href="{% url 'direct_messages:chat' username=user.username %}">
+                        {% if user.avatar %}
+                            <img  src="{{ user.avatar.url }}" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;"  alt="Avatar">
+                        {% else %}
+                            {% if user.gender == "men" %}
+                                <img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">
+                            {% elif  user.gender == "women" %}
+                                <img src="https://i.imgur.com/wvxPV9S.png" style="max-width: 100px;" alt="Placeholder Image">
+                            {% else %}
+                                <i class="fa fa-circle-o" style="font-size:100px"></i>         
+                            {% endif %}
+                            
+                       
+                        {% endif %}
+                        <p>{{user.username}}</p>
+                    </a>
+                
+                    <div class="member-social-icon text-center">
+                        <a href="{% url 'direct_messages:chat' username=user.username %}">
+                            <span> {{user.first_name}} {{user.last_name}}</span>
+                        </a>
+                    
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    <span  id="count_badges"></span>
+                    </p>
+                </div>
+                    
+                    <h3></h3>
+
+                    {% if forloop.counter|divisibleby:"3" and not forloop.last %}
+                        <div class="row">
+                        </div>
+                    {% endif %}
+                </div>
+                
+            </div>
+            {% endfor %}
+            
+        </div>
+        
+        
+    </div>
+</section>
+
+
+<!---->
+
+
+<script>
+
+        const countBadgesElement = document.getElementById("count_badges");
+    
+        const notifySocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/notify/'
+        );
+    
+        notifySocket.onopen = function(e){
+            console.log("CONNECTED TO NOTIFICATION");
+        };
+    
+        notifySocket.onmessage = function(e){
+            const data = JSON.parse(e.data);
+            countBadgesElement.innerText = data.count;
+        };
+    
+        notifySocket.onclose = function(e){
+            console.log("DISCONNECTED FROM NOTIFICATION");
+        };
+    </script>
+
+    
+{% endblock %}
