@@ -27,7 +27,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # Переменная для приватного ключа SSH
           
           script: |   
-            cd /root/shop-django 
+            cd /root/django-social 
 
             git pull origin main
             
