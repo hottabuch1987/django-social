@@ -16,7 +16,7 @@ jobs:
         run: echo "Пока я думаю, не мешай тупица!"
 
       - name: Checkout code  # Название шага: Получение кода из репозитория
-        uses: actions/checkout@v2  # Использование действия для получения кода
+        uses: actions/checkout@v1.0.3  # Использование действия для получения кода
         
 
       - name: SSH into remote server and restart containers  # Название шага: Подключение к удаленному серверу по SSH и перезапуск контейнеров
