@@ -24,7 +24,7 @@ jobs:
         with:
           host: ${{ secrets.REMOTE_HOST }}  # Переменная для хоста удаленного сервера
           username: ${{ secrets.REMOTE_USERNAME }}  # Переменная для имени пользователя SSH
-          key: ${{ secrets.SSH_PRIVATE_KEY }}  # Переменная для приватного ключа SSH
+          # key: ${{ secrets.SSH_PRIVATE_KEY }}  # Переменная для приватного ключа SSH
           
           script: |   
             cd /root/django-social 
