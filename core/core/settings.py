@@ -56,6 +56,9 @@ INSTALLED_APPS = [
     'djoser',
     'drf_yasg',
     "channels",
+
+    'channels_redis',
+    
     "social_django",
     'ckeditor',
     'ckeditor_uploader',
