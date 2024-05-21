@@ -7,7 +7,7 @@ import random
 
 fake = Faker('ru_RU')
 #file_path = '/Users/hottabych/Desktop/znakomstva/shop/core/shop/management/biographies.txt' #локальный путь
-file_path = '../biographies.txt'
+file_path = '/app/shop/management/biographies.txt'
 class Command(BaseCommand):
     help = 'Create fake user profiles'
     def get_random_bio(self):
