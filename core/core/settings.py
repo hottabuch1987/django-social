@@ -85,7 +85,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("195.133.32.53", 6379)],
+            "hosts": [("127.0.0.1", 6379)],
         },
     },
 }
@@ -285,7 +285,7 @@ GOOGLE_FONTS_DIR = BASE_DIR / 'static'
 
 SITE_ID = 1
 #Celery
-CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_RESULT_EXTENDED = True
 CELERY_CACHE_BACKEND = 'default'
