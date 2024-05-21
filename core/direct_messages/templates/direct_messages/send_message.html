@@ -83,7 +83,7 @@
                                         </a>
                                     </td>
                                 {% endif %}
-                                
+
                             </tr>
                             {% endfor %}
                             <!-- end -->
@@ -101,17 +101,14 @@
                                 <span class="h4 fw-bold">
                                     {{user.username}}
                                 </span>
-                                
-                                
-                                
+                                                               
                                 {% if user.online_status %}
                                 
                                     <small style="color: green"  id="{{user.username}}_small"> Online</small>
                                 {% else %}
                                     <small style="color: grey" id="{{user.username}}_small"> Offline</small>
                                 {% endif %}
-                                
-                                
+                                                              
                             </div>
                             {% for message in messages %}
                             {% if message.sender == request.user.username %}
@@ -158,8 +155,6 @@
             </div>
         </div>
     </div>
-
-
 
 </div>
 

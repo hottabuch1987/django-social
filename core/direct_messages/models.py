@@ -10,7 +10,7 @@ class ChatModel(models.Model):
     """Сообщения чата"""
     sender = models.CharField(max_length=100, default=None)
     message = models.TextField(null=True, blank=True)
-    thread_name = models.CharField(null=True, blank=True, max_length=50)
+    thread_name = models.CharField(null=True, blank=True, max_length=300)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
