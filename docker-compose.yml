@@ -44,15 +44,12 @@ services:
     image: redis:7.2.3-alpine
     container_name: core-redis
     restart: unless-stopped
-    command: redis-server --bind 0.0.0.0  # Позволяет Redis принимать внешние подключения
-    ports:
-      - "6379:6379"  # Проброс портов, если необходимо
     
   flower:
     image: mher/flower
     container_name: core-flower
     environment:
-      - CELERY_BROKER_URL=redis://195.133.32.53:6379/0  # Изменить адрес на ваш IP-адрес Redis
+      - CELERY_BROKER_URL=redis://redis:6379/0  # адрес брокера сообщений
     ports:
       - 5555:5555  # Порт для Flower
     restart: always
