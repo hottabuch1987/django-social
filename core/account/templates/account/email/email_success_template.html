@@ -30,13 +30,13 @@
         <div class="row  wow bounceInLeft">
             <div class="col-sm-6 ">
                 
-                
+                <div class="single-team">
    
                     {% if success %}
                         <div class="alert alert-success" role="alert">
                             <h4 class="alert-heading">Электронная почта подтверждена</h4>
                             <p>Ваш адрес электронной почты успешно подтвержден. Спасибо за регистрацию!</p>
-                            <p>You will be redirected to the home page in <span  id="timer"></span> seconds</p>
+                            <p>Вы будете перенаправлены на домашнюю страницу через <span  id="timer"></span> секунд.</p>
                         </div>
 
                     {% else %}
@@ -45,7 +45,7 @@
                         <p>Ссылка для подтверждения по электронной почте недействительна или срок ее действия истек. Пожалуйста, зарегистрируйтесь снова.</p>
                     </div>
                     {% endif %}
-                
+                </div>
             </div>
         </div>
     </div>
