@@ -40,10 +40,8 @@ services:
     
    
   redis:
-    image: redis:6-alpine
+    image: redis:7.2.3-alpine
     container_name: core-redis
-    ports:
-      - "6379:6379"
     restart: unless-stopped
     
   flower:
