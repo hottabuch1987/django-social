@@ -245,7 +245,7 @@ class ForumView(View):
             message.receiver_id = form.cleaned_data.get('receiver_id')
             message.save()
             # Запуск асинхронной задачи Celery для отправки сообщения
-            send_forum_message.delay(message.id)
+            #send_forum_message.delay(message.id)
             return redirect('account:send_message')
         else:
             form = ForumForm()
