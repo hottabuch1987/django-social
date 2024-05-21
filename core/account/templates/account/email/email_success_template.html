@@ -18,32 +18,40 @@
 {% endblock title %}
 
 {% block content %}
-<section id="contact">
-    <div class="section-heading contact-heading text-center text-uppercase">
-        <br>
-		<h3><span></span></h3>
-	</div>
 
+<section id="team">
+	<div class="container">
+        <div class="section-heading text-center text-uppercase wow  wow bounceInRight">
+            <br>
+            <br>
+			<h2>Мой<span> профайл</span></h2>
+            
+		</div>
+        <div class="row  wow bounceInLeft">
+            <div class="col-sm-6 ">
+                
+                <div class="single-team">
+   
+                    {% if success %}
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">Электронная почта подтверждена</h4>
+                            <p>Ваш адрес электронной почты успешно подтвержден. Спасибо за регистрацию!</p>
+                            <p>You will be redirected to the home page in <span  id="timer"></span> seconds</p>
+                        </div>
 
-    <br>
-    <br>
-    {% if success %}
-
-        <div class="alert alert-success" role="alert">
-            <h4 class="alert-heading">Электронная почта подтверждена</h4>
-            <p>Ваш адрес электронной почты успешно подтвержден. Спасибо за регистрацию!</p>
-            <p>You will be redirected to the home page in <span  id="timer"></span> seconds</p>
+                    {% else %}
+                    <div class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">Ошибка подтверждения по электронной почте</h4>
+                        <p>Ссылка для подтверждения по электронной почте недействительна или срок ее действия истек. Пожалуйста, зарегистрируйтесь снова.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-
-    {% else %}
-    <div class="alert alert-danger" role="alert">
-        <h4 class="alert-heading">Ошибка подтверждения по электронной почте</h4>
-        <p>Ссылка для подтверждения по электронной почте недействительна или срок ее действия истек. Пожалуйста, зарегистрируйтесь снова.</p>
     </div>
-    {% endif %}
+</section>
 
 
-</div>
 <script>
 
     // Set a timeout to redirect the user to the other page after 10 seconds
@@ -67,5 +75,5 @@
             }
         }, 1000);
     });
-    </script>
+</script>
 {% endblock content %}
