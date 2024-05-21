@@ -54,21 +54,6 @@
 		</div>
 	</div>
 </section>
-{% comment %} 
-    <br>
-    <div class="container  shadow-md p-5 form-layout">
 
-        <h3>Создать аккаунт</h3>
-        <br>
-        <form method="post">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <input type="submit" value="Зарегистрироваться" class="btn btn-secondary w-100 btn-block p-2 btn-register">
-        </form>
-        <br>
-        <div class="text-center">
-            Войти через <a href='{% url "social:begin" "github" %}' >GitHub</a> или <a href="{% url 'social:begin' 'vk-oauth2' %}">Вконтакте</a>
-        </div>
-    </div> {% endcomment %}
 
 {% endblock  %}
