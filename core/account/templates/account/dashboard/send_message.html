@@ -63,15 +63,15 @@
                            
                     {% else %}
                         <div class="col-sm-12">
-                        <a href="{% url 'account:user_detail' slug=forum.receiver__slug %}">  
+                        {% comment %} <a href="{% url 'account:user_detail' slug=users.receiver__slug %}">  
+                        </a> {% endcomment %}
                             {% if forum.sender.avatar %}
                                 <img src="{{ forum.sender.avatar.url }}" style="max-width: 100px;" alt="Avatar">
                             {% else %}
                                 <img alt="Avatar" style="max-width: 100px;" src="https://bootdey.com/img/Content/avatar/avatar1.png">
                             {% endif %}
-                            
-                        </a>
-                        <div>{{ forum.sender.username}}</div>
+                            {{ forum.sender.username}}
+                        
                         </div>
                         <div class="col-sm-12">
                             <br>

@@ -252,8 +252,8 @@ def reviews(request):
 class ForumView(View):
     def get(self, request, *args, **kwargs):
         form = ForumForm()
-        forums = Forum.objects.select_related('receiver', 'content', 'timestamp', 'message_file').values('receiver__slug')
-
+        #users = Forum.objects.select_related('receiver').values('receiver__slug')
+        forums = Forum.objects.all()
         return render(request, 'account/dashboard/send_message.html', {'form': form, 'forums': forums})
 
     def post(self, request, *args, **kwargs):
