@@ -45,7 +45,7 @@ urlpatterns = [
     path('reviews/', views.reviews, name='reviews'),
 
     #forum 
-    path('message/send/', ForumView.as_view(), name="send_message"),
+    path('message/forum/', ForumView.as_view(), name="forum_message"),
 
    
 

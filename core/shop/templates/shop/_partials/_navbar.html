@@ -29,7 +29,7 @@
                     </a>
                 </li>
                 <li class="smooth-scroll">
-                    <a href="{% url 'account:send_message' %}">
+                    <a href="{% url 'account:forum_message' %}">
                         {% trans 'forum' %}
                     </a>
                 </li>
@@ -38,6 +38,13 @@
                         {{ request.user.username }}
                     </a>
                 </li>
+                <!-- Admin -->
+                <li class="smooth-scroll">
+                {% if user.is_admin or user.is_staff %}
+                  <a  href="{% url "admin:index" %}">Админ панель</a>
+                {% endif %}
+                </li>
+              <!-- Admin -->
                 <li class="smooth-scroll">
                     <a href="{% url 'account:logout' %}">
                         {% trans 'exit' %}

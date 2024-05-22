@@ -109,16 +109,18 @@
                     </p>
 
                     <div class="member-social-icon text-center">
-                        <a href="{% url 'account:send_message' %}">
+                        <a href="{% url 'account:forum_message' %}">
                             
                             <i class="fa fa-linkedin"></i>
                         </a>
                         <a href="{% url 'rooms' %}">
+                            
                             <i class="fa fa-comments-o" aria-hidden="true"></i>
 
                         </a>
                         <a href="{% url 'direct_messages:my_direct_messages'  %}">
-                            <i class="fa fa-envelope-o fa-fw"></i>
+                            <i class="fa fa-users" aria-hidden="true"></i>
+
                         </a>
                         <a href="{% url 'account:profile-management' %}">
                             <i class="fa fa-cog"></i>

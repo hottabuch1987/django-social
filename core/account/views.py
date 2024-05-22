@@ -230,28 +230,46 @@ def reviews(request):
 
 
 #forum
+# class ForumView(View):
+#     def get(self, request):
+#         form = ForumForm()
+#         users = User.objects.all()
+#         forums = Forum.objects.all()
+#         return render(request, 'account/dashboard/send_message.html', {'form': form, 'users': users, 'forums': forums})
+
+#     def post(self, request):
+#         form = ForumForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('account:send_message')
+#         else:
+#             form = ForumForm()
+#             forums = Forum.objects.all()
+#             error = messages.info(request, 'Возникла ошибка при отправке сообщения')
+       
+#             return render(request, 'account/dashboard/send_message.html', {'form': form, 'forums': forums, 'error': error})
+
 class ForumView(View):
     def get(self, request, *args, **kwargs):
         form = ForumForm()
-        users = User.objects.all()
-        forums = Forum.objects.all()
-        return render(request, 'account/dashboard/send_message.html', {'form': form, 'users': users, 'forums': forums})
+        forums = Forum.objects.select_related('receiver', 'content', 'timestamp', 'message_file').values('receiver__slug')
+
+        return render(request, 'account/dashboard/send_message.html', {'form': form, 'forums': forums})
 
     def post(self, request, *args, **kwargs):
         form = ForumForm(request.POST, request.FILES)
         if form.is_valid():
             message = form.save(commit=False)
-            message.sender = request.user  
+            message.sender = request.user  # Присваивание отправителя перед сохранением
             message.receiver_id = form.cleaned_data.get('receiver_id')
             message.save()
             # Запуск асинхронной задачи Celery для отправки сообщения
-            #send_forum_message.delay(message.id)
-            return redirect('account:send_message')
+            send_forum_message.delay(message.id)
+            return redirect('account:forum_message')
         else:
             form = ForumForm()
             error = messages.info(request, 'Возникла ошибка при отправке сообщения')
        
             return render(request, 'account/dashboard/send_message.html', {'form': form, 'error': error})
-
 
  
