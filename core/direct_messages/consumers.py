@@ -3,18 +3,28 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from direct_messages.models import ChatModel, ChatNotification
 from account.models import User
+import re
 
 
 class PersonalChatConsumer(AsyncWebsocketConsumer):
+
+    @staticmethod
+    def convert_guid_to_number(guid):
+        # Преобразование UUID в строку и удаление дефисов
+        guid_str = str(guid).replace('-', '')
+        guid_digits = re.sub(r'\D', '', guid_str)
+        number_value = int(guid_digits)
+        return number_value
+
     async def connect(self):
-        my_id = self.scope['user'].id
-        other_user_id = self.scope['url_route']['kwargs']['pk']
-        if int(my_id) > int(other_user_id):
+        my_id = self.convert_guid_to_number(str(self.scope['user'].id))
+        other_user_id = self.convert_guid_to_number(self.scope['url_route']['kwargs']['pk'])
+        if my_id > other_user_id:
             self.room_name = f'{my_id}-{other_user_id}'
         else:
             self.room_name = f'{other_user_id}-{my_id}'
 
-        self.room_group_name = 'chat_%s' % self.room_name
+        self.room_group_name = f'chat_{self.room_name}'
 
         await self.channel_layer.group_add(
             self.room_group_name,
@@ -22,6 +32,9 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
         )
 
         await self.accept()
+
+
+
 
     async def receive(self, text_data=None, bytes_data=None):
         data = json.loads(text_data)
