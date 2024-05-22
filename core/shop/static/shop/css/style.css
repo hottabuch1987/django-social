@@ -295,13 +295,13 @@ header .navbar {
 }
 
 .member-social-icon {
-	border-bottom: 0 solid #fff;
+	/* border-bottom: 0 solid #fff;
 	margin-top: 30px;
 	opacity: 0;
 	-webkit-transition: all 0.5s;
 	-moz-transition: all 0.5s;
 	-ms-transition: all 0.5s;
-	-o-transition: all 0.5s;
+	-o-transition: all 0.5s; */
 	transition: all 0.5s;
 }
 
