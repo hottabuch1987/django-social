@@ -110,21 +110,21 @@
                     </p>
 
                     <div class="member-social-icon text-center">
-                        <a href="{% url 'account:forum_message' %}">
+                        {% comment %} <a href="{% url 'account:forum_message' %}">
                             
                             <i class="fa fa-linkedin"></i>
-                        </a>
+                        </a> {% endcomment %}
                         <a href="{% url 'rooms' %}">
                             
-                            <i class="fa fa-comments-o" aria-hidden="true"></i>
+                            <i class="fa fa-comments-o" aria-hidden="true"> Общие чаты</i>
 
                         </a>
                         <a href="{% url 'direct_messages:my_direct_messages'  %}">
-                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <i class="fa fa-users" aria-hidden="true"> Друзья</i>
 
                         </a>
                         <a href="{% url 'account:profile-management' %}">
-                            <i class="fa fa-cog"></i>
+                            <i class="fa fa-cog"> Настройки</i>
                         </a>
                         
                         
@@ -165,15 +165,23 @@
                 <audio id="notificationSound">
                     <source src="/media/mp3/ding.mp3" type="audio/mpeg"> 
                 </audio>
+                <a class="text-uppercase" href="{% url 'account:user_detail' slug=only_friend.slug %}">
+                    {% if only_friend.avatar %}                   
+                    <img src="{{ only_friend.avatar.url }}" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;" alt="">
+                    {% else %}
+                    <img src="/static/shop/images/avatar.png" alt="user" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">
+                    
+                    {% endif %}
+                    
+                    
+                    {{ only_friend.username }} - {{ only_friend.lastname }}
+                </a>
                 <button class="addFriendBtn" data-friend-id="{{ only_friend.id }}"  style="color: green; max-width:14rem">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </button>
-                <a class="text-uppercase" href="{% url 'account:user_detail' slug=only_friend.slug %}"><i class="fa fa-bullseye"></i>            
-                    {{ only_friend.username }} - {{ only_friend.lastname }}
-                </a>
-                <button class="removeFriendBtn" data-friend-id="{{ only_friend.id }}" style="color: gray; max-width:14rem">
+                {% comment %} <button class="removeFriendBtn" data-friend-id="{{ only_friend.id }}" style="color: gray; max-width:14rem">
                     <i class="fa fa-minus" aria-hidden="true"></i>
-                </button>
+                </button> {% endcomment %}
             </li>
             
         {% endfor %}

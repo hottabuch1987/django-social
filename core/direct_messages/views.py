@@ -1,14 +1,20 @@
 from account.models import User
 from django.shortcuts import render
-
+from random import randint
 from .models import ChatModel
-
+from django.db.models import Subquery
 
 
 def index(request):
     user = request.user
-    users = User.objects.filter(friends=user).exclude(id=request.user.id)
-    return render(request, 'direct_messages/conversation.html', context={'users': users})
+  
+    users = User.objects.filter(friends=user).exclude(id=request.user.id).order_by('?')
+
+    not_friends = User.objects.exclude(id=user.id).exclude(id__in=Subquery(users.values('id'))).order_by('?')
+
+
+
+    return render(request, 'direct_messages/conversation.html', context={'users': users,  'not_friends': not_friends})
 
 
 def chatPage(request, username):

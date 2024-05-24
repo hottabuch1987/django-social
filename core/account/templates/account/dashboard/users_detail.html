@@ -30,12 +30,17 @@
                 <audio id="notificationSound">
                     <source src="/media/mp3/ding.mp3" type="audio/mpeg"> 
                 </audio>
-                <button class="addFriendBtn" id="add-friend-btn" data-user-id="{{ user.id }}" style="color: green; max-width:14rem">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                </button>
-                <button class="removeFriendBtn" id="remove-friend-btn" data-user-id="{{ user.id }}" style="color: gray; max-width:14rem">
-                    <i class="fa fa-minus" aria-hidden="true"></i>
-                </button>
+                {% if user != request.user %}
+                    {% if user in request.user.friends.all %}
+                        <button class="removeFriendBtn" id="remove-friend-btn" data-user-id="{{ user.id }}" style="color: red; max-width:14rem">
+                            Удалить из друзей<i class="fa fa-minus" aria-hidden="true"></i> 
+                        </button>
+                    {% else %}
+                        <button class="addFriendBtn" id="add-friend-btn" data-user-id="{{ user.id }}" style="color: green; max-width:14rem">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Добавить в друзья
+                        </button>
+                    {% endif %}
+                {% endif %}
             {% endif %}
 
             <script>
@@ -86,8 +91,7 @@
                     <img class="img-fluid mx-auto d-block gallery-image" alt="Responsive image" src="{{ user.full_image_url }}">
                 </a>
                 {% else %}
-                    <img src="/static/shop/images/avatar.png" alt="user" style="max-width: 16rem; height: 16rem; border-radius: 50%;aspect-ratio: 1 / 1;">
-                
+                    <img src="/static/shop/images/avatar.png" alt="user" style="max-width: 16rem; height: 16rem; border-radius: 50%;aspect-ratio: 1 / 1;">      
                 {% endif %}
             
                     
