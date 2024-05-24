@@ -25,6 +25,15 @@
 			{% for only_friend in friends %}
 			<div class="col-sm-6 col-md-3  wow bounceIn">
 				<div class="single-item text-center">
+					<br>
+
+					{% if only_friend.avatar %}                   
+					<a href="#" data-toggle="modal" data-target="#gallery-modal" class="gallery-link">
+						<img class="img-fluid mx-auto d-block gallery-image" alt="Responsive image" style="max-width: 7rem; height: 7rem; border-radius: 50%;aspect-ratio: 1 / 1;" src="{{ only_friend.full_image_url }}">
+					</a>
+					{% else %}
+						<img src="/static/shop/images/avatar.png" alt="user" style="max-width: 7rem; height: 7rem; border-radius: 50%;aspect-ratio: 1 / 1;">      
+					{% endif %}
 					{% if only_friend.gender == "men" %}
                         <i class="fa fa-child" style="font-size:24px"></i>
                         

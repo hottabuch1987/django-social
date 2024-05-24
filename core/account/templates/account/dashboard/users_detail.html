@@ -32,11 +32,13 @@
                 </audio>
                 {% if user != request.user %}
                     {% if user in request.user.friends.all %}
-                        <button class="removeFriendBtn" id="remove-friend-btn" data-user-id="{{ user.id }}" style="color: red; max-width:14rem">
-                            Удалить из друзей<i class="fa fa-minus" aria-hidden="true"></i> 
+
+                    
+                        <button class="removeFriendBtn btn red-btn" id="remove-friend-btn" data-user-id="{{ user.id }}" style="max-width: 11rem; max-height: 11rem;">
+                            Удалить 
                         </button>
                     {% else %}
-                        <button class="addFriendBtn" id="add-friend-btn" data-user-id="{{ user.id }}" style="color: green; max-width:14rem">
+                        <button class="addFriendBtn " id="add-friend-btn" data-user-id="{{ user.id }}" style="max-width: 11rem; max-height: 11rem; color: green;">
                             <i class="fa fa-plus" aria-hidden="true"></i> Добавить в друзья
                         </button>
                     {% endif %}

@@ -22,7 +22,7 @@ env.read_env()
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*', "http://195.133.32.53", "195.133.32.53", "localhost", "127.0.0.1"]
 
@@ -83,7 +83,7 @@ ASGI_APPLICATION = 'core.asgi.application'
 #     }
 # }
 
-# LEARN CHANNELS
+#LEARN CHANNELS
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",

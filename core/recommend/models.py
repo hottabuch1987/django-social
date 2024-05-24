@@ -8,7 +8,7 @@ from django.db import models
 
 
 class Review(models.Model):
-    product = models.ForeignKey(
+    user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="reviews_written", verbose_name="Пользователь"
     )
     created_by = models.ForeignKey(

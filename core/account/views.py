@@ -178,7 +178,7 @@ def user_detail(request, slug):
                 rating = request.POST.get('rating', 3)
                 content = request.POST.get('content', '')
                 if content:
-                    user.reviews.create(rating=rating, content=content, created_by=request.user)
+                    user.reviews.create(rating=rating, content=content, created_by=request.user, user=user)
                     return redirect(request.path)
             #add and del fiends
             if user != request.user:
