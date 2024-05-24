@@ -39,8 +39,7 @@
                                 <img src="{{ request.user.avatar.url }}" style="max-width: 100px;" alt="Avatar">  
                                             
                             {% else %}
-                                <img alt="Avatar" style="max-width: 100px;" src="https://bootdey.com/img/Content/avatar/avatar6.png">
-                                
+                                <img src="/static/shop/images/avatar.png" alt="user" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">
                             {% endif %}
                             <div>{{ request.user.username}}</div>
                                     
@@ -63,14 +62,18 @@
                            
                     {% else %}
                         <div class="col-sm-12">
-                        {% comment %} <a href="{% url 'account:user_detail' slug=users.receiver__slug %}">  
-                        </a> {% endcomment %}
-                            {% if forum.sender.avatar %}
-                                <img src="{{ forum.sender.avatar.url }}" style="max-width: 100px;" alt="Avatar">
-                            {% else %}
-                                <img alt="Avatar" style="max-width: 100px;" src="https://bootdey.com/img/Content/avatar/avatar1.png">
-                            {% endif %}
-                            {{ forum.sender.username}}
+                            <a href="{% url 'account:user_detail' slug=forum.sender.slug %}">
+                            
+                                {% if forum.sender.avatar %}
+                                    <img src="{{ forum.sender.avatar.url }}" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;" alt="Avatar">
+  
+                                {% else %}
+                                <img src="/static/shop/images/avatar.png" alt="user" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">
+                                {% endif %}
+                            
+                                {{ forum.sender.username}}
+                            </a>
+                            
                         
                         </div>
                         <div class="col-sm-12">

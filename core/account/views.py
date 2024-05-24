@@ -6,7 +6,7 @@ from .tasks import send_registration_email, send_forum_message
 from django.http import HttpResponse
 from django.utils.decorators import method_decorator
 from django.views.generic import View
-from .forms import LoginForm, UserCreateForm, UserUpdateForm, ReviewsForm, ForumForm, UserImageForm
+from .forms import LoginForm, UserCreateForm, UserUpdateForm,  ForumForm, UserImageForm
 from django.db.models import Q
 from django.contrib import messages
 from django_email_verification import send_email
@@ -215,44 +215,24 @@ def user_detail(request, slug):
     context = {'user': user, 'images': images}
     return render(request, 'account/dashboard/users_detail.html', context)
 #rewiews
-def reviews(request):
-    """Обратная связь"""
-    if request.method == "POST":
-        form = ReviewsForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponse(status=204)
-    else:
-        form = ReviewsForm()
-    return render(request, 'account/modal/reviews.html', {
-        'form': form,
-    })
+# def reviews(request):
+#     """Обратная связь"""
+#     if request.method == "POST":
+#         form = ReviewsForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponse(status=204)
+#     else:
+#         form = ReviewsForm()
+#     return render(request, 'account/modal/reviews.html', {
+#         'form': form,
+#     })
 
 
 #forum
-# class ForumView(View):
-#     def get(self, request):
-#         form = ForumForm()
-#         users = User.objects.all()
-#         forums = Forum.objects.all()
-#         return render(request, 'account/dashboard/send_message.html', {'form': form, 'users': users, 'forums': forums})
-
-#     def post(self, request):
-#         form = ForumForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('account:send_message')
-#         else:
-#             form = ForumForm()
-#             forums = Forum.objects.all()
-#             error = messages.info(request, 'Возникла ошибка при отправке сообщения')
-       
-#             return render(request, 'account/dashboard/send_message.html', {'form': form, 'forums': forums, 'error': error})
-
 class ForumView(View):
     def get(self, request, *args, **kwargs):
         form = ForumForm()
-        #users = Forum.objects.select_related('receiver').values('receiver__slug')
         forums = Forum.objects.all()
         return render(request, 'account/dashboard/send_message.html', {'form': form, 'forums': forums})
 

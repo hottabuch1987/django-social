@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.forms.widgets import PasswordInput, TextInput
-from .models import Reviews, User, Forum, UserImage
+from .models import User, Forum, UserImage, Reviews
 from django import forms
 from typing import Any
 from django.core.exceptions import ValidationError
@@ -91,13 +91,7 @@ class ForumForm(forms.ModelForm):
             'content',
            
         ]
-    # def clean(self):
-    #     cleaned_data = super().clean()
-    #     self.fields['receiver'].initial = None
-    #     self.fields['message_file'].initial = None
-    #     self.fields['content'].initial = ''
-
-    #     return cleaned_data
+    
 
 
 
@@ -111,14 +105,14 @@ class ReviewsForm(forms.ModelForm):
         self.fields['phone_number'].widget.attrs.update({'class': 'form-control', 'placeholder': 'В формате +7 999 999 99'})
         self.fields['text'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Опишите проблему'})
 
-    def as_styled(self):
-        for field_name, field in self.fields.items():
-            field.widget.attrs.update({
-                'class': 'form-control my-2',
-                'placeholder': f'Enter your {field.label.lower()}',
-            })
-            if field_name == 'text':
-                field.widget.attrs['rows'] = 3
+    # def as_styled(self):
+    #     for field_name, field in self.fields.items():
+    #         field.widget.attrs.update({
+    #             'class': 'form-control my-2',
+    #             'placeholder': f'Enter your {field.label.lower()}',
+    #         })
+    #         if field_name == 'text':
+    #             field.widget.attrs['rows'] = 3
 
 
 

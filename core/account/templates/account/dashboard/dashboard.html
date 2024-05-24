@@ -22,7 +22,8 @@
                     {% if request.user.avatar %}                   
                         <img src="{{ user.avatar.url }}" alt="">
                     {% else %}
-                        <img src="https://i.imgur.com/wvxPV9S.png" style="max-width: 200px;" alt="Placeholder Image">
+                        <img src="/static/shop/images/avatar.png" alt="user" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">
+
                     {% endif %}
                     <h3></h3>
                     <p>  {{ user.username }}</p>
@@ -36,7 +37,7 @@
                     
                         {% if request.user.last_name %}
                             {{request.user.last_name}}
-                        {% else %}
+                     
                            
                         {% endif %}
                     </p>

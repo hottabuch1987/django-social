@@ -15,7 +15,7 @@ class Review(models.Model):
         User, on_delete=models.CASCADE, related_name="reviews", verbose_name="Кем написано"
     )
     rating = models.PositiveSmallIntegerField(validators=[MinValueValidator(1),
-                                                          MaxValueValidator(5)], verbose_name="Райтинг")
+                                                          MaxValueValidator(5)], verbose_name="Рeйтинг")
     content = models.TextField("Текст отзыва")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Создан")
 

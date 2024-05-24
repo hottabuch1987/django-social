@@ -5,6 +5,7 @@
 {% block content %}
 <section id="team">
 	<div class="container">
+        <div class="row">
         <div class="section-heading text-center text-uppercase wow  wow bounceInRight">
             <br>
             <br>
@@ -21,6 +22,7 @@
 			<!---->
             
 		</div>
+        <br>
         
         
         <div class="row  wow bounceInLeft">
@@ -35,17 +37,12 @@
                         {% if user.avatar %}
                             <img  src="{{ user.avatar.url }}" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;"  alt="Avatar">
                         {% else %}
-                            {% if user.gender == "men" %}
-                                <img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">
-                            {% elif  user.gender == "women" %}
-                                <img src="https://i.imgur.com/wvxPV9S.png" style="max-width: 100px;" alt="Placeholder Image">
-                            {% else %}
-                                <i class="fa fa-circle-o" style="font-size:100px"></i>         
-                            {% endif %}
+                            <img src="/static/shop/images/avatar.png" alt="user" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">      
+                       
                             
                        
                         {% endif %}
-                        <p>{{user.username}}</p>
+                        {{user.username}}
                     </a>
                 
                     <div class="member-social-icon text-center">
@@ -70,15 +67,12 @@
             {% endfor %}
             
         </div>
+    </div>
         
         
     </div>
 </section>
-
-
 <!---->
-
-
 <script>
 
         const countBadgesElement = document.getElementById("count_badges");

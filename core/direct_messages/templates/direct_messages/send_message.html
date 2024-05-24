@@ -24,9 +24,9 @@
                         <img class="profile-image rounded-circle"  src="{{ request.user.avatar.url }}" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;" alt="Avatar">
                   
                 {% else %}
+                        <img src="/static/shop/images/avatar.png" alt="user" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">
                   
-                        <img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user"  style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;" class="rounded-circle">
-                
+                        
                 {% endif %}
                 </a> 
                 <h5>{{request.user.username}}</h5>
@@ -60,9 +60,8 @@
                                                 <img class="profile-image rounded-circle" src="{{ user.avatar.url }}" alt="Avatar" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">
                                             </div>
                                         {% else %}
-                                            <div class="profile-image-container {% if user.online_status %}online{% endif %}">
-                                                <img src="https://i.imgur.com/wvxPV9S.png" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;" alt="Placeholder Image">
-                                            </div>
+                                            <img src="/static/shop/images/avatar.png" alt="user" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">                                          
+                                        {% endif %}
                                         {% endif %}
                                     </a> 
                                                                

@@ -42,7 +42,7 @@ urlpatterns = [
         name='password_reset_complete'),
 
     #reviews
-    path('reviews/', views.reviews, name='reviews'),
+    # path('reviews/', views.reviews, name='reviews'),
 
     #forum 
     path('message/forum/', ForumView.as_view(), name="forum_message"),
