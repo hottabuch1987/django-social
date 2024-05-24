@@ -80,7 +80,7 @@
                     <h3 style="color:red;"><span>Возможно знакомы? </span></h3>
                     <br>
         
-                        {% for user in not_friends|first%}
+                        {% for user in not_friends|slice:":1" %}
                           
                                 <a class="text-uppercase" href="{% url 'account:user_detail' slug=user.slug %}">
                                     {% if user.avatar %}                   
