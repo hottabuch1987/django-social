@@ -123,10 +123,13 @@
                             <i class="fa fa-users" aria-hidden="true"> Друзья</i>
 
                         </a>
+                        <a href="{% url 'direct_messages:chat' username=user.username %}">
+                            <i class="fa fa-commenting" aria-hidden="true"> Cообщения</i> 
+                        </a>
+                        
                         <a href="{% url 'account:profile-management' %}">
                             <i class="fa fa-cog"> Настройки</i>
                         </a>
-                        
                         
                     </div>
                 </div>

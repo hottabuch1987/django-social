@@ -51,39 +51,43 @@
                 <div class="contact-table-scroll">
                     <table class="table table-hover">
                         <tbody>
-                            {% for user in users %}
-                            <tr>
-                                <td>
-                                    <a href="{% url 'direct_messages:chat' username=user.username %}">
-                                        {% if user.avatar %}
-                                            <div class="profile-image-container {% if user.online_status %}online{% endif %}">
-                                                <img class="profile-image rounded-circle" src="{{ user.avatar.url }}" alt="Avatar" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">
-                                            </div>
-                                        {% else %}
-                                            <img src="/static/shop/images/avatar.png" alt="user" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">                                          
-                                        {% endif %}
-                                    </a> 
-                                                               
-                                </td>
-                     
-                                {% if user.online_status %}
+                            {% if users %}
+                                {% for user in users %}
+                                <tr>
                                     <td>
-                                        <a style="color: green" id="{{user.username}}_status" href="{% url 'direct_messages:chat' username=user.username %}">
-                                            <i class="fa fa-user" aria-hidden="true"></i>
-                                            {{user.username}}
-                                        </a>
+                                        <a href="{% url 'direct_messages:chat' username=user.username %}">
+                                            {% if user.avatar %}
+                                                <div class="profile-image-container {% if user.online_status %}online{% endif %}">
+                                                    <img class="profile-image rounded-circle" src="{{ user.avatar.url }}" alt="Avatar" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">
+                                                </div>
+                                            {% else %}
+                                                <img src="/static/shop/images/avatar.png" alt="user" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">                                          
+                                            {% endif %}
+                                        </a> 
+                                                                
                                     </td>
-                                {% else %}
-                                    <td>
-                                        <a style="color: grey" id="{{user.username}}_status" href="{% url 'direct_messages:chat' username=user.username %}">
-                                            <i class="fa fa-user" aria-hidden="true"></i>
-                                            {{user.username}}
-                                        </a>
-                                    </td>
-                                {% endif %}
+                        
+                                    {% if user.online_status %}
+                                        <td>
+                                            <a style="color: green" id="{{user.username}}_status" href="{% url 'direct_messages:chat' username=user.username %}">
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                                {{user.username}}
+                                            </a>
+                                        </td>
+                                    {% else %}
+                                        <td>
+                                            <a style="color: grey" id="{{user.username}}_status" href="{% url 'direct_messages:chat' username=user.username %}">
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                                {{user.username}}
+                                            </a>
+                                        </td>
+                                    {% endif %}
 
-                            </tr>
-                            {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <h3>Друзей нет</h3>
+                            {% endif %}
                             <!-- end -->
                         </tbody>
                     </table>
