@@ -34,7 +34,9 @@
                             <a href="{% url 'account:register' %}">У меня нет аккаунта?</a>
                             <a href="{% url 'account:password_reset' %}">Забыли пароль?</a>
                             <br>
-                            Войти через <a href="{% url 'social:begin' 'github' %}" >GitHub</a> или <a href="{% url 'social:begin' 'vk-oauth2' %}">Вконтакте</a>
+                            {% comment %} Войти через <a href="{% url 'social:begin' 'github' %}" >GitHub</a> или  {% endcomment %}
+                            Войти через<a href="{% url 'social:begin' 'vk-oauth2' %}"><i class="fa fa-vk" aria-hidden="true">Вконтакте</i>
+                            </a>
                       
                     </div>
 				</form>
