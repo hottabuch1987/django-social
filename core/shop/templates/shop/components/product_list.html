@@ -28,9 +28,9 @@
 					<br>
 
 					{% if only_friend.avatar %}                   
-					<a href="#" data-toggle="modal" data-target="#gallery-modal" class="gallery-link">
-						<img class="img-fluid mx-auto d-block gallery-image" alt="Responsive image" style="max-width: 7rem; height: 7rem; border-radius: 50%;aspect-ratio: 1 / 1;" src="{{ only_friend.full_image_url }}">
-					</a>
+				
+					<img class="img-fluid mx-auto d-block gallery-image" alt="Responsive image" style="max-width: 7rem; height: 7rem; border-radius: 50%;aspect-ratio: 1 / 1;" src="{{ only_friend.full_image_url }}">
+					
 					{% else %}
 						<img src="/static/shop/images/avatar.png" alt="user" style="max-width: 7rem; height: 7rem; border-radius: 50%;aspect-ratio: 1 / 1;">      
 					{% endif %}
