@@ -12,7 +12,7 @@ urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('social/', include('social_django.urls', namespace='social')),#github
     path('social-auth/', include('social_django.urls', namespace='social-auth')), #vk
-    path('shop/', include('shop.urls', namespace='shop')),
+    path('users/', include('shop.urls', namespace='shop')),
     path('account/', include('account.urls', namespace='account')),
     path('email/', include(email_urls), name='email-verification'),
     path("recommend/", include('recommend.urls', namespace='recommend')),
