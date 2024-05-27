@@ -14,6 +14,7 @@
             <span onclick="goBack()" class="btn btn-secondary">Назад
                 <i class="fa fa-shield fa-rotate-90"></i>
             </span>
+          
             
             <div class="col-sm-4 border-right border-secondary">
                 
@@ -112,13 +113,16 @@
                                 {% endif %}
                                                               
                             </div>
+                            
                             {% for message in messages %}
+                            
                             {% if message.sender == request.user.username %}
                             
                             <tr>
                                 <td>
                                     <p class="bg-success p-2 mt-2 mr-5 shadow-sm text-white float-right rounded">
                                         {{message.message}}
+                                     
                                     </p>
                                 </td>
                                 <td>
@@ -159,12 +163,6 @@
     </div>
 
 </div>
-
-
-{{user.id|json_script:"json-username"}}
-{{user.username|json_script:"json-username-receiver"}}
-{{request.user.username|json_script:"json-message-username"}}
-
 <style>
     .profile-image {
         margin-top: 7px;
@@ -212,6 +210,13 @@
      }
 
 </style>
+
+
+{{user.id|json_script:"json-username"}}
+{{user.username|json_script:"json-username-receiver"}}
+{{request.user.username|json_script:"json-message-username"}}
+
+
 {% endblock %}
 <!--   Функция отправки сообщения -->
 {% block scripts %}

@@ -295,13 +295,13 @@ header .navbar {
 }
 
 .member-social-icon {
-	border-bottom: 0 solid #fff;
+	/* border-bottom: 0 solid #fff;
 	margin-top: 30px;
 	opacity: 0;
 	-webkit-transition: all 0.5s;
 	-moz-transition: all 0.5s;
 	-ms-transition: all 0.5s;
-	-o-transition: all 0.5s;
+	-o-transition: all 0.5s; */
 	transition: all 0.5s;
 }
 
@@ -309,19 +309,19 @@ header .navbar {
 	color: #fff;
 }
 
-.single-team:hover .member-social-icon {
+ .single-team .member-social-icon {
 	margin: 0;
 	border-bottom: 7px solid #fff;
 	opacity: 1;
 }
 
-.single-team:hover p {
+.single-team p {
 
 	border-bottom: 0 solid #f20101;
 
 }
 
-.single-team:hover p::after {
+.single-team p::after {
 	opacity: 0;
 	bottom: 150px;
 }
