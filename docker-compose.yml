@@ -43,6 +43,8 @@ services:
     image: redis:7.2.3-alpine
     container_name: core-redis
     restart: unless-stopped
+    ports:
+      - 6379:6379
     
   flower:
     image: mher/flower
