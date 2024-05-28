@@ -3,7 +3,7 @@ from django.shortcuts import render
 from random import randint
 from .models import ChatModel
 from django.db.models import Subquery
-
+import re
 
 def index(request):
     user = request.user
@@ -18,7 +18,7 @@ def index(request):
 
 
 
-import re
+
 def convert_guid_to_number(guid):
         # Преобразование UUID в строку и удаление дефисов
         guid_str = str(guid).replace('-', '')
@@ -31,17 +31,16 @@ def chatPage(request, username):
 
     user = request.user
     users = User.objects.filter(friends=user)
-    print(users, 'usersssss')
+  
 
     if convert_guid_to_number(request.user.id) > convert_guid_to_number(user_obj.id):
-        print('больше')
+      
         thread_name = f'chat_{str(convert_guid_to_number(request.user.id))}-{str(convert_guid_to_number(user_obj.id))}'
     else:
         thread_name = f'chat_{str(convert_guid_to_number(user_obj.id))}-{str(convert_guid_to_number(request.user.id))}'
-        print('меньше')
-    print(thread_name, 'thread_name')
-    all = ChatModel.objects.all()
-    print(all, 'all')
+    
+ 
+    
     message_objs = ChatModel.objects.filter(thread_name=thread_name)
-    print(message_objs, thread_name, 'message_objsss')
+
     return render(request, 'direct_messages/send_message.html', context={'user': user_obj, 'users': users, 'messages': message_objs})

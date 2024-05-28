@@ -37,6 +37,11 @@
                         <button class="removeFriendBtn btn red-btn" id="remove-friend-btn" data-user-id="{{ user.id }}" style="max-width: 11rem; max-height: 11rem;">
                             Удалить 
                         </button>
+
+                        
+                        <a href="{% url 'direct_messages:chat' username=user.username %}"> Написать</a>
+                        
+
                     {% else %}
                         <button class="addFriendBtn " id="add-friend-btn" data-user-id="{{ user.id }}" style="max-width: 11rem; max-height: 11rem; color: green;">
                             <i class="fa fa-plus" aria-hidden="true"></i> Добавить в друзья
