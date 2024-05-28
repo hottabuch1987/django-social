@@ -25,71 +25,7 @@
     <div class="row  wow bounceInLeft">
         <div class="col-sm-6 ">
             
-            <!--add and del user-->
-            {% if request.user.is_authenticated %}
-                <audio id="notificationSound">
-                    <source src="/media/mp3/ding.mp3" type="audio/mpeg"> 
-                </audio>
-                {% if user != request.user %}
-                    {% if user in request.user.friends.all %}
-
-                    
-                        <button class="removeFriendBtn btn red-btn" id="remove-friend-btn" data-user-id="{{ user.id }}" style="max-width: 11rem; max-height: 11rem;">
-                            Удалить 
-                        </button>
-
-                        
-                        <a href="{% url 'direct_messages:chat' username=user.username %}"> Написать</a>
-                        
-
-                    {% else %}
-                        <button class="addFriendBtn " id="add-friend-btn" data-user-id="{{ user.id }}" style="max-width: 11rem; max-height: 11rem; color: green;">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Добавить в друзья
-                        </button>
-                    {% endif %}
-                {% endif %}
-            {% endif %}
-
-            <script>
-                $(document).ready(function() {
-                    var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-                    
-                    $('#add-friend-btn').click(function() {
-                        var userId = $(this).data('user-id');
-                        $('#notificationSound')[0].play(); 
-                        $.ajax({
-                            type: 'POST',
-                            beforeSend: function(xhr, settings) {
-                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                            },
-                            url: '',
-                            data: { add_friend: true, user_id: userId },
-                            success: function(data) {
-                                alert('Добавлен в друзья!');
-                                location.reload();
-                            }
-                        });
-                    });
-                
-                    $('#remove-friend-btn').click(function() {
-                        var userId = $(this).data('user-id');
-                        $.ajax({
-                            type: 'POST',
-                            beforeSend: function(xhr, settings) {
-                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                            },
-                            url: '',
-                            data: { remove_friend: true, user_id: userId },
-                            success: function(data) {
-                                alert('Удален из друзей!');
-                                location.reload();
-                            }
-                        });
-                    });
-                });
-                
-            </script>
-            <!--//-->
+          
             <div class="single-team">
             <!-- Gallery -->
 
@@ -276,9 +212,78 @@
                         {{user.date_joined}}
                     {% endif %}
                 </p>
+                
     
                 <!--    Лайк  -->
                 {% include 'recommend/like.html' %}
+                  <!--add and del user-->
+            {% if request.user.is_authenticated %}
+            <audio id="notificationSound">
+                <source src="/media/mp3/ding.mp3" type="audio/mpeg"> 
+            </audio>
+                {% if user != request.user %}
+                    {% if user in request.user.friends.all %}
+
+                    
+                        <button class="removeFriendBtn btn red-btn" id="remove-friend-btn" data-user-id="{{ user.id }}" style="max-width: 11rem; max-height: 11rem;">
+                            Удалить 
+                        </button>
+                        
+        
+                        
+                        <a  style="max-width: 11rem; max-height: 11rem; " href="{% url 'direct_messages:chat' username=user.username %}"> 
+                            <button class="removeFriendBtn btn red-btn">Написать</button>
+                        </a>
+                        
+
+                    {% else %}
+                        <button class="removeFriendBtn btn red-btn" id="add-friend-btn" data-user-id="{{ user.id }}" style="max-width: 11rem; max-height: 11rem; ">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Добавить 
+                        </button>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
+        <script>
+            $(document).ready(function() {
+                var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                
+                $('#add-friend-btn').click(function() {
+                    var userId = $(this).data('user-id');
+                    $('#notificationSound')[0].play(); 
+                    $.ajax({
+                        type: 'POST',
+                        beforeSend: function(xhr, settings) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        },
+                        url: '',
+                        data: { add_friend: true, user_id: userId },
+                        success: function(data) {
+                            alert('Добавлен в друзья!');
+                            location.reload();
+                        }
+                    });
+                });
+            
+                $('#remove-friend-btn').click(function() {
+                    var userId = $(this).data('user-id');
+                    $.ajax({
+                        type: 'POST',
+                        beforeSend: function(xhr, settings) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        },
+                        url: '',
+                        data: { remove_friend: true, user_id: userId },
+                        success: function(data) {
+                            alert('Удален из друзей!');
+                            location.reload();
+                        }
+                    });
+                });
+            });
+            
+        </script>
+        <!--//-->
                       
                 
                 <!--    Отзыв   -->
