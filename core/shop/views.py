@@ -44,7 +44,7 @@ def search_products(request):
     if gender:
         users = User.objects.filter(gender=gender)  # Assuming User model exists
 
-    if online_status == 'online':  # Check if 'online_status' is 'online'
+    elif online_status == 'online':  # Check if 'online_status' is 'online'
         users = User.objects.filter(online_status=True)
     else:
         users = User.objects.all()  # Or any default queryset
