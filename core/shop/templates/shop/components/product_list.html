@@ -107,11 +107,17 @@
                         <i class="fa fa-female" style="font-size:24px"></i>
                         
                     {% else %}
-                        <i class="fa fa-circle-o" style="font-size:24px"></i>
-                    
+                        <i class="fa fa-circle-o" style="font-size:24px"></i> 
                         не выбран
                     {% endif %}
 					<h4 class="text-uppercase">{{ only_friend.username }} - {{ only_friend.lastname }}</h4>
+					<!---->
+					{% if user.online_status %}
+						<span style="color:#77e977">Online</span>
+					{% else %}
+						<span style="color:#bdbcbc">Offline</span>
+					{% endif %}
+					<!---->
 
 					<p>{{ only_friend.bio|truncatechars:10}}</p>
 					
