@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from account.models import User, Forum, UserImage, Notification
+from recommend.models import Review
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, get_object_or_404
 from .tasks import send_registration_email, send_forum_message
@@ -95,7 +96,9 @@ class DashboardUserView(View):
             for notification in notifications:
                 notification.is_read = True
                 notification.save()
-            context = {'friends': friends, 'notifications':notifications}
+
+            recommendations = Review.objects.all().order_by('-created_at')
+            context = {'friends': friends, 'notifications':notifications, 'recommendations':recommendations}
             return render(request, self.template_name, context)
 
     def post(self, request):
@@ -168,6 +171,7 @@ def delete_user(request):
 def user_detail(request, slug):
     user = get_object_or_404(User, slug=slug)
     
+    
     images = UserImage.objects.filter(user=user)
 
     if request.method == 'POST':
@@ -179,6 +183,8 @@ def user_detail(request, slug):
                 content = request.POST.get('content', '')
                 if content:
                     user.reviews.create(rating=rating, content=content, created_by=request.user, user=user)
+                    
+                    messages.success(request, 'Ваш комментарий успешно добавлен.')
                     return redirect(request.path)
             #add and del fiends
             if user != request.user:

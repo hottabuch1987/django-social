@@ -25,25 +25,32 @@ class ProductListView(ListView):
             return ["shop/components/product_list.html"]
         return ["shop/products.html"]
     
+from datetime import datetime
 
+# Функция для расчета возраста по дате рождения
+def calculate_age(birth_date):
+    birth_date = datetime.strptime(birth_date, '%Y-%m-%d')
+    today = datetime.now()
+    age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
+    return age
 
-
-#поиск на ru-en языках в названии и описании
+# Функция для поиска  с фильтрацией по возрасту, полу и онлайн-статусу
+# Функция для поиска с фильтрацией по возрасту, полу и онлайн-статусу
 def search_products(request):
     query = request.GET.get('q')
-    if not query:
-        return redirect('shop:products')
+    gender = request.GET.get('gender')
+    online_status = request.GET.get('online_status') 
+    
+    if gender:
+        users = User.objects.filter(gender=gender)  # Assuming User model exists
 
-    products = User.objects.filter(
-        Q(title_ru__icontains=query) |
-        Q(title_en__icontains=query) |
-        Q(description_content_ru__icontains=query) |
-        Q(description_content_en__icontains=query)
-    ).distinct()
-
-    context = {'products': products}
+    if online_status == 'online':  # Check if 'online_status' is 'online'
+        users = User.objects.filter(online_status=True)
+    else:
+        users = User.objects.all()  # Or any default queryset
+    
+    context = {'users': users.distinct()}  # Assuming you want to pass users data to template
     return render(request, 'shop/products.html', context)
-
 
 
 

@@ -133,28 +133,32 @@
         <a class="reviews-title " href="{% url 'account:register' %}">Зарегистрируйтесь</a> или <a class="reviews-title " href="{% url 'account:login' %}">Войдите,</a> что бы оставить отзыв или написать</h3>
 
     {% endif %}
-
+    
     {% for review in user.reviews.all %}
     
     <div class="d-flex flex-row bd-highlight mb-3 justify-content-between review " id="review-{{ review.id }}">
       
-        
-            <strong >{{user.username}} </strong> 
+            <strong >{{review.user.username}} </strong> 
             <div class="star-rating">
                 <div class="star-rating__wrap">
+
                     {% for i in "54321" %}
-                    {% if i|add:"0" <= review.rating %}
-                        <label class="star-rating__ico fa fa-star fa-lg"></label>
-                    {% else %}
-                        <label class="star-rating__ico fa fa-star-o fa-lg"></label>
-                    {% endif %}
-                {% endfor %}
+                        {% if i|add:"0" <= review.rating %}
+                            <label class="star-rating__ico fa fa-star fa-lg"></label>
+                        {% else %}
+                            <label class="star-rating__ico fa fa-star-o fa-lg"></label>
+                        {% endif %}
+                    {% endfor %}
  
                 </div>
             </div>
             <br>
             
             {{ review.content }}
+            
+        
+            
+
             
             <p class="text-muted">{{ review.created_at|date:"Y F d H:i" }}</p>
         
@@ -172,6 +176,7 @@
   
     </div>
     {% endfor %}
+    
 </div>
 <script>
     $(document).ready(function() {

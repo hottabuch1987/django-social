@@ -223,13 +223,15 @@
             </audio>
                 {% if user != request.user %}
                 {% if user in request.user.friends.all %}
- 
-                        <button class="removeFriendBtn btn red-btn " style="max-width: 12rem; max-height: 12rem;">
+                    
+                        <button class="removeFriendBtn btn red-btn " style="max-width: 12rem; max-height: 12rem; margin:3px;">
                         
                             <a class="btn btn-red text-uppercase" href="{% url 'direct_messages:chat' username=user.username %}" style="max-width: 11rem; max-height: 11rem;"> 
                                 Написать
                             </a>
                         </button>
+                        
+                        
                         <button class="removeFriendBtn btn red-btn" id="remove-friend-btn" data-user-id="{{ user.id }}" style="max-width: 11rem; max-height: 11rem;">
                             Удалить 
                         </button>

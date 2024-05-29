@@ -4,9 +4,6 @@ from django.db import models
 
 
 
-
-
-
 class Review(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="reviews_written", verbose_name="Пользователь"
@@ -26,6 +23,6 @@ class Review(models.Model):
         
 
     def __str__(self):
-        return f"{self.created_by} о продукте: {self.product}"
+        return f"{self.created_by} о человеке: {self.user}"
     
 

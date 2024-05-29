@@ -26,7 +26,7 @@
 
                     {% endif %}
                     <h3></h3>
-                    <p>  {{ user.username }}</p>
+                    <p>  {{ request.user.username }}</p>
                     <p>
                         <i class="fa fa-user" style="font-size:24px"></i>
                         {% if request.user.first_name %}
@@ -255,6 +255,48 @@
             
         </script>
         <!--posible friends-->
+
+        {% for review in user.reviews.all %}
+    
+    <div class="d-flex flex-row bd-highlight mb-3 justify-content-between review " id="review-{{ review.id }}">
+      
+            <strong >{{review.user.username}} </strong> 
+            <div class="star-rating">
+                <div class="star-rating__wrap">
+
+                    {% for i in "54321" %}
+                        {% if i|add:"0" <= review.rating %}
+                            <label class="star-rating__ico fa fa-star fa-lg"></label>
+                        {% else %}
+                            <label class="star-rating__ico fa fa-star-o fa-lg"></label>
+                        {% endif %}
+                    {% endfor %}
+ 
+                </div>
+            </div>
+            <br>
+            
+            {{ review.content }}
+        
+            {% comment %} {{review.user}} {% endcomment %}
+
+            
+            <p class="text-muted">{{ review.created_at|date:"Y F d H:i" }}</p>
+        
+      
+       
+        {% if request.user.is_authenticated and request.user == created_by or request.user == user %}
+            <form method="post" action="{% url 'recommend:delete_review' review.id %}">
+            {% csrf_token %}
+            
+                <button type="submit" class="delete-review-btn btn btn-danger btn-sm delete-button">
+                    Удалить
+                </button>
+            </form>
+        {% endif %}
+  
+    </div>
+    {% endfor %}
         
     </div>
   
