@@ -142,13 +142,19 @@
                         {{user.first_name}}
                    
                     {% endif %}
-               
-                
+
                     {% if user.last_name %}
                         {{user.last_name}}
                    
                        
                     {% endif %}
+                    <!---->
+                    {% if user.online_status == True %}
+                        <span style="color:#77e977"> Online</span>
+                    {% else %}
+                        <span style="color:#bdbcbc"> Offline</span>
+                    {% endif %}
+                    <!---->
                 </p>
                 <p>
                     <i class="fa fa-envelope-o" style="font-size:24px"></i>
@@ -212,13 +218,7 @@
                         {{user.date_joined}}
                     {% endif %}
                 </p>
-                <!---->
-				{% if user.online_status == True %}
-                    <span style="color:#77e977">Online</span>
-                {% else %}
-                    <span style="color:#bdbcbc">Offline</span>
-                {% endif %}
-                <!---->
+                
                 
     
                 <!--    Лайк  -->
