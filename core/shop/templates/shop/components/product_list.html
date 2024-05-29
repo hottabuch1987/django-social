@@ -67,7 +67,7 @@
 									<!---->
 									<h4 class="text-uppercase">{{ user.username }} - {{ user.lastname }}</h4>
 				
-									<p>{{ only_friend.bio|truncatechars:10}}</p>
+									<p>{{ user.bio|truncatechars:10}}</p>
 									
 									<a class="btn btn-red text-uppercase" href="{% url 'account:user_detail' slug=user.slug %}">          
 										Смотреть
@@ -112,7 +112,7 @@
                     {% endif %}
 					<h4 class="text-uppercase">{{ only_friend.username }} - {{ only_friend.lastname }}</h4>
 					<!---->
-					{% if user.online_status %}
+					{% if only_friend.online_status %}
 						<span style="color:#77e977">Online</span>
 					{% else %}
 						<span style="color:#bdbcbc">Offline</span>

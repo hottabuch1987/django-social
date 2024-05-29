@@ -41,13 +41,14 @@ def search_products(request):
     gender = request.GET.get('gender')
     online_status = request.GET.get('online_status') 
     
-    if gender:
-        users = User.objects.filter(gender=gender)  # Assuming User model exists
-
-    elif online_status == 'online':  # Check if 'online_status' is 'online'
+    if gender and online_status == 'online':
+        users = User.objects.filter(gender=gender, online_status=True)
+    elif online_status == 'online':
         users = User.objects.filter(online_status=True)
+    elif gender:
+        users = User.objects.filter(gender=gender)
     else:
-        users = User.objects.all()  # Or any default queryset
+        users = User.objects.all() 
     
     context = {'users': users.distinct()}  # Assuming you want to pass users data to template
     return render(request, 'shop/products.html', context)

@@ -212,6 +212,13 @@
                         {{user.date_joined}}
                     {% endif %}
                 </p>
+                <!---->
+				{% if user.online_status == True %}
+                    <span style="color:#77e977">Online</span>
+                {% else %}
+                    <span style="color:#bdbcbc">Offline</span>
+                {% endif %}
+                <!---->
                 
     
                 <!--    Лайк  -->
