@@ -57,6 +57,14 @@
 									
 										не выбран
 									{% endif %}
+
+									<!---->
+									{% if user.online_status %}
+										<span style="color:#77e977">Online</span>
+									{% else %}
+										<span style="color:#bdbcbc">Offline</span>
+									{% endif %}
+									<!---->
 									<h4 class="text-uppercase">{{ user.username }} - {{ user.lastname }}</h4>
 				
 									<p>{{ only_friend.bio|truncatechars:10}}</p>
