@@ -24,7 +24,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*', "http://195.133.32.53", "195.133.32.53", "localhost",]
+ALLOWED_HOSTS = ['*', "http://195.133.32.53", "195.133.32.53", "195.133.32.53/ru/", "http://195.133.32.53/ru/", "localhost",]
 
 #"http://195.133.32.53", "195.133.32.53",
 
@@ -351,7 +351,7 @@ SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
 
 
 LOGOUT_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = '/ru/dashboard/'
+LOGIN_REDIRECT_URL = '/account/profile-management/'
 
 #django-recaptcha
 SILENCED_SYSTEM_CHECKS = ['django_recaptcha.recaptcha_test_key_error']
