@@ -8,7 +8,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls import handler404, handler403, handler500
 
 
-urlpatterns = i18n_patterns(
+urlpatterns = (
     path('admin/', admin.site.urls),
     path('social/', include('social_django.urls', namespace='social')),#github
     path('social-auth/', include('social_django.urls', namespace='social-auth')), #vk
@@ -22,7 +22,7 @@ urlpatterns = i18n_patterns(
 )
 
 urlpatterns += [
-    path("i18n/", include("django.conf.urls.i18n")),
+    #path("i18n/", include("django.conf.urls.i18n")),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
