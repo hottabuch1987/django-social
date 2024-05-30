@@ -38,9 +38,12 @@ jobs:
             python3 manage.py migrate
             python3 manage.py collectstatic --noinput
             redis-server
-            gunicorn -b 0.0.0.0:8000 core.wsgi
             
-            daphne -b http://195.133.32.53 -p 8000 core.asgi:application
+            python3 manage.py runserver http://195.133.32.53:8000
+           
+
+            
+            daphne -b http://195.133.32.53 -p 8001 core.asgi:application
 
             
             
