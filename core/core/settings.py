@@ -24,7 +24,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*', "http://195.133.32.53", "195.133.32.53", "195.133.32.53/ru/", "http://195.133.32.53/ru/", "localhost",]
+ALLOWED_HOSTS = ['*', "http://195.133.32.53", "195.133.32.53", "localhost",]
 
 #"http://195.133.32.53", "195.133.32.53",
 
@@ -348,7 +348,6 @@ SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 SOCIAL_AUTH_VK_OAUTH2_KEY=env('SOCIAL_AUTH_VK_OAUTH2_KEY')
 SOCIAL_AUTH_VK_OAUTH2_SECRET=env('SOCIAL_AUTH_VK_OAUTH2_SECRET')
 SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
-
 
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/account/profile-management/'
