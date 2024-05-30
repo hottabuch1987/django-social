@@ -40,7 +40,7 @@ class User(AbstractUser):
     
     def get_avatar(self):
         if self.avatar:
-            return 'http://195.133.32.53:8000' + self.avatar.url
+            return 'http://195.133.32.53' + self.avatar.url
         else:
             return '/static/shop/images/avatar.png' + self.avatar.url
 
@@ -86,7 +86,7 @@ class UserImage(models.Model):
 
     def get_image(self):
         if self.image:
-            return 'http://195.133.32.53:8000' + self.image.url
+            return 'http://195.133.32.53' + self.image.url
         else:
             return '/static/shop/images/avatar.png' + self.image.url
 

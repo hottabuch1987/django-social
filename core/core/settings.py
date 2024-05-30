@@ -245,7 +245,7 @@ def email_verified_callback(user):
 
 # Global Package Settings
 EMAIL_FROM_ADDRESS = 'varvar1987a@gmail.com'  # mandatory
-EMAIL_PAGE_DOMAIN = 'http://195.133.32.53:8000/'  # mandatory (unless you use a custom link)
+EMAIL_PAGE_DOMAIN = 'http://195.133.32.53/'  # mandatory (unless you use a custom link)
 #EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
 EMAIL_MULTI_USER = False  # optional (defaults to False)
 
