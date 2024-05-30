@@ -38,7 +38,8 @@ jobs:
             python3 manage.py migrate
             python3 manage.py collectstatic --noinput
             python3 manage.py runserver 0.0.0.0:8000
-            daphne -b http://195.133.32.53 -p 8000 core.asgi:application"
+            daphne -b http://195.133.32.53 -p 8000 core.asgi:application
+
             
             
 
