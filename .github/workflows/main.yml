@@ -28,6 +28,12 @@ jobs:
           script: |   
             cd /root/django-social/core/
 
+           
+            pkill -f "gunicorn"
+
+            
+            
+
             git pull origin main
             
             source /root/django-social/venv/bin/activate
@@ -38,8 +44,9 @@ jobs:
             python3 manage.py migrate
             python3 manage.py collectstatic --noinput
             redis-server
+            gunicorn -w 4 -b 0.0.0.0:8000 core.wsgi:application
             
-            python3 manage.py runserver 127.0.0.1:8000
+            
            
 
             
