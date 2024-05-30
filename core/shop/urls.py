@@ -6,7 +6,7 @@ app_name = 'shop'
 urlpatterns = [
     path('', ProductListView.as_view(), name='products'),
 
-    path("search_products/", search_products, name="search-products"),
+    path("search_users/", search_products, name="search-users"),
     #
 
 ]
