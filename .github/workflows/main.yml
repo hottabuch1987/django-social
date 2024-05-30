@@ -26,15 +26,20 @@ jobs:
           username: ${{ secrets.REMOTE_USERNAME }}  # Переменная для имени пользователя SSH
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # Переменная для приватного ключа SSH
           script: |   
-            cd /root/django-social 
+            cd /root/django-social/core/
 
             git pull origin main
+
+            python3 -m venv venv
+            source venv/bin/activate
+            pip install -r requirements.txt
+            python3 manage.py makemigrations
+            python3 manage.py migrate
+            python3 manage.py collectstatic --noinput
+            python3 manage.py runserver 0.0.0.0:8000
+            daphne -b http://195.133.32.53 -p 8000 core.asgi:application"
             
             
-            
-            docker-compose down  
-            docker-compose build
-            docker-compose up -d
 
   send_message:
     runs-on: ubuntu-latest
