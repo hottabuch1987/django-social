@@ -350,7 +350,7 @@ SOCIAL_AUTH_VK_OAUTH2_SECRET=env('SOCIAL_AUTH_VK_OAUTH2_SECRET')
 SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
 
 LOGOUT_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = '/ru/'
+LOGIN_REDIRECT_URL = '/account/profile-management/'
 
 #django-recaptcha
 SILENCED_SYSTEM_CHECKS = ['django_recaptcha.recaptcha_test_key_error']
