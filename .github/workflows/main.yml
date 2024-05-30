@@ -28,15 +28,11 @@ jobs:
           script: |   
             cd /root/django-social/core/
 
-            git pull origin 
-            sudo apt update
-            sudo apt install python3-venv python3.8
-
-
-            python3 -m venv venv
+            git pull origin main
+            
             source venv/bin/activate
 
-            pip install --upgrade pip
+            
             pip install -r requirements.txt
             python3 manage.py makemigrations
             python3 manage.py migrate
