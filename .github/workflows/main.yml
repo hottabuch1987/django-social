@@ -43,7 +43,7 @@ jobs:
            
 
             
-            daphne -b http://195.133.32.53 -p 8001 core.asgi:application
+            daphne -b http://127.0.0.1 -p 8001 core.asgi:application
 
             
             
