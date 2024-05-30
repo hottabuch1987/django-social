@@ -3,12 +3,19 @@ from faker import Faker
 from account.models import User
 from datetime import datetime
 import random
-
+import os
+from django.core.files.images import ImageFile
 
 fake = Faker('ru_RU')
 #file_path = '/Users/hottabych/Desktop/znakomstva/shop/core/shop/management/biographies.txt' #локальный путь
+#photos_directory = '/Users/hottabych/Music/znakomstva/shop/core/shop/management/images_directory/' #локальный путь
 #file_path = '/app/shop/management/biographies.txt'
+
 file_path = '/root/django-social/core/shop/management/biographies.txt'
+photos_directory = '/root/django-social/core/shop/management/images_directory/'
+
+photos_list = sorted(os.listdir(photos_directory))
+
 class Command(BaseCommand):
     help = 'Create fake user profiles'
     def get_random_bio(self):
@@ -17,7 +24,7 @@ class Command(BaseCommand):
             return random.choice(bios).strip()
 
     def handle(self, *args, **options):
-        for _ in range(200):  # Создайте 10 фейковых пользователей, можно изменить на нужное количество
+        for _ in range(40):  # Создайте 10 фейковых пользователей, можно изменить на нужное количество
             user = User(
                 username=fake.user_name(),
                 email=fake.email(),
@@ -32,6 +39,15 @@ class Command(BaseCommand):
                 bio=self.get_random_bio(),
                 # Другие поля модели User, которые вы хотите заполнить
             )
+            # Проверить, не превышает ли индекс i количество файлов
+            if _ < len(photos_list):
+                photo_filename = photos_list[_]
+                photo_path = os.path.join(photos_directory, photo_filename)
+
+                with open(photo_path, 'rb') as f:
+                    user.avatar.save(photo_filename, ImageFile(f), save=True)
+
+
             user.set_password('password123')  # Установите фиксированный пароль для всех пользователей
             user.save()
 
