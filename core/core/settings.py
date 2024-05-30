@@ -146,16 +146,19 @@ TEMPLATES = [
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'env(name_db)',
-        'USER': 'env(name_user)',
-        'PASSWORD': 'env(password)',
+        'NAME': 'env(NAME_DB)',
+        'USER': 'env(USER_NAME)',
+        'PASSWORD': 'env(PASSWORD_DB)',
         'HOST': 'localhost',
         'PORT': '',
     }
 }
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
