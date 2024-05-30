@@ -17,7 +17,7 @@ class Command(BaseCommand):
             return random.choice(bios).strip()
 
     def handle(self, *args, **options):
-        for _ in range(10):  # Создайте 10 фейковых пользователей, можно изменить на нужное количество
+        for _ in range(200):  # Создайте 10 фейковых пользователей, можно изменить на нужное количество
             user = User(
                 username=fake.user_name(),
                 email=fake.email(),
