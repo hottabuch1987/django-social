@@ -87,6 +87,10 @@ class DashboardUserView(View):
 
     def get(self, request):
         if request.user.is_authenticated:
+            images = UserImage.objects.filter(user=request.user)
+
+            
+
             all_friends = User.objects.all().exclude(id=request.user.id)
             random_friend = choice(all_friends) if all_friends else None
             friends = User.objects.filter(id=random_friend.id) if random_friend else None
@@ -98,7 +102,7 @@ class DashboardUserView(View):
                 notification.save()
 
             recommendations = Review.objects.all().order_by('-created_at')
-            context = {'friends': friends, 'notifications':notifications, 'recommendations':recommendations}
+            context = {'friends': friends, 'notifications':notifications, 'recommendations':recommendations, 'images': images}
             return render(request, self.template_name, context)
 
     def post(self, request):
@@ -137,15 +141,16 @@ def profile_user(request):
 
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, request.FILES, instance=request.user)
-        images_form = UserImageForm(request.POST, request.FILES)
+        images_form = UserImageForm(request.POST, request.FILES, instance=request.user)
 
         if user_form.is_valid() and images_form.is_valid():
-            user_instance = user_form.save(commit=False)
-            user_instance.save()
-
-            image_instance = images_form.save(commit=False)
-            image_instance.user = request.user
+            user_instance = user_form.save()
+            # Получаем или создаем объект изображения пользователя
+            image_instance, created = UserImage.objects.get_or_create(user=request.user)
+            image_instance.image = images_form.cleaned_data['image']
             image_instance.save()
+            
+
             return redirect('account:dashboard')
     
     context = {

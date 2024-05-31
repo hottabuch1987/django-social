@@ -19,12 +19,149 @@
                 
                 <div class="single-team">
 
-                    {% if request.user.avatar %}                   
-                        <img src="{{ user.avatar.url }}" alt="">
-                    {% else %}
-                        <img src="/static/shop/images/avatar.png" alt="user" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">
+                    
 
-                    {% endif %}
+               <!-- Gallery -->
+
+                {% if request.user.avatar %}                   
+                <a href="#" data-toggle="modal" data-target="#gallery-modal" class="gallery-link">
+                    <img class="img-fluid mx-auto d-block gallery-image" alt="Responsive image" src="{{ user.full_image_url }}">
+                </a>
+                {% else %}
+                    <img src="/static/shop/images/avatar.png" alt="user" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">      
+                {% endif %}
+            
+                    
+            <!--  -->
+            <div class="modal" id="gallery-modal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="carousel" id="gallery-carousel">
+                                
+                                {% for image in images %}
+                                
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <img src="{{ image.full_image_url }}" alt="gallery">
+                                </div>
+                                {% endfor %}
+                               
+                            </div>
+                            
+                            <button class="carousel-control-prev" onclick="prevSlide()"><i class="fa fa-chevron-left" aria-hidden="true"></i>
+                            </button>
+                            <button class="carousel-control-next" onclick="nextSlide()"><i class="fa fa-chevron-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <style>
+                .modal {
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.8);
+                    z-index: 9999;
+                    
+                }
+                
+            
+                .modal-content {
+                    position: relative;
+                    margin: auto;
+                    width: 80vw; /* Задайте ширину в 80% ширины окна просмотра */
+                    max-width: 800px; /* Опционально: Максимальная ширина */
+                    background-color: #fff;
+                    padding: 2px;
+                    border-radius: 8px;
+                    
+                }
+                
+            
+                .carousel-item {
+                    display: none;
+                    width: 100%; /* Показывать только один элемент на ширине экрана */
+                }
+                .carousel-item img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover; /* Позволит изображению заполнить контейнер */
+                }
+                
+                .active {
+                    display: block;
+                }
+            
+                .carousel-control-prev,
+                .carousel-control-next {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background-color: rgba(255, 255, 255, 0.5);
+                    border: none;
+                    cursor: pointer;
+                    padding: 10px;
+                }
+            
+                .carousel-control-prev {
+                    left: 10px;
+                }
+            
+                .carousel-control-next {
+                    right: 10px;
+                }
+            </style>
+            
+            <script>
+
+                document.querySelector('.close').addEventListener('click', function() {
+                    document.getElementById('gallery-modal').style.display = 'none';
+                });
+                let currentSlide = 0;
+                const slides = document.querySelectorAll('.carousel-item');
+            
+                
+            
+                function resetSlides() {
+                    for (let i = 0; i < slides.length; i++) {
+                        slides[i].classList.remove('active');
+                    }
+                }
+                
+                function prevSlide() {
+                    resetSlides();
+                    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                }
+                
+                function nextSlide() {
+                    resetSlides();
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                }
+                
+                document.querySelector('.gallery-link').addEventListener('click', function() {
+                    currentSlide = 0;
+                    resetSlides();
+                    slides[currentSlide].classList.add('active');
+                    document.getElementById('gallery-modal').style.display = 'block';
+                });
+                
+            </script>
+    
+            <!-- /// Gallery -->
+
+
                     <h3></h3>
                     <p>  {{ request.user.username }}</p>
                     <p>

@@ -92,6 +92,10 @@ class UserImage(models.Model):
 
     def __str__(self):
         return f"Изибражение для {self.user.username}"
+    
+    @property
+    def full_image_url(self):     
+        return self.image.url if self.image else ''
 
 
 #notification

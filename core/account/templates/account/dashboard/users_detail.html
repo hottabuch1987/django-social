@@ -42,11 +42,17 @@
             <div class="modal" id="gallery-modal">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         <div class="modal-body">
                             <div class="carousel" id="gallery-carousel">
                                 {% for image in images %}
+                                
                                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                    <img src="{{ image.avatar.url }}" alt="gallery">
+                                    <img src="{{ image.full_image_url }}" alt="gallery">
                                 </div>
                                 {% endfor %}
                             </div>
@@ -70,22 +76,32 @@
                     height: 100%;
                     background-color: rgba(0, 0, 0, 0.8);
                     z-index: 9999;
+                    
                 }
+                
             
                 .modal-content {
                     position: relative;
                     margin: auto;
-                    width: 80%;
-                    max-width: 800px;
+                    width: 80vw; /* Задайте ширину в 80% ширины окна просмотра */
+                    max-width: 800px; /* Опционально: Максимальная ширина */
                     background-color: #fff;
                     padding: 2px;
                     border-radius: 8px;
+                    
                 }
+                
             
                 .carousel-item {
                     display: none;
+                    width: 100%; /* Показывать только один элемент на ширине экрана */
                 }
-            
+                .carousel-item img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover; /* Позволит изображению заполнить контейнер */
+                }
+                
                 .active {
                     display: block;
                 }
@@ -111,26 +127,40 @@
             </style>
             
             <script>
+
+                document.querySelector('.close').addEventListener('click', function() {
+                    document.getElementById('gallery-modal').style.display = 'none';
+                });
                 let currentSlide = 0;
                 const slides = document.querySelectorAll('.carousel-item');
             
+                
+            
+                function resetSlides() {
+                    for (let i = 0; i < slides.length; i++) {
+                        slides[i].classList.remove('active');
+                    }
+                }
+                
                 function prevSlide() {
-                    slides[currentSlide].classList.remove('active');
+                    resetSlides();
                     currentSlide = (currentSlide - 1 + slides.length) % slides.length;
                     slides[currentSlide].classList.add('active');
                 }
-            
+                
                 function nextSlide() {
-                    slides[currentSlide].classList.remove('active');
+                    resetSlides();
                     currentSlide = (currentSlide + 1) % slides.length;
                     slides[currentSlide].classList.add('active');
                 }
-            
+                
                 document.querySelector('.gallery-link').addEventListener('click', function() {
                     currentSlide = 0;
+                    resetSlides();
                     slides[currentSlide].classList.add('active');
                     document.getElementById('gallery-modal').style.display = 'block';
                 });
+                
             </script>
     
             <!-- /// Gallery -->
