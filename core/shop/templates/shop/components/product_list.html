@@ -25,8 +25,90 @@
 						<br>
 						<label> Статус:</label>
 						<input type="checkbox" name="online_status" value="online"> Online
+						<br>
+						<div class="col-sm-12">
+                            
+                            <div>
+                                <input type="checkbox" id="married" name="marital_status" value="married" {% if user.marital_status == "married" %}checked{% endif %}>
+                                <label for="married">В браке</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="single" name="marital_status" value="single" {% if user.marital_status == "single" %}checked{% endif %}>
+                                <label for="single">Все сложно</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="searching" name="marital_status" value="searching" {% if user.marital_status == "searching" %}checked{% endif %}>
+                                <label for="searching">В активном поиске</label>
+                            </div>
+                        </div>
 
+                       
+						<script>
+							// Функция для обновления положения шкалы и метки возраста
+							function updateAgeLabel(value) {
+								document.getElementById('selected-age').innerText = value;
+								document.querySelector('input[type="range"]').value = value;
+							}
+							
+							window.onload = function() {
+								// Получаем сохраненное значение из localStorage
+								var savedValue = localStorage.getItem('selectedAge');
+								
+								// Устанавливаем значение шкалы и метку возраста
+								if (savedValue) {
+									updateAgeLabel(savedValue);
+								} else {
+									updateAgeLabel(document.querySelector('input[type="range"]').value); // На случай, если нет сохраненного значения
+								}
+								
+								// Обновляем метку возраста при изменении значения шкалы
+								document.querySelector('input[type="range"]').oninput = function() {
+									updateAgeLabel(this.value);
+									localStorage.setItem('selectedAge', this.value); // Сохраняем значение в localStorage
+								}
+							};
+						</script>
+						<style>
+							input[type="range"] {
+								-webkit-appearance: none;
+								width: 50%;
+								height: 10px;
+								background: #d3d3d3;
+								outline: none;
+								opacity: 0.7;
+								-webkit-transition: .2s;
+								transition: opacity .2s;
+							}
+							
+							input[type="range"]::-webkit-slider-thumb {
+								-webkit-appearance: none;
+								appearance: none;
+								width: 20px;
+								height: 20px;
+								background: #4CAF50;
+								cursor: pointer;
+							}
 						
+							input[type="range"]::-webkit-slider-thumb:hover {
+								background: #45a049;
+							}
+						
+							input[type="range"]::-moz-range-thumb {
+								width: 20px;
+								height: 20px;
+								background: #4CAF50;
+								cursor: pointer;
+							}
+						
+							input[type="range"]::-moz-focus-inner {
+								border: 0;
+							}
+						</style>
+						
+						<label>от 18 до <span id="selected-age"></span></label>
+						<input type="range" name="age" min="18" max="100" step="1">
+						
+						<br>
 						<br>
 						<button type="submit" class="btn red-btn" style="max-width: 9rem; max-height: 9rem;">Найти</button>
 					</form>

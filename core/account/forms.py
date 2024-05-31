@@ -44,7 +44,7 @@ class UserUpdateForm(forms.ModelForm):
     
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'birth_date','tel', 'bio', 'gender', 'avatar']
+        fields = ['username', 'email', 'first_name', 'last_name', 'birth_date','tel', 'bio', 'gender', 'avatar', 'marital_status']
         exclude = ['password1', 'password2']
 
     

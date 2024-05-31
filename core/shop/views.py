@@ -25,31 +25,38 @@ class ProductListView(ListView):
             return ["shop/components/product_list.html"]
         return ["shop/products.html"]
     
-from datetime import datetime
 
-# Функция для расчета возраста по дате рождения
-def calculate_age(birth_date):
-    birth_date = datetime.strptime(birth_date, '%Y-%m-%d')
-    today = datetime.now()
-    age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
-    return age
 
 # Функция для поиска  с фильтрацией по возрасту, полу и онлайн-статусу
-# Функция для поиска с фильтрацией по возрасту, полу и онлайн-статусу
+
+from datetime import datetime
+
 def search_products(request):
     query = request.GET.get('q')
     gender = request.GET.get('gender')
-    online_status = request.GET.get('online_status') 
-    
+    online_status = request.GET.get('online_status')
+    marital_status = request.GET.get('marital_status')
+    age_query = request.GET.get('get_age')
+
+    users = User.objects.all()
+
+    if age_query:
+        min_age, max_age = map(int, age_query.split('-'))
+        users = [user for user in users if min_age <= user.get_age() <= max_age]
+
     if gender and online_status == 'online':
-        users = User.objects.filter(gender=gender, online_status=True)
+        users = users.filter(gender=gender, online_status=True)
+    elif marital_status == 'married':
+        users = users.filter(marital_status='married')
+    elif marital_status == 'searching':
+        users = users.filter(marital_status='searching')
+    elif marital_status == 'single':
+        users = users.filter(marital_status='single')
     elif online_status == 'online':
-        users = User.objects.filter(online_status=True)
+        users = users.filter(online_status=True)
     elif gender:
-        users = User.objects.filter(gender=gender)
-    else:
-        users = User.objects.all() 
-    
+        users = users.filter(gender=gender)
+
     context = {'users': users.distinct()}  # Assuming you want to pass users data to template
     return render(request, 'shop/products.html', context)
 

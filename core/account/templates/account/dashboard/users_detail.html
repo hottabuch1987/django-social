@@ -196,6 +196,7 @@
                 <p>
                     <i class="fa fa-calendar-check-o" style="font-size:24px"></i>
                     {% if user.birth_date %}
+                        {{user.get_age}} лет.
                         {{user.birth_date}}
                   
                     {% endif %}

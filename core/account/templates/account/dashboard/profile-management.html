@@ -76,6 +76,42 @@
                             <label for="female">Женский</label>
                                 <input type="radio" id="female" name="gender" value="women" {% if user.gender == "women" %}checked{% endif %}>
                         </div>
+                        <!---->
+                        <!-- HTML -->
+                        <div class="col-sm-12">
+                            
+                            <div>
+                                <input type="checkbox" id="married" name="marital_status" value="married" {% if user.marital_status == "married" %}checked{% endif %}>
+                                <label for="married">Женат(замужем)</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="single" name="marital_status" value="single" {% if user.marital_status == "single" %}checked{% endif %}>
+                                <label for="single">Холост(не замужем)</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="searching" name="marital_status" value="searching" {% if user.marital_status == "searching" %}checked{% endif %}>
+                                <label for="searching">В активном поиске</label>
+                            </div>
+                        </div>
+
+                        <!-- JavaScript -->
+                        <script>
+                            const checkboxes = document.querySelectorAll('[name="marital_status"]');
+                            
+                            checkboxes.forEach((checkbox) => {
+                                checkbox.addEventListener('change', function() {
+                                    checkboxes.forEach((cb) => {
+                                        if (cb !== this) {
+                                            cb.checked = false;
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
+
+                        <!---->
+
+                        
                     
                         <div class="col-sm-12">
                             <label for="avatar">URL фото</label>

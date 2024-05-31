@@ -11,6 +11,7 @@ from django.db.models import Q
 import uuid
 from django.urls import reverse
 from django.utils.text import slugify
+from datetime import datetime
 
 
 
@@ -19,6 +20,11 @@ class User(AbstractUser):
     GENDER_TYPES = (
         ("women", 'женщина'),
         ("men", 'мужчина'),
+    )
+    MARITAL_STATUS_CHOICES = (
+        ('married', 'В браке'),
+        ('single', 'Все сложно'),
+        ('searching', 'В активном поиске'),
     )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     bio = models.TextField('Описание', max_length=500, blank=True)
@@ -34,9 +40,18 @@ class User(AbstractUser):
     likes = models.ManyToManyField('self', related_name='likes', verbose_name="Лайки", blank=True)
     like_count = models.IntegerField(default=0, verbose_name="Количество лайков")
     slug = models.SlugField(unique=True)
+    marital_status = models.CharField("Семейное положение", choices=MARITAL_STATUS_CHOICES, max_length=20, blank=True, null=True, default='searching')
 
     def __str__(self):
         return f'{self.username}: {self.first_name} - {self.email}'
+    
+    # Метод для расчета возраста на текущую дату
+    def get_age(self):
+        if self.birth_date:
+            today = datetime.today()
+            age = today.year - self.birth_date.year - ((today.month, today.day) < (self.birth_date.month, self.birth_date.day))
+            return age
+        return None
     
     def get_avatar(self):
         if self.avatar:
