@@ -29,17 +29,7 @@ jobs:
             cd /root/django-social/core/
 
            
-            pkill -f "gunicorn"
-            pkill -f "python3 manage.py runserver"
-            sleep 10 
-            git add .
-            git commit -m '+1'
-            git push origin main
-
-            
-            
-
-            git pull origin main
+           
             
             
             
