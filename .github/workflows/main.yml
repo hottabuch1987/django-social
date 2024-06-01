@@ -28,6 +28,7 @@ jobs:
           script: |   
             cd /root/django-social/
             systemctl stop gunicorn
+            systemctl stop gunicorn.socket
             pkill -f 'redis-server'
             pkill -f 'gunicorn'
             pkill -f 'daphne'
