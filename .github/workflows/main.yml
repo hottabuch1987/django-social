@@ -27,11 +27,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # Переменная для приватного ключа SSH
           script: |   
             cd /root/django-social/core/
+            pkill -f "gunicorn"
+            pkill -f "python3 manage.py runserver"
 
-           
-           
-            
-            
+
             
             
 
