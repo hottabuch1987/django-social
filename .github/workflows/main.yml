@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v2  # Использование действия для получения кода
         
 
-      - name: SSH into remote server and restart containers  # Название шага: Подключение к удаленному серверу по SSH и перезапуск контейнеров
+      - name: SSH into remote server   # Название шага: Подключение к удаленному серверу по SSH и перезапуск контейнеров
         uses: appleboy/ssh-action@master  # Использование действия для работы с SSH
         with:
           host: ${{ secrets.REMOTE_HOST }}  # Переменная для хоста удаленного сервера
