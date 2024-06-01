@@ -27,8 +27,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # Переменная для приватного ключа SSH
           script: |   
             cd /root/django-social/
-            pkill -f "redis-server"
-            pkill -f "gunicorn"
+            
             git pull origin main
 
             cd /root/django-social/core/
@@ -40,6 +39,8 @@ jobs:
 
             
             source /root/django-social/venv/bin/activate
+            kill $(pgrep -f "redis-server")
+            kill $(pgrep -f "gunicorn")
 
             
             pip install -r /root/django-social/requirements.txt
