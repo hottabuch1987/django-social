@@ -46,10 +46,7 @@ jobs:
             python3 manage.py runserver &
             daphne -b http://127.0.0.1 -p 8000 core.asgi:application
            
-            
-            pkill -f "daphne"
            
-            daphne -b http://127.0.0.1 -p 8000 core.asgi:application
 
             service nginx restart
             
