@@ -27,9 +27,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # Переменная для приватного ключа SSH
           script: |   
             cd /root/django-social/
-            git add .
-            git commit -m '+'
-            git push origin main
+           
             
             git pull origin main
             git merge main
