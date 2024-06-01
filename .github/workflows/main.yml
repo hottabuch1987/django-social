@@ -30,7 +30,8 @@ jobs:
 
            
 
-            
+            git config --global --add safe.directory /***/django-social
+
             
 
             git pull origin main
