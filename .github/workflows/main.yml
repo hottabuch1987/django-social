@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v2  # Использование действия для получения кода
         
 
-      - name: SSH into remote server  # Название шага: Подключение к удаленному серверу по SSH и перезапуск контейнеров
+      - name: SSH into remote server   # Название шага: Подключение к удаленному серверу по SSH и перезапуск контейнеров
         uses: appleboy/ssh-action@master  # Использование действия для работы с SSH
         with:
           host: ${{ secrets.REMOTE_HOST }}  # Переменная для хоста удаленного сервера
@@ -27,9 +27,24 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # Переменная для приватного ключа SSH
           script: |   
             cd /root/django-social/core/
-            pkill -f "gunicorn"
-            pkill -f "python3 manage.py runserver"
 
+          
+
+            
+            
+
+            git pull origin main
+            
+            source /root/django-social/venv/bin/activate
+
+            
+            pip install -r /root/django-social/requirements.txt
+            python3 manage.py makemigrations
+            python3 manage.py migrate
+            python3 manage.py collectstatic --noinput
+            redis-server &
+            gunicorn -w 4 -b 127.0.0.1:8000 core.wsgi:application &
+            daphne -b http://127.0.0.1 -p 8000 core.asgi:application
 
             
             
