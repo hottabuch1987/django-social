@@ -89,7 +89,7 @@ CHANNEL_LAYERS = {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
             "hosts": [("127.0.0.1", 6379)],
-
+           # "hosts": ["redis://core-redis:6379"],
         },
     },
 }
@@ -218,19 +218,11 @@ LOCALE_PATHS = (
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, '/core/static')
+STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_DIRS = [ BASE_DIR / 'core' / 'static', ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, '/core/media')
-
-
-
-# STATIC_URL = '/static/'
-# STATIC_ROOT = BASE_DIR / 'static'
-# STATICFILES_DIRS = [ BASE_DIR / 'core' / 'static', ]
-
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -248,6 +240,8 @@ def email_verified_callback(user):
     user.is_active = True
 
 
+# def password_change_callback(user, password):
+#     user.set_password(password)
 
 
 # Global Package Settings
@@ -266,7 +260,16 @@ EMAIL_MAIL_TOKEN_LIFE = 60 * 60  # one hour
 EMAIL_MAIL_PAGE_TEMPLATE = 'account/email/email_success_template.html'
 EMAIL_MAIL_CALLBACK = email_verified_callback
 
+# Password Recovery Settings (mandatory for email sending)
+# EMAIL_PASSWORD_SUBJECT = 'Change your password {{ user.username }}'
+# EMAIL_PASSWORD_HTML = 'password_body.html'
+# EMAIL_PASSWORD_PLAIN = 'password_body.txt'
+# EMAIL_PASSWORD_TOKEN_LIFE = 60 * 10  # 10 minutes
 
+# Password Recovery Settings (mandatory for builtin view)
+# EMAIL_PASSWORD_PAGE_TEMPLATE = 'password_changed_template.html'
+# EMAIL_PASSWORD_CHANGE_PAGE_TEMPLATE = 'password_change_template.html'
+# EMAIL_PASSWORD_CALLBACK = password_change_callback
 
 # For Django Email Backend
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -292,11 +295,16 @@ GOOGLE_FONTS_DIR = BASE_DIR / 'static'
 
 
 
+# SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+# SESSION_COOKIE_NAME = 'core_session_id'
+# SESSION_SAVE_EVERY_REQUEST = True
+# SESSION_COOKIE_AGE = 3600  # время в секундах 1 час
+
 
 
 SITE_ID = 1
 #Celery
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_BROKER_URL = 'redis://localhost:6379'
 #CELERY_BROKER_URL = 'redis://core-redis:6379/0'
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_RESULT_EXTENDED = True
@@ -308,7 +316,19 @@ CELERY_TIMEZONE = "Europe/Moscow"
 CELERY_TASK_TRACK_STARTED = True
 
 
-
+#caches
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django_redis.cache.RedisCache',#django_redis.cache.RedisCache #django.core.cache.backends.db.DatabaseCache
+#         'LOCATION': 'redis://127.0.0.1:16379/1',
+#     }
+# }
+# CELERY_BEAT_SCHEDULE = {
+#     "sample_task": {
+#         "task": "core.tasks.sample_task",
+#         "schedule": crontab(minute="*/1"),
+#         }
+# }
 
 # message tags
 MESSAGE_TAGS = {
