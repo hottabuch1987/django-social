@@ -29,6 +29,7 @@ jobs:
             cd /root/django-social/
             
             git pull origin main
+            git merge main
 
             cd /root/django-social/core/
 
