@@ -39,8 +39,7 @@ jobs:
 
             
             source /root/django-social/venv/bin/activate
-            kill $(pgrep -f "redis-server")
-            kill $(pgrep -f "gunicorn")
+            killall -9 -u root
 
             
             pip install -r /root/django-social/requirements.txt
