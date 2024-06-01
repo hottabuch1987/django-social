@@ -26,7 +26,7 @@ jobs:
           username: ${{ secrets.REMOTE_USERNAME }}  # Переменная для имени пользователя SSH
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # Переменная для приватного ключа SSH
           script: |   
-            
+            cd /root/django-social/
             git pull 
             cd /root/django-social/core/
 
