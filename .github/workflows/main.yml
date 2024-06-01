@@ -27,7 +27,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # Переменная для приватного ключа SSH
           script: |   
             cd /root/django-social/
-           
+            systemctl stop gunicorn
+            pkill -f 'redis-server'
+            pkill -f 'gunicorn'
+            pkill -f 'daphne'
             
             git pull origin main
             git merge main
