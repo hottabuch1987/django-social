@@ -34,16 +34,9 @@ jobs:
 
             cd /root/django-social/core/
 
-          
-
-            
-            
-
-            
+  
             source /root/django-social/venv/bin/activate
-            
 
-            
             pip install -r /root/django-social/requirements.txt
             python3 manage.py makemigrations
             python3 manage.py migrate
@@ -51,7 +44,7 @@ jobs:
             systemctl restart gunicorn
             redis-server &
             gunicorn -w 4 -b 127.0.0.1:8000 core.wsgi:application &
-            daphne -b http://127.0.0.1 -p 8001 core.asgi:application
+            daphne -b http://127.0.0.1 -p 8000 core.asgi:application
            
            
 
