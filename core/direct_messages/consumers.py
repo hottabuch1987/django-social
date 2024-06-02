@@ -2,7 +2,7 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from direct_messages.models import ChatModel, ChatNotification
-from core.account.models import User
+from account.models import User
 import re
 
 
