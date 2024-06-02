@@ -75,11 +75,12 @@
 								-webkit-appearance: none;
 								width: 50%;
 								height: 10px;
-								background: #d3d3d3;
+								background: #fffefe;
 								outline: none;
 								opacity: 0.7;
 								-webkit-transition: .2s;
 								transition: opacity .2s;
+								border-radius: 5px; /* Добавляем закругление краев */
 							}
 							
 							input[type="range"]::-webkit-slider-thumb {
@@ -90,18 +91,22 @@
 								background: #4CAF50;
 								cursor: pointer;
 							}
-						
+							
 							input[type="range"]::-webkit-slider-thumb:hover {
 								background: #45a049;
 							}
-						
+							
+							input[type="range"]::-moz-range-progress {
+								background-color: #f11111; /* Цвет для заполненной части */
+							}
+							
 							input[type="range"]::-moz-range-thumb {
 								width: 20px;
 								height: 20px;
-								background: #4CAF50;
+								background: red; /* Цвет бегунка для Firefox */
 								cursor: pointer;
 							}
-						
+							
 							input[type="range"]::-moz-focus-inner {
 								border: 0;
 							}
