@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'djoser',
     'drf_yasg',
     "channels",
+    "daphne",
 
     'channels_redis',
 
