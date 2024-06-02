@@ -43,7 +43,7 @@ jobs:
             sleep 10
            
             python3 manage.py runserver 127.0.0.1:8000
-            daphne -p 8000 core.asgi:application
+            daphne -p 8001 core.asgi:application
             service nginx restart
             
             
