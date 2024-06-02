@@ -152,6 +152,7 @@ def profile_user(request):
             
 
             return redirect('account:dashboard')
+        
     
     context = {
         'user_form': user_form,

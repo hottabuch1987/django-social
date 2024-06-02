@@ -55,13 +55,21 @@
                         </div>
                     
                         <div class="col-sm-12">
-                            <label for="birth_date">Дата рождения</label>
-                            <input type="date" class="form-control" name="birth_date" id="birth_date" placeholder="Дата рождения" value="{{ user.birth_date }}">
+                            <label for="birth_date">Дата рождения </label>
+                            <input type="data" class="form-control" name="birth_date" id="birth_date" placeholder="Дата рождения" value="{{ user_form.birth_date.value|date:"d.m.Y"  }}">
+                            {% for error in user_form.birth_date.errors %}
+                                <span class="error">{{ error }} В формате 01.01.1990</span>
+                            {% endfor %}
+                            
                         </div>
+                    
                     
                         <div class="col-sm-12">
                             <label for="tel">Телефон</label>
                             <input type="tel" class="form-control" name="tel" id="tel" placeholder="Телефон" value="{{ user.tel }}">
+                            {% for error in user_form.tel.errors %}
+                                <span class="error">{{ error }} </span>
+                            {% endfor %}
                         </div>
                     
                         <div class="col-sm-12">
@@ -82,11 +90,11 @@
                             
                             <div>
                                 <input type="checkbox" id="married" name="marital_status" value="married" {% if user.marital_status == "married" %}checked{% endif %}>
-                                <label for="married">Женат(замужем)</label>
+                                <label for="married">В браке</label>
                             </div>
                             <div>
                                 <input type="checkbox" id="single" name="marital_status" value="single" {% if user.marital_status == "single" %}checked{% endif %}>
-                                <label for="single">Холост(не замужем)</label>
+                                <label for="single">Все сложно</label>
                             </div>
                             <div>
                                 <input type="checkbox" id="searching" name="marital_status" value="searching" {% if user.marital_status == "searching" %}checked{% endif %}>

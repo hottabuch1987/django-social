@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from datetime import date
 from django import forms
 from django.core.validators import RegexValidator
-
+from django.contrib import messages
 
 
 
@@ -36,7 +36,7 @@ class LoginForm(AuthenticationForm):
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField(required=True)
-    tel = forms.CharField(max_length=15, validators=[RegexValidator(regex='^\+?1?\d{9,15}$', message='Введите корректный номер телефона.')])
+    tel = forms.CharField(max_length=12, min_length=11, validators=[RegexValidator(regex='^\+?1?\d{9,15}$', message='Введите корректный номер телефона.')])
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super(UserUpdateForm,self).__init__(*args, **kwargs)
         self.fields['email'].label = 'Ваш адрес электронной почты'
@@ -63,6 +63,10 @@ class UserUpdateForm(forms.ModelForm):
             
             if age < 18:
                 raise ValidationError("Вы должны быть старше 18 лет для регистрации")
+                messages.error("Validation error message")
+            if age > 100:
+                raise ValidationError("Возраст не должен превышать 100 лет")
+                
 
         return birth_date
 
