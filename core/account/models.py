@@ -45,13 +45,7 @@ class User(AbstractUser):
     def __str__(self):
         return f'{self.username}: {self.first_name} - {self.email}'
     
-    # Метод для расчета возраста на текущую дату
-    def get_age(self):
-        if self.birth_date:
-            today = datetime.today()
-            age = today.year - self.birth_date.year - ((today.month, today.day) < (self.birth_date.month, self.birth_date.day))
-            return age
-        return None
+  
     
     def get_avatar(self):
         if self.avatar:

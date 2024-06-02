@@ -29,33 +29,47 @@ class ProductListView(ListView):
 
 # Функция для поиска  с фильтрацией по возрасту, полу и онлайн-статусу
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 def search_products(request):
     query = request.GET.get('q')
     gender = request.GET.get('gender')
     online_status = request.GET.get('online_status')
     marital_status = request.GET.get('marital_status')
-    age_query = request.GET.get('get_age')
+    age_query = request.GET.get('birth_date')
+    print(age_query, 'age_query')
 
     users = User.objects.all()
 
-    if age_query:
-        min_age, max_age = map(int, age_query.split('-'))
-        users = [user for user in users if min_age <= user.get_age() <= max_age]
+
+        
 
     if gender and online_status == 'online':
         users = users.filter(gender=gender, online_status=True)
-    elif marital_status == 'married':
+    if marital_status == 'married':
         users = users.filter(marital_status='married')
-    elif marital_status == 'searching':
+    if marital_status == 'searching':
         users = users.filter(marital_status='searching')
-    elif marital_status == 'single':
+    if marital_status == 'single':
         users = users.filter(marital_status='single')
-    elif online_status == 'online':
+    if online_status == 'online':
         users = users.filter(online_status=True)
-    elif gender:
+    if gender:
         users = users.filter(gender=gender)
+
+    if age_query:
+        current_date = datetime.now()
+ 
+        age_range = age_query.split('-')
+        if len(age_range) == 1:
+            age_range = [0, int(age_range[0])]
+        min_age, max_age = map(int, age_range)
+
+        end_date = current_date - timedelta(days=min_age*365)  
+                
+            
+        users = users.filter(birth_date__lte=end_date, birth_date__gte=current_date - timedelta(days=max_age*365))
+
 
     context = {'users': users.distinct()}  # Assuming you want to pass users data to template
     return render(request, 'shop/products.html', context)

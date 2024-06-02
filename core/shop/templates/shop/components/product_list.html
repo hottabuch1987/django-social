@@ -18,26 +18,27 @@
 				</div>
 				<br>
 					<!--search-->
-					<form action="{% url 'shop:search-users' %}" method="get" name="q">
+					<form action="{% url 'shop:search-users' %}" method="get" name="q" >
 						<label>Пол:</label>
-						<input type="radio" name="gender" value="women"> женский 
-						<input type="radio" name="gender" value="men"> мужской
+
+						<input type="radio" name="gender" value="women" {% if request.GET.gender == "women" %}checked{% endif %}> женский
+						<input type="radio" name="gender" value="men" {% if request.GET.gender == "men" %}checked{% endif %}> мужской
 						<br>
 						<label> Статус:</label>
-						<input type="checkbox" name="online_status" value="online"> Online
+						<input type="checkbox" name="online_status" value="online" {% if request.GET.online_status == "online" %}checked{% endif %}> Online
 						<br>
 						<div class="col-sm-12">
                             
                             <div>
-                                <input type="checkbox" id="married" name="marital_status" value="married" {% if user.marital_status == "married" %}checked{% endif %}>
+								<input type="radio" id="married" name="marital_status" value="married" {% if request.GET.marital_status == "married" %}checked{% endif %}>
                                 <label for="married">В браке</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="single" name="marital_status" value="single" {% if user.marital_status == "single" %}checked{% endif %}>
+								<input type="radio" id="single" name="marital_status" value="single" {% if request.GET.marital_status == "single" %}checked{% endif %}>
                                 <label for="single">Все сложно</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="searching" name="marital_status" value="searching" {% if user.marital_status == "searching" %}checked{% endif %}>
+                                <input type="radio" id="searching" name="marital_status" value="searching" {% if request.GET.marital_status == "searching" %}checked{% endif %}>
                                 <label for="searching">В активном поиске</label>
                             </div>
                         </div>
@@ -46,7 +47,7 @@
 						<script>
 							// Функция для обновления положения шкалы и метки возраста
 							function updateAgeLabel(value) {
-								document.getElementById('selected-age').innerText = value;
+								document.getElementById('selected-birth_date').innerText = value;
 								document.querySelector('input[type="range"]').value = value;
 							}
 							
@@ -67,6 +68,7 @@
 									localStorage.setItem('selectedAge', this.value); // Сохраняем значение в localStorage
 								}
 							};
+							
 						</script>
 						<style>
 							input[type="range"] {
@@ -105,8 +107,8 @@
 							}
 						</style>
 						
-						<label>от 18 до <span id="selected-age"></span></label>
-						<input type="range" name="age" min="18" max="100" step="1">
+						<label>от 18 до <span id="selected-birth_date"></span></label>
+						<input type="range" name="birth_date" min="18" max="100" step="1" value="{% if request.GET.birth_date %}{{ request.GET.birth_date }}{% else %}18{% endif %}">
 						
 						<br>
 						<br>
@@ -116,6 +118,7 @@
 					
 					<div class="container">
 						<div class="row">
+							
 							{% for user in users %}
 							<div class="col-sm-6 col-md-3  wow bounceIn">
 								<div class="single-item text-center">

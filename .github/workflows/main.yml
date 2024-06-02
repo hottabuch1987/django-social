@@ -28,8 +28,7 @@ jobs:
           script: |   
             cd /root/django-social/
            
-            git add .
-            git commit -m "update"
+            
             git pull origin main
             
 

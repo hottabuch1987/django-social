@@ -196,7 +196,7 @@
                 <p>
                     <i class="fa fa-calendar-check-o" style="font-size:24px"></i>
                     {% if user.birth_date %}
-                        {{user.get_age}} лет.
+                    
                         {{user.birth_date}}
                   
                     {% endif %}
@@ -230,6 +230,18 @@
                         {{user.bio}}
                     
                         
+                    {% endif %}
+                </p>
+                <p>
+                    <i class="fa fa-bug" aria-hidden="true" style="font-size:24px"></i>
+                 
+                    {% if user.marital_status %}
+                    {{user.marital_status.value}}
+                        {% for status in user.MARITAL_STATUS_CHOICES %}
+                            {% if status.0 == user.marital_status %}
+                                {{ status.1 }}
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
                 </p>
                 <p id="friendCount">
