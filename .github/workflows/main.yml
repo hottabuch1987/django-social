@@ -43,10 +43,6 @@ jobs:
             sleep 10
             gunicorn core.wsgi:application --bind 127.0.0.1:8000
             sleep 10
-            daphne core:application
-
-            
-           
             service nginx restart
             
             
