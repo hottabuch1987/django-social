@@ -442,3 +442,21 @@ CKEDITOR_CONFIGS = {
 AUTH_USER_MODEL = 'account.User'
 
 DJANGO_NOTIFICATIONS_CONFIG = { 'USE_JSONFIELD': True}
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/path/to/your/logfile.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
