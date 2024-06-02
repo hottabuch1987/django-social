@@ -42,8 +42,8 @@ jobs:
             redis-server 
             sleep 10
             gunicorn core.wsgi:application --bind 127.0.0.1:8000 --daemon
-            source /root/django-social/venv/bin/activate
-            daphne -b 127.0.0.1 -p 8001 core.asgi:application
+          
+            daphne -b 127.0.0.1 -p 8001 core.core.asgi:application
            
             service nginx restart
             
