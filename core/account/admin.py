@@ -9,10 +9,6 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ('username', 'first_name', 'last_name', 'email', 'slug') 
     ordering = ('date_joined',)
 
-    def get_prepopulated_fields(self, request, obj=None):
-        return {
-            'slug': ('username',),
-        }
 
     def get_readonly_fields(self, request, obj=None):
         return ('slug','id',)
@@ -20,8 +16,6 @@ class UserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Forum)
-
-
 
 admin.site.register(Notification)
 

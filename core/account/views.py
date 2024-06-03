@@ -3,7 +3,7 @@ from account.models import User, Forum, UserImage, Notification
 from recommend.models import Review
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, get_object_or_404
-from .tasks import send_registration_email, send_forum_message
+from .tasks import send_registration_email
 from django.http import HttpResponse
 from django.utils.decorators import method_decorator
 from django.views.generic import View
@@ -255,8 +255,6 @@ class ForumView(View):
             message.sender = request.user  # Присваивание отправителя перед сохранением
             message.receiver_id = form.cleaned_data.get('receiver_id')
             message.save()
-            # Запуск асинхронной задачи Celery для отправки сообщения
-            send_forum_message.delay(message.id)
             return redirect('account:forum_message')
         else:
             form = ForumForm()

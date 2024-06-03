@@ -16,8 +16,8 @@ def send_registration_email(username, email):
 
 
 @shared_task
-def send_forum_message(message_id):
-    message = Forum.objects.get(id=message_id)
+def send_forum_message():
+    return 5 + 5
 
 
 

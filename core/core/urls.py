@@ -18,6 +18,7 @@ urlpatterns = [
     path("recommend/", include('recommend.urls', namespace='recommend')),
     path('rooms/', include('room.urls'), name='rooms'),
     path('direct_messages/', include('direct_messages.urls'), name='direct_messages'),
+    path('api/v1/', include('api.urls', namespace='api')),
     path('', views.index, name='index'), 
 ]
 

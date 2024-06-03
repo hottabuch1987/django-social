@@ -22,7 +22,7 @@ env.read_env()
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*', "http://195.133.32.53", "195.133.32.53", "localhost", "my-poster.ru", "www.my-poster.ru"]
 
@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'recommend.apps.RecommendConfig',
     "room.apps.RoomConfig",
     'direct_messages.apps.DirectMessagesConfig',
+    "api.apps.ApiConfig",
 ]
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
@@ -141,25 +142,25 @@ TEMPLATES = [
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('NAME_DB'),
-        'USER': env('USER_NAME'),
-        'PASSWORD': env('PASSWORD_DB'),
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': env('NAME_DB'),
+#         'USER': env('USER_NAME'),
+#         'PASSWORD': env('PASSWORD_DB'),
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 
 # DATABASES = {
 #     'default': {
@@ -305,8 +306,7 @@ GOOGLE_FONTS_DIR = BASE_DIR / 'static'
 
 SITE_ID = 1
 #Celery
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-#CELERY_BROKER_URL = 'redis://core-redis:6379/0'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/'
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_RESULT_EXTENDED = True
 CELERY_CACHE_BACKEND = 'default'
@@ -317,19 +317,7 @@ CELERY_TIMEZONE = "Europe/Moscow"
 CELERY_TASK_TRACK_STARTED = True
 
 
-#caches
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django_redis.cache.RedisCache',#django_redis.cache.RedisCache #django.core.cache.backends.db.DatabaseCache
-#         'LOCATION': 'redis://127.0.0.1:16379/1',
-#     }
-# }
-# CELERY_BEAT_SCHEDULE = {
-#     "sample_task": {
-#         "task": "core.tasks.sample_task",
-#         "schedule": crontab(minute="*/1"),
-#         }
-# }
+
 
 # message tags
 MESSAGE_TAGS = {
@@ -437,8 +425,32 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-#
 
+# REST_FRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    # "DEFAULT_PERMISSION_CLASSES": [
+    #     "api.permissions.IsAuthenticated",
+    # ],
+    # "DEFAULT_PAGINATION_CLASS": "api.pagination.StandardResultsSetPagination",
+    # "PAGE_SIZE": 15,
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+
+DJOSER = {
+    "LOGIN_FIELD": "email",
+    "SERIALIZERS": {
+        "user_create": "api.serializers.CustomUserCreateSerializer",
+    },
+    'AUTH_HEADER_TYPES': ('JWT',),
+
+}
 # User Modal
 AUTH_USER_MODEL = 'account.User'
 
