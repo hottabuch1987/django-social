@@ -90,7 +90,7 @@ class ForumForm(forms.ModelForm):
     class Meta:
         model = Forum
         fields = [
-            # 'receiver',
+            'receiver',
             'message_file',
             'content',
            

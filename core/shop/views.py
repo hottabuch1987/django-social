@@ -37,7 +37,7 @@ def search_products(request):
     online_status = request.GET.get('online_status')
     marital_status = request.GET.get('marital_status')
     age_query = request.GET.get('birth_date')
-    print(age_query, 'age_query')
+
 
     users = User.objects.all()
 

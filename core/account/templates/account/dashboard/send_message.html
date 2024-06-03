@@ -30,6 +30,7 @@
 
                <!-- massages-->
                 {% for forum in forums %}
+                
                     {% if forum.sender.username == request.user.username %}
                           
                         <div class="col-sm-12">
@@ -72,6 +73,7 @@
                                 {% endif %}
                             
                                 {{ forum.sender.username}}
+                                
                             </a>
                             
                         
