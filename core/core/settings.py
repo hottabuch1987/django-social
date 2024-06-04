@@ -22,7 +22,7 @@ env.read_env()
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*', "http://195.133.32.53", "195.133.32.53", "localhost", "my-poster.ru", "www.my-poster.ru"]
 
