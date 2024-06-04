@@ -44,7 +44,9 @@ jobs:
             sleep 10
             
             
-            python3 manage.py runserver 127.0.0.1:8000
+            python3 manage.py runserver 127.0.0.1:8000 &
+            celery -A core worker -l info --beat &
+            celery -A core flower
            
             service nginx restart
             
