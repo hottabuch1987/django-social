@@ -19,101 +19,234 @@
 				<br>
 					<!--search-->
 					<form action="{% url 'shop:search-users' %}" method="get" name="q" >
-						<label>Пол:</label>
+						<label class="form-control">
 
-						<input type="radio" name="gender" value="women" {% if request.GET.gender == "women" %}checked{% endif %}> женский
-						<input type="radio" name="gender" value="men" {% if request.GET.gender == "men" %}checked{% endif %}> мужской
+							<input type="radio" name="gender" value="women" {% if request.GET.gender == "women" %}checked{% endif %}> женский
+						</label>
+						<label class="form-control">
+							<input type="radio" name="gender" value="men" {% if request.GET.gender == "men" %}checked{% endif %}> мужской
+						</label>
 						<br>
-						<label> Статус:</label>
-						<input type="checkbox" name="online_status" value="online" {% if request.GET.online_status == "online" %}checked{% endif %}> Online
+						{% comment %} <label> </label>
+						<input type="checkbox" name="online_status" value="online" {% if request.GET.online_status == "online" %}checked{% endif %}> Online {% endcomment %}
+						<label class="form-control">
+							<input type="checkbox" name="online_status" value="online" {% if request.GET.online_status == "online" %}checked{% endif %}> Online 
+							
+						  </label>
 						<br>
 						<div class="col-sm-12">
                             
-                            <div>
-								<input type="radio" id="married" name="marital_status" value="married" {% if request.GET.marital_status == "married" %}checked{% endif %}>
-                                <label for="married">В браке</label>
-                            </div>
-                            <div>
-								<input type="radio" id="single" name="marital_status" value="single" {% if request.GET.marital_status == "single" %}checked{% endif %}>
-                                <label for="single">Все сложно</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="searching" name="marital_status" value="searching" {% if request.GET.marital_status == "searching" %}checked{% endif %}>
-                                <label for="searching">В активном поиске</label>
-                            </div>
+                           
+								<label class="form-control" for="married">
+								<input type="radio" id="married" name="marital_status" value="married" {% if request.GET.marital_status == "married" %}checked{% endif %}>В браке
+                                </label>
+
+								<label class="form-control" for="single">
+								<input type="radio" id="single" name="marital_status" value="single" {% if request.GET.marital_status == "single" %}checked{% endif %}>Все сложно
+                                </label>
+
+								<label class="form-control" for="searching">
+                                <input type="radio" id="searching" name="marital_status" value="searching" {% if request.GET.marital_status == "searching" %}checked{% endif %}>В активном поиске
+                                </label>
+                           
                         </div>
+						
 
                        
-						<script>
-							// Функция для обновления положения шкалы и метки возраста
-							function updateAgeLabel(value) {
-								document.getElementById('selected-birth_date').innerText = value;
-								document.querySelector('input[type="range"]').value = value;
-							}
+						
+						<div class="range-slider">
+							<p>Возраст:  <span id="selected-birth_date" > 18</span> <span class="span">-</span> <span id="selected-birth_date_max" >75</span></p>
+							<input type="range" min="18" max="75" name="birth_date" step="1" class="slider" id="birth_date" value="{% if request.GET.birth_date %}{{ request.GET.birth_date }}{% else %}18{% endif %}">
+							<input type="range" min="18" max="75" name="birth_date_max"  step="1" class="slider" id="birth_date_max" value="{% if request.GET.birth_date_max %}{{ request.GET.birth_date_max }}{% else %}100{% endif %}">
 							
-							window.onload = function() {
-								// Получаем сохраненное значение из localStorage
-								var savedValue = localStorage.getItem('selectedAge');
-								
-								// Устанавливаем значение шкалы и метку возраста
-								if (savedValue) {
-									updateAgeLabel(savedValue);
-								} else {
-									updateAgeLabel(document.querySelector('input[type="range"]').value); // На случай, если нет сохраненного значения
-								}
-								
-								// Обновляем метку возраста при изменении значения шкалы
-								document.querySelector('input[type="range"]').oninput = function() {
-									updateAgeLabel(this.value);
-									localStorage.setItem('selectedAge', this.value); // Сохраняем значение в localStorage
-								}
-							};
-							
-						</script>
+						</div>
 						<style>
-							input[type="range"] {
+							:root {
+								--form-control-color: #ef5353;
+								--form-control-disabled: #959495;
+							  }
+							  
+							  *,
+							  *:before,
+							  *:after {
+								box-sizing: border-box;
+							  }
+							  
+							  
+							  
+							  
+							  
+							  .form-control {
+								font-family: system-ui, sans-serif;
+								font-size: 2rem;
+								font-weight: bold;
+								line-height: 1.1;
+								display: grid;
+								grid-template-columns: 1em auto;
+								gap: 0.5em;
+								background-color: black;
+  								border: 0;
+								color: #a0a0a0;
+							  }
+							  
+							  .form-control + .form-control {
+								margin-top: 1em;
+							  }
+							  
+							  .form-control--disabled {
+								color: var(--form-control-disabled);
+								cursor: not-allowed;
+							  }
+							  input[type="radio"] {
+								/* Add if not using autoprefixer */
 								-webkit-appearance: none;
-								width: 50%;
-								height: 10px;
-								background: #fffefe;
-								outline: none;
-								opacity: 0.7;
-								-webkit-transition: .2s;
-								transition: opacity .2s;
-								border-radius: 5px; /* Добавляем закругление краев */
-							}
-							
-							input[type="range"]::-webkit-slider-thumb {
-								-webkit-appearance: none;
+								/* Remove most all native input styles */
 								appearance: none;
-								width: 20px;
-								height: 20px;
-								background: #4CAF50;
-								cursor: pointer;
-							}
+								/* For iOS < 15 */
+								background-color: var(--form-background);
+								/* Not removed via appearance */
+								margin: 0;
+							  
+								font: inherit;
+								color: currentColor;
+								width: 1.15em;
+								height: 1.15em;
+								border: 0.15em solid currentColor;
+								border-radius: 50%;
+								transform: translateY(-0.075em);
+							  
+								display: grid;
+								place-content: center;
+							  }
+							  
+							  input[type="radio"]::before {
+								content: "";
+								width: 0.65em;
+								height: 0.65em;
+								border-radius: 50%;
+								transform: scale(0);
+								transition: 120ms transform ease-in-out;
+								box-shadow: inset 1em 1em var(--form-control-color);
+								/* Windows High Contrast Mode */
+								background-color: CanvasText;
+							  }
+							  
+							  input[type="radio"]:checked::before {
+								transform: scale(1);
+							  }
+							  
+							  input[type="radio"]:focus {
+								outline: max(2px, 0.15em) solid currentColor;
+								outline-offset: max(2px, 0.15em);
+							  }
+							  {% comment %}  {% endcomment %}
+							  
+							  input[type="checkbox"] {
+								/* Add if not using autoprefixer */
+								-webkit-appearance: none;
+								/* Remove most all native input styles */
+								appearance: none;
+								/* For iOS < 15 */
+								background-color: var(--form-background);
+								/* Not removed via appearance */
+								margin: 0;
+							  
+								font: inherit;
+								color: currentColor;
+								width: 1.15em;
+								height: 1.15em;
+								border: 0.15em solid currentColor;
+								border-radius: 0.15em;
+								transform: translateY(-0.075em);
+							  
+								display: grid;
+								place-content: center;
+							  }
+							  
+							  input[type="checkbox"]::before {
+								content: "";
+								width: 0.65em;
+								height: 0.65em;
+								clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+								transform: scale(0);
+								transform-origin: bottom left;
+								transition: 120ms transform ease-in-out;
+								box-shadow: inset 1em 1em var(--form-control-color);
+								/* Windows High Contrast Mode */
+								background-color: CanvasText;
+							  }
+							  
+							  input[type="checkbox"]:checked::before {
+								transform: scale(1);
+							  }
+							  
+							  input[type="checkbox"]:focus {
+								outline: max(2px, 0.15em) solid currentColor;
+								outline-offset: max(2px, 0.15em);
+							  }
+							  
+							  input[type="checkbox"]:disabled {
+								--form-control-color: var(--form-control-disabled);
+							  
+								color: var(--form-control-disabled);
+								cursor: not-allowed;
+							  }
+							  
 							
-							input[type="range"]::-webkit-slider-thumb:hover {
-								background: #45a049;
-							}
-							
-							input[type="range"]::-moz-range-progress {
-								background-color: #f11111; /* Цвет для заполненной части */
-							}
-							
-							input[type="range"]::-moz-range-thumb {
-								width: 20px;
-								height: 20px;
-								background: red; /* Цвет бегунка для Firefox */
-								cursor: pointer;
-							}
-							
-							input[type="range"]::-moz-focus-inner {
-								border: 0;
-							}
 						</style>
 						
-						<label>от 18 до <span id="selected-birth_date"></span></label>
-						<input type="range" name="birth_date" min="18" max="100" step="1" value="{% if request.GET.birth_date %}{{ request.GET.birth_date }}{% else %}18{% endif %}">
+						<style>
+							
+							.range-slider {
+								margin: 50px auto;
+								width: 80%;
+								text-align: center;
+							}
+							
+							.slider {
+								width: 80%;
+							}
+							#selected-birth_date, #selected-birth_date_max {
+								color:red; 
+								font-size:18px;
+							}
+							.span {				
+								color:green; 
+								font-size:18px;
+							}
+							 
+
+						</style>
+				
+						
+						
+						
+						
+						
+						
+						<script>
+							var birthDate = document.getElementById('birth_date');
+							var birthDateMax = document.getElementById('birth_date_max');
+						
+							document.getElementById('selected-birth_date').innerText = birthDate.value;
+							document.getElementById('selected-birth_date_max').innerText = birthDateMax.value;
+						
+							birthDate.addEventListener('input', function() {
+								if (parseInt(this.value) > parseInt(birthDateMax.value)) {
+									this.value = birthDateMax.value;
+								}
+								document.getElementById('selected-birth_date').innerText = this.value;
+							});
+						
+							birthDateMax.addEventListener('input', function() {
+								if (parseInt(this.value) < parseInt(birthDate.value)) {
+									this.value = birthDate.value;
+								}
+								document.getElementById('selected-birth_date_max').innerText = this.value;
+							});
+						</script>
+						
+						
 						
 						<br>
 						<br>
