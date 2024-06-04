@@ -26,30 +26,23 @@ jobs:
           username: ${{ secrets.REMOTE_USERNAME }}  # Переменная для имени пользователя SSH
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # Переменная для приватного ключа SSH
           script: |   
-            cd /root/django-social/
-           
-            
-            git pull origin main
-            
+              cd /root/django-social/ && \
+              pkill -9 python3 && \
+              pkill -9 celery && \
+              git pull origin main && \
+              cd /root/django-social/core/ && \
+              source /root/django-social/venv/bin/activate && \
+              pip install -r /root/django-social/requirements.txt && \
+              python3 manage.py makemigrations && \
+              python3 manage.py migrate && \
+              python3 manage.py collectstatic --noinput && \
+              redis-cli shutdown && \
+              sleep 10 && \
+              python3 manage.py runserver 127.0.0.1:8000 & \
+              celery -A core worker -l info --beat & \
+              celery -A core flower && \
+              service nginx restart
 
-            
-
-            cd /root/django-social/core/            
-            source /root/django-social/venv/bin/activate        
-            pip install -r /root/django-social/requirements.txt
-            python3 manage.py makemigrations
-            python3 manage.py migrate
-            python3 manage.py collectstatic --noinput
-            redis-server 
-            sleep 10
-            
-            
-            python3 manage.py runserver 127.0.0.1:8000 &
-            celery -A core worker -l info --beat &
-            celery -A core flower
-           
-            service nginx restart
-            
             
 
   send_message:
