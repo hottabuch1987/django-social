@@ -68,7 +68,7 @@ def search_products(request):
         birth_date_max = current_date.replace(year=current_date.year - min_age)
         birth_date_min = current_date.replace(year=current_date.year - max_age)
 
-        users = users.filter(birth_date__gte=birth_date_min, birth_date__lte=birth_date_max)
+        users = users.filter(birth_date__gte=birth_date_min, birth_date__lte=birth_date_max).exclude(id=request.user.id)
 
 
 
