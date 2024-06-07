@@ -94,3 +94,5 @@ class ForumSerializer(serializers.ModelSerializer):
             'timestamp',
             'message_file'
         ]
+
+

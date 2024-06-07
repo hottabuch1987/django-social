@@ -2,9 +2,6 @@ from django.db import models
 from account.models import User
 
 
-
-
-
 class ChatModel(models.Model):
     """Сообщения чата"""
     sender = models.CharField(max_length=100, default=None)

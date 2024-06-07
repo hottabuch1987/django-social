@@ -33,6 +33,8 @@ urlpatterns = [
     path('user/<slug:slug>/', views.UserDetailViewSet.as_view({'get': 'list'}), name='user_detail'),
     path('forum/', views.ForumViewSet.as_view({'get': 'list'}), name='forum'),
     path('users/', views.AllUsersViewSet.as_view({'get': 'list'}), name='users'),
+
+
 ]
 
 

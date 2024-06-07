@@ -43,3 +43,6 @@ class AllUsersViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(marital_status='single')
 
         return queryset
+    
+
+
