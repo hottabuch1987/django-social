@@ -44,3 +44,11 @@ def chatPage(request, username):
     message_objs = ChatModel.objects.filter(thread_name=thread_name)
 
     return render(request, 'direct_messages/send_message.html', context={'user': user_obj, 'users': users, 'messages': message_objs})
+
+
+
+from django.http import JsonResponse
+from .models import ChatNotification
+def mark_all_notifications_as_read(request):
+    ChatNotification.objects.filter(user=request.user, is_seen=False).update(is_seen=True)
+    return JsonResponse({'message': 'All notifications marked as read'})

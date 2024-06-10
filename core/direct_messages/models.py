@@ -24,6 +24,8 @@ class ChatNotification(models.Model):
     is_seen = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
+
+
     def __str__(self) -> str:
         return f'{self.user.username}'
     

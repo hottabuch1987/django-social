@@ -58,7 +58,7 @@
                                 {% for user in users %}
                                 <tr>
                                     <td >
-                                        <a href="{% url 'direct_messages:chat' username=user.username %}" >
+                                        <a  href="{% url 'direct_messages:chat' username=user.username %}" >
                                             {% if user.avatar %}
                                                 <div class="profile-image-container {% if user.online_status %}online{% endif %}">
                                                     <img class="profile-image rounded-circle" src="{{ user.avatar.url }}" alt="Avatar" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;" >
@@ -165,6 +165,33 @@
     </div>
 
 </div>
+<script>
+
+    // Обнуляем  счетчик уведомлений
+      document.addEventListener('DOMContentLoaded', function() {
+            fetch('{% url "direct_messages:as_read" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': "{{ csrf_token }}",
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Все уведомления помечены как прочитанные!');
+                } else {
+                    console.error('Ошибка при пометке уведомлений');
+                }
+            })
+            .catch(error => console.error('Произошла ошибка:', error));
+        });
+    
+</script>
+
+
+
+
+
 <style>
     .profile-image {
         margin-top: 7px;

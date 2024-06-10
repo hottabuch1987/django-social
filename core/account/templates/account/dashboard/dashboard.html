@@ -276,7 +276,8 @@
 
                         </a>
                         <a href="{% url 'direct_messages:chat' username=user.username %}">
-                            <i class="fa fa-commenting" aria-hidden="true"> Cообщения</i> 
+                            <i class="fa fa-commenting" aria-hidden="true"> Cообщения</i>
+                            <span  id="count_badges"></span> 
                         </a>
                         
                         <a href="{% url 'account:profile-management' %}">
@@ -330,6 +331,7 @@
                     
                     
                     {{ only_friend.username }}  {{ only_friend.lastname }}
+                    
                 </a>
                 <button class="addFriendBtn" data-friend-id="{{ only_friend.id }}"  style="color: green; max-width:14rem">
                     <i class="fa fa-plus" aria-hidden="true"></i> в друзья
@@ -456,3 +458,32 @@
 
     
 {% endblock %}
+
+<!--WebSocket-->
+{% block scripts %}
+
+<script>
+
+        const countBadgesElement = document.getElementById("count_badges");
+    
+        const notifySocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/notify/'
+        );
+    
+        notifySocket.onopen = function(e){
+            console.log("CONNECTED TO NOTIFICATION");
+        };
+    
+        notifySocket.onmessage = function(e){
+            const data = JSON.parse(e.data);
+            countBadgesElement.innerText = data.count;
+        };
+    
+        notifySocket.onclose = function(e){
+            console.log("DISCONNECTED FROM NOTIFICATION");
+        };
+    </script>
+ 
+    {% endblock scripts %}

@@ -32,6 +32,7 @@
             
             <div class="row  wow bounceInLeft">
                 
+                
                   
                 <div class="col-sm-6">
                    {% if users %}
@@ -50,7 +51,7 @@
                                     {% endif %}
                                     {{user.username}}
                                     <br>
-                                    {% comment %} {{user.first_name}} {{user.last_name}} {% endcomment %}
+                                    {{user.first_name}} {{user.last_name}}
                                     
                                     
                                     <i class="fa fa-bell-o" aria-hidden="true"></i>
@@ -107,6 +108,7 @@
     
 </section>
 {% endblock %}
+{% block scripts %}
 <!---->
 <script>
 
@@ -131,45 +133,8 @@
             console.log("DISCONNECTED FROM NOTIFICATION");
         };
     </script>
-    <script>
-        $(document).ready(function() {
-           
-        
-            $('.removeFriendBtn').click(function() {
-                var friendId = $(this).data('friend-id');
-                
-                
-                $.ajax({
-                    type: 'POST',
-                    url: '/account/dashboard/',
-                    data: {
-                        'friend_id': friendId,
-                        'csrfmiddlewaretoken': '{{ csrf_token }}',
-                        'method': 'DELETE' // Явно указываем метод DELETE
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                        if (data.friendCount !== undefined) {
-                            
-                            $('#friendCount').text(data.friendCount); // Обновляем количество друзей на странице
-                            alert('Пользователь удален из друзей! 😔');
-                                
-                            } else {
-                                alert('Что-то пошло не так.');
-                        }
-                    },
-                    
-                    error: function(xhr, textStatus, error) {
-                        console.log(xhr.status + ': ' + xhr.statusText);
-                    }
-                });
-            });
-            
-            
-        });
-        
-    </script>
-  
+ 
+    {% endblock scripts %}
         
 
     
