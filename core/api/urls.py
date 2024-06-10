@@ -4,7 +4,14 @@ from drf_yasg.views import get_schema_view
 from rest_framework import routers
 from . import views
 
-router = routers.DefaultRouter()
+
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'friends', views.FriendRequestViewSet,
+                basename='friendrequest')
+
+
 app_name = "api"
 
 schema_view = get_schema_view(
@@ -20,7 +27,6 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    # Products
     # User
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
@@ -30,14 +36,15 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc',
          cache_timeout=0), name='schema-redoc'),
     # API
-    path('user/<slug:slug>/', views.UserDetailViewSet.as_view({'get': 'list'}), name='user_detail'),
+    path('user/<slug:slug>/',
+         views.UserDetailViewSet.as_view({'get': 'list'}), name='user_detail'),
     path('forum/', views.ForumViewSet.as_view({'get': 'list'}), name='forum'),
-    path('users/', views.AllUsersViewSet.as_view({'get': 'list'}), name='users'),
+    path(
+        'users/', views.AllUsersViewSet.as_view({'get': 'list'}), name='users'),
+    # path('friends/', views.FriendRequestViewSet.as_view({'get': 'list'}), name='friends'),
 
 
 ]
 
 
-
-
-
+urlpatterns += router.urls

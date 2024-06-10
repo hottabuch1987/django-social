@@ -13,6 +13,6 @@ def send_email_on_chat_notification_creation(sender, instance, created, **kwargs
         message = f'Привет {instance.user.username}, у вас новое сообщение!'
         recipient_list = [instance.user.email]
         print(recipient_list, message, subject, 'send__mail')
-        #send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list)
+        # send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list)
 
         send_email_notification.delay(subject, message, recipient_list)

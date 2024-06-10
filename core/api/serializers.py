@@ -1,8 +1,7 @@
-from account.models import User, UserImage, Forum
+from account.models import User, UserImage, Forum, Notification
 from rest_framework import serializers
 
 
-    
 class CustomUserCreateSerializer(serializers.ModelSerializer):
     '''Создание пользователя'''
     class Meta:
@@ -23,13 +22,14 @@ class CustomUserCreateSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+
 class AllUsersSerializer(serializers.ModelSerializer):
     '''Список всех пользователей'''
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'online_status', 'gender', 'slug'] 
+        fields = ['username', 'first_name', 'last_name',
+                  'online_status', 'gender', 'slug']
 
-        
 
 class UserImageSerializer(serializers.ModelSerializer):
     ''''Детали пользователя'''
@@ -51,19 +51,19 @@ class UserDetailSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'email',
-            'bio', 
-            'date_joined', 
-            'birth_date', 
-            'avatar', 
-            'gender', 
-            'tel', 
-            'friends', 
-            'friends_count', 
-            'online_status', 
-            'likes', 
-            'like_count', 
-            'slug', 
-            'marital_status', 
+            'bio',
+            'date_joined',
+            'birth_date',
+            'avatar',
+            'gender',
+            'tel',
+            'friends',
+            'friends_count',
+            'online_status',
+            'likes',
+            'like_count',
+            'slug',
+            'marital_status',
             'user_image'
         ]
 
@@ -71,7 +71,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
         if isinstance(obj, dict):
             return obj['avatar']
         return obj.get_avatar()
-    
+
     def get_user_image(self, obj):
         if isinstance(obj, dict):
             user_id = obj.get('id')
@@ -96,3 +96,9 @@ class ForumSerializer(serializers.ModelSerializer):
         ]
 
 
+class FriendRequestSerializer(serializers.ModelSerializer):
+    '''Уведомления о запросах '''
+    class Meta:
+        model = Notification
+        fields = ['id', 'receiver', 'sender',
+                  'message', 'timestamp', 'is_read']

@@ -22,6 +22,7 @@ class ChatNotification(models.Model):
     chat = models.ForeignKey(to=ChatModel, on_delete=models.CASCADE)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     is_seen = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return f'{self.user.username}'

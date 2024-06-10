@@ -20,11 +20,13 @@ urlpatterns = [
     path('direct_messages/', include('direct_messages.urls'), name='direct_messages'),
     path('api/v1/', include('api.urls', namespace='api')),
     path('', views.index, name='index'), 
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
 urlpatterns += [
     #path("i18n/", include("django.conf.urls.i18n")),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    
 ]
 
 handler404 = 'shop.views.error_404'

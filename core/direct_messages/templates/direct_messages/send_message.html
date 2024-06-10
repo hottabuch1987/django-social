@@ -14,6 +14,7 @@
             <span onclick="goBack()" class="btn btn-secondary">Назад
                 <i class="fa fa-shield fa-rotate-90"></i>
             </span>
+            
           
             
             <div class="col-sm-4 border-right border-secondary">
@@ -38,12 +39,13 @@
 
             <span class="float-right mt-2">    
                 <div class="notification"><span class="h3 fw-bold">Мои сообщения</span>
-                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    <i class="fa fa-bell-o" aria-hidden="true" ></i>
                     <span class="badge" id="count_badge">
                         <audio id="notificationSound">
                             <source src="/media/mp3/message.mp3" type="audio/mpeg"> 
                         </audio>
                     </span>
+                    
                 </div>                
             </span>   
         </div>
@@ -55,11 +57,11 @@
                             {% if users %}
                                 {% for user in users %}
                                 <tr>
-                                    <td>
-                                        <a href="{% url 'direct_messages:chat' username=user.username %}">
+                                    <td >
+                                        <a href="{% url 'direct_messages:chat' username=user.username %}" >
                                             {% if user.avatar %}
                                                 <div class="profile-image-container {% if user.online_status %}online{% endif %}">
-                                                    <img class="profile-image rounded-circle" src="{{ user.avatar.url }}" alt="Avatar" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">
+                                                    <img class="profile-image rounded-circle" src="{{ user.avatar.url }}" alt="Avatar" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;" >
                                                 </div>
                                             {% else %}
                                                 <img src="/static/shop/images/avatar.png" alt="user" style="max-width: 6rem; height: 6rem; border-radius: 50%;aspect-ratio: 1 / 1;">                                          
@@ -320,6 +322,15 @@
     notify_socket.onmessage = function(e){
         const data = JSON.parse(e.data);
         countBadgeElement.innerText = data.count;
+        if(data.count > 0) {
+            countBadgeElement.style.background = 'red'; // Установка красного цвета для уведомления о новых сообщениях
+        } else {
+            countBadgeElement.style.background = 'black'; // Установка черного цвета, если уведомлений нет
+        }
+    
+        notificationSoundElement.play();
+       
+
         
         console.log("CONNECTED TO NOTIFICATION", data);
     };

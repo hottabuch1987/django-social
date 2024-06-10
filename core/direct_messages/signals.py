@@ -13,9 +13,11 @@ def send_notification(sender, instance, created, **kwargs):
         channel_layer = get_channel_layer()
         
         notification_obj = ChatNotification.objects.filter(is_seen=False, user=instance.user).count()
+        
         user_id = str(instance.user.id)
         data = {
             'count': str(notification_obj)
+            
         }
         async_to_sync(channel_layer.group_send)(
             user_id, {
@@ -23,6 +25,11 @@ def send_notification(sender, instance, created, **kwargs):
                 'value':json.dumps(data)
             }
         )
+
+
+   
+        
+
 
 
 @receiver(post_save, sender=User)

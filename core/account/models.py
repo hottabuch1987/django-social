@@ -114,6 +114,18 @@ class Notification(models.Model):
     message = models.TextField()
     timestamp = models.DateTimeField('Дата', auto_now_add=True)
     is_read = models.BooleanField('Прочитано', default=False)
+    FRIEND_REQUEST = 'FR'
+    ACCEPTED_FRIEND_REQUEST = 'AFR'
+    DECLINED_FRIEND_REQUEST = 'DFR'
+    NEW_MESSAGE = 'NM'
+
+    NOTIFICATION_TYPE_CHOICES = [
+        (FRIEND_REQUEST, 'Добавить в друзья'),
+        (ACCEPTED_FRIEND_REQUEST, 'Принять заявку в друзья'),
+        (DECLINED_FRIEND_REQUEST, 'Отклонить заявку в друзья'),
+        (NEW_MESSAGE, 'Новое сообщение'),
+    ]
+    notification_type = models.CharField('Тип уведомления', max_length=10, choices=NOTIFICATION_TYPE_CHOICES, default=FRIEND_REQUEST)
 
     def __str__(self):
         return f'{self.sender.username} -> {self.receiver.username}: {self.message}'
