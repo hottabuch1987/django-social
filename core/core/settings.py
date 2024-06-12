@@ -156,19 +156,28 @@ TEMPLATES = [
 # }
 
 
-
-
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('NAME_DB'),
-        'USER': env('USER_NAME'),
-        'PASSWORD': env('PASSWORD_DB'),
-        'HOST': 'localhost',
-        'PORT': '',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env("POSTGRES_DB"),
+        "USER": env("POSTGRES_USER"),
+        "PASSWORD": env("POSTGRES_PASSWORD"),
+        "HOST": env("POSTGRES_HOST"),
+        "PORT": env("POSTGRES_PORT", default=5432),
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': env('NAME_DB'),
+#         'USER': env('USER_NAME'),
+#         'PASSWORD': env('PASSWORD_DB'),
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 
 
 

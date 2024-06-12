@@ -34,21 +34,9 @@ jobs:
 
             
 
-            cd /root/django-social/core/            
-            source /root/django-social/venv/bin/activate        
-            pip install -r /root/django-social/requirements.txt
-            python3 manage.py makemigrations
-            python3 manage.py migrate
-            python3 manage.py collectstatic --noinput
-            redis-server 
-            sleep 10
-            
-            
-            python3 manage.py runserver 127.0.0.1:8000 &
-            celery -A core worker -l info --beat &
-            celery -A core flower
-           
-            service nginx restart
+            docker-compose down  
+            docker-compose build
+            docker-compose up -d
             
             
 
