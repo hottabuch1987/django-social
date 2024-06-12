@@ -158,6 +158,7 @@ TEMPLATES = [
 
 
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -296,10 +297,6 @@ GOOGLE_FONTS_DIR = BASE_DIR / 'static'
 
 
 
-# SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-# SESSION_COOKIE_NAME = 'core_session_id'
-# SESSION_SAVE_EVERY_REQUEST = True
-# SESSION_COOKIE_AGE = 3600  # время в секундах 1 час
 
 
 
@@ -397,18 +394,18 @@ CKEDITOR_CONFIGS = {
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
             {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
             {'name': 'about', 'items': ['About']},
-            '/',  # put this to force next toolbar on new line
+            '/',  
             {'name': 'yourcustomtools', 'items': [
-                # put the name of your editor.ui.addButton here
+
                 'Preview',
                 'Maximize',
             ]},
         ],
-        'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
+        'toolbar': 'YourCustomToolbarConfig',  
         'tabSpaces': 4,
         'extraPlugins': ','.join([
-            'uploadimage', # the upload image feature
-            # your extra plugins here
+            'uploadimage', 
+
             'div',
             'autolink',
             'autoembed',
