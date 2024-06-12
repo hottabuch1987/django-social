@@ -3,11 +3,16 @@
     <div class="container">
         <div class="navbar-header">
             <a href="{% url 'index' %}"><img src="/static/shop/img/loc.png" alt="logo"> </a>
-            <a href="{% url 'direct_messages:chat' username=user.username %}">
-            <i style="color: red; font-size: 30px;" class="fa fa-bell-o" aria-hidden="true">
-                <span style="color: red; font-family: Arial;" id="count_badges"></span> 
-            </i>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'direct_messages:chat' username=user.username %}">
+            
+                <i style="color: red; font-size: 30px;" class="fa fa-bell-o" aria-hidden="true">
+                    <span style="color: red; font-family: Arial;" id="count_badges"></span> 
+                </i>
+            
             </a>
+            {% endif %}
+
             
             
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
